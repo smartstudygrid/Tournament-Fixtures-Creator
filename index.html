@@ -1,0 +1,2757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RPL Season 25 - Fixtures, Knockouts & Broadcast Studio</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter, Bebas Neue, Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- html2canvas for Ultra-HD poster export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              gold: '#F59E0B',
+              amber: '#D97706',
+              emerald: '#10B981',
+              dark: '#070A12',
+              card: '#0D1424',
+              border: '#1E293B',
+              accent: '#3B82F6'
+            }
+          },
+          fontFamily: {
+            sans: ['Manrope', 'sans-serif'],
+            display: ['Fraunces', 'serif'],
+            heading: ['Manrope', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #070A12; }
+    ::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #F59E0B; }
+
+    :root{--ink:#08110E;--panel:#122320;--panel2:#0E1B17;--line:#24392F;--ivory:#F1ECDF;--mute:#93A39B;--brass:#C8A456;--brass-hi:#E3C677}
+    body{background:repeating-linear-gradient(90deg,rgba(255,255,255,.014) 0 90px,transparent 90px 180px),radial-gradient(1100px 520px at 85% -8%,rgba(200,164,86,.10),transparent),var(--ink)!important;color:var(--ivory)}
+    ::-webkit-scrollbar-track{background:var(--ink)}::-webkit-scrollbar-thumb{background:var(--line)}::-webkit-scrollbar-thumb:hover{background:var(--brass)}
+    .font-display{letter-spacing:-.005em!important;font-weight:600}
+    .rounded-2xl{border-radius:14px!important}.rounded-xl{border-radius:10px!important}
+    [class*="bg-[#0F1626]"],[class*="bg-[#0B101D]"],[class*="bg-[#0B101C]"]{background:linear-gradient(180deg,#142823,#0F1E1A)!important;border-color:var(--line)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 22px 44px -28px rgba(0,0,0,.8)!important}
+    [class*="bg-[#080D1A]"]{background:#0A1511!important;border-color:var(--line)!important}
+    body>header{background:rgba(8,17,14,.88)!important;border-color:var(--line)!important}
+    body>div[class*="bg-[#0A0E18]"]{background:var(--panel2)!important;border-color:var(--line)!important;padding-top:0!important;padding-bottom:0!important}
+    .tab-btn{background:transparent!important;border-radius:0!important;color:var(--mute)!important;padding:.9rem 1rem!important;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s}
+    .tab-btn:hover{color:var(--ivory)!important}
+    .tab-btn.active{color:var(--ivory)!important;border-bottom-color:var(--brass)}
+    .bg-amber-500{background:linear-gradient(180deg,var(--brass-hi),var(--brass))!important;color:#1A1405!important}
+    button.bg-amber-500:hover{filter:brightness(1.07)}
+    .text-amber-400{color:var(--brass-hi)!important}
+    .bg-emerald-600{background:#1E5A42!important}.bg-emerald-600:hover{background:#26704F!important}
+    .text-slate-400{color:var(--mute)!important}
+    .bg-slate-800{background:#1A2E27!important}.hover\:bg-slate-700:hover{background:#243D34!important}
+    .border-slate-700,.border-slate-800{border-color:var(--line)!important}
+    main label.uppercase,.fixed label.uppercase{text-transform:none!important;letter-spacing:.01em!important;font-size:.78rem;color:#CFD8D2}
+    input:focus,select:focus{border-color:var(--brass)!important;box-shadow:0 0 0 3px rgba(200,164,86,.16)}
+    button:focus-visible,summary:focus-visible{outline:2px solid var(--brass-hi);outline-offset:2px}
+    .matchGrid>div{transition:border-color .15s,transform .15s}.matchGrid>div:hover{transform:translateY(-1px)}
+    .roster-title{display:flex;align-items:baseline;justify-content:space-between;font-family:Fraunces,serif;font-size:1.05rem;color:var(--ivory);padding-bottom:.5rem;border-bottom:1px solid var(--line);margin-bottom:.75rem}
+    .roster-title b{font-family:Manrope,sans-serif;font-size:.75rem;color:var(--mute);font-weight:600}
+    .roster-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:.6rem}
+    .roster-chip{display:flex;align-items:center;gap:.65rem;padding:.55rem .7rem;border:1px solid var(--line);border-left:3px solid var(--c);border-radius:10px;background:#0A1511;font-size:.82rem;font-weight:600;min-width:0}
+    .roster-chip span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .roster-dot{width:34px;height:34px;flex:none;border-radius:8px;display:grid;place-items:center;overflow:hidden;font:700 .72rem Manrope,sans-serif;color:var(--c);background:color-mix(in srgb,var(--c) 16%,transparent)}
+    .roster-dot img{width:100%;height:100%;object-fit:cover}
+    .roster-empty{font-size:.8rem;color:var(--mute);padding:.5rem 0}
+    .roster-warn{display:flex;gap:.5rem;align-items:center;padding:.6rem .8rem;border-radius:10px;font-size:.8rem;background:rgba(190,60,50,.12);border:1px solid rgba(190,60,50,.4);color:#F0B4AD}
+    .stale-banner{align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:.8rem 1rem;border-radius:12px;background:rgba(200,164,86,.1);border:1px solid rgba(200,164,86,.45);font-size:.85rem;color:var(--brass-hi)}
+
+    #cricketBroadcastPoster{background:linear-gradient(180deg,#0E1F1A,#07100D)!important;border-color:rgba(200,164,86,.65)!important}
+    .poster-crest,.fx-logo{border-radius:50%;border:3px solid #C8A456;background:radial-gradient(circle,#1B3128,#0A1511);display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 0 0 7px rgba(200,164,86,.12)}
+    .poster-crest{width:132px;height:132px;margin:2px auto 16px}
+    .poster-crest span{font:700 38px Fraunces,serif;color:#E3C677}
+    .poster-crest img{width:100%;height:100%;object-fit:contain;padding:12px}
+    .poster-rule,.fx-rule{display:flex;align-items:center;gap:12px;width:100%}
+    .poster-rule{margin:14px 0 12px}
+    .poster-rule i,.fx-rule i{flex:1;height:1px;background:linear-gradient(90deg,transparent,#C8A456)}
+    .poster-rule i:last-child,.fx-rule i:last-child{background:linear-gradient(270deg,transparent,#C8A456)}
+    .poster-rule b,.fx-rule b{width:9px;height:9px;background:#C8A456;transform:rotate(45deg)}
+    .fx-host{position:fixed;left:-10000px;top:0}
+    .fx-sheet{position:relative;box-sizing:border-box;width:1400px;padding:60px 68px 44px;background:linear-gradient(180deg,#0E1F1A 0%,#08110E 35%,#07100D 100%);color:#F1ECDF;font-family:Manrope,sans-serif;border:3px solid #C8A456}
+    .fx-frame{position:absolute;inset:14px;border:1px solid rgba(200,164,86,.45);pointer-events:none}
+    .fx-head{text-align:center;position:relative}
+    .fx-logo{width:200px;height:200px;margin:0 auto 26px}
+    .fx-logo span{font:700 68px Fraunces,serif;color:#E3C677}
+    .fx-logo img{width:100%;height:100%;object-fit:contain;padding:20px}
+    .fx-title{font:700 62px/1.05 Fraunces,serif;text-transform:uppercase;letter-spacing:.02em}
+    .fx-meta{margin-top:14px;font:600 19px Manrope,sans-serif;color:#E3C677;letter-spacing:.2em;text-transform:uppercase}
+    .fx-rule{margin:28px 0 20px}
+    .fx-chips{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+    .fx-chips span{padding:8px 18px;border:1px solid rgba(200,164,86,.5);border-radius:999px;font:600 15px Manrope,sans-serif;color:#F1ECDF;background:rgba(200,164,86,.08)}
+    .fx-h2{margin:40px 0 18px;text-align:center;font:600 30px Fraunces,serif;color:#E3C677}
+    .fx-rounds{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:36px}
+    .fx-round{border:1px solid #24392F;border-radius:12px;overflow:hidden;background:rgba(255,255,255,.02)}
+    .fx-rhead{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;background:linear-gradient(90deg,#C8A456,#E3C677);color:#1A1405;font:700 24px Fraunces,serif}
+    .fx-rhead span{font:700 15px Manrope,sans-serif}
+    .fx-match{display:grid;grid-template-columns:78px 1fr 40px 1fr;align-items:center;column-gap:10px;row-gap:6px;padding:14px 22px 12px;border-top:1px solid #1B2D26}
+    .fx-when{display:flex;flex-direction:column;font:700 12px Manrope,sans-serif;color:#E3C677}
+    .fx-when span{margin-top:3px;font:700 14px Manrope,sans-serif;color:#F1ECDF}
+    .fx-team{display:flex;align-items:center;gap:10px;min-width:0;font:700 16px Manrope,sans-serif}
+    .fx-home{justify-content:flex-end;text-align:right}
+    .fx-crest{width:40px;height:40px;flex:none;border:1px solid;border-radius:9px;display:flex;align-items:center;justify-content:center;overflow:hidden;font:800 12px Manrope,sans-serif}
+    .fx-crest img{width:100%;height:100%;object-fit:cover}
+    .fx-vs{text-align:center;font:700 14px Fraunces,serif;color:#C8A456}
+    .fx-venue{grid-column:1/-1;display:flex;justify-content:space-between;font:500 13px Manrope,sans-serif;color:#93A39B;padding-top:2px}
+    .fx-ko{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .fx-kocard{border:1px solid rgba(200,164,86,.5);border-radius:12px;padding:18px;text-align:center;background:rgba(200,164,86,.06)}
+    .fx-kocard h4{font:700 20px Fraunces,serif;color:#E3C677}
+    .fx-kocard p{margin-top:8px;font:600 14px Manrope,sans-serif}
+    .fx-kocard small{display:block;margin-top:6px;font:500 12px Manrope,sans-serif;color:#93A39B}
+    .fx-foot{margin-top:40px;text-align:center;font:500 14px Manrope,sans-serif;color:#93A39B}
+    .fx-foot b{color:#E3C677;font-weight:700}
+    .cricket-mesh {
+      background-image: radial-gradient(rgba(245, 158, 11, 0.08) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+  </style>
+</head>
+
+<body class="bg-[#070A12] text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-black cricket-mesh">
+
+  <!-- Top Global Header -->
+  <header class="sticky top-0 z-40 bg-[#0B101D]/90 backdrop-blur-md border-b border-slate-800/80 px-4 lg:px-8 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div id="headerTournamentLogoWrapper" class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 via-amber-600 to-emerald-600 p-0.5 shadow-lg shadow-amber-500/10 flex items-center justify-center overflow-hidden">
+        <span id="headerLogoFallback" class="font-display text-xl text-black font-extrabold tracking-wider">RPL</span>
+        <img id="headerTournamentLogoImg" class="w-full h-full object-cover hidden rounded-lg" alt="Logo" />
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 id="navTournamentTitle" class="font-bold text-base md:text-lg tracking-tight text-white flex items-center gap-1.5">
+            Riyadh Premier League
+            <span class="bg-amber-500/20 text-amber-400 text-xs px-2 py-0.5 rounded-full font-semibold border border-amber-500/30">S25</span>
+          </h1>
+        </div>
+        <p id="navTournamentSub" class="text-xs text-slate-400">October 2026 • Riyadh, KSA • League Studio</p>
+      </div>
+    </div>
+
+    <!-- Right Header Actions -->
+    <div class="flex items-center gap-2 sm:gap-3">
+      <!-- Admin Hub & Status Button (Rendered dynamically based on auth) -->
+      <div id="adminHeaderContainer" class="flex items-center gap-2">
+        <!-- Rendered by updateAdminUI() -->
+      </div>
+
+      <button type="button" onclick="saveProjectJSON()" title="Save project to a JSON file" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 text-xs font-bold border border-slate-700 transition">
+        <i class="ph ph-floppy-disk text-base text-amber-400"></i><span class="hidden md:inline">Save</span>
+      </button>
+      <label title="Open a saved JSON project" class="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 text-xs font-bold border border-slate-700 transition">
+        <i class="ph ph-folder-open text-base text-amber-400"></i><span class="hidden md:inline">Open</span>
+        <input type="file" accept=".json,application/json" class="hidden" onchange="loadProjectJSON(event)">
+      </label>
+      <!-- Quick Export WhatsApp -->
+      <button onclick="exportToWhatsApp()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md shadow-emerald-900/30 transition">
+        <i class="ph ph-whatsapp-logo text-base"></i>
+        <span class="hidden md:inline">Share Schedule</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Sub-Nav Tab Bar -->
+  <div class="bg-[#0A0E18] border-b border-slate-800/80 px-4 lg:px-8 py-2 overflow-x-auto">
+    <div class="max-w-7xl mx-auto flex items-center gap-2 text-xs font-semibold">
+      <button onclick="switchTab('configTab')" id="tabBtn_configTab" class="tab-btn active px-3.5 py-2 rounded-xl bg-amber-500 text-black flex items-center gap-2">
+        <i class="ph ph-gear"></i> Tournament Setup
+      </button>
+      <button onclick="switchTab('teamsTab')" id="tabBtn_teamsTab" class="tab-btn px-3.5 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 flex items-center gap-2">
+        <i class="ph ph-shield"></i> Franchises & Pools (<span id="tabTeamsCount">8</span>)
+      </button>
+      <button onclick="switchTab('fixturesTab')" id="tabBtn_fixturesTab" class="tab-btn px-3.5 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 flex items-center gap-2">
+        <i class="ph ph-calendar"></i> League Fixtures
+      </button>
+      <button onclick="switchTab('standingsTab')" id="tabBtn_standingsTab" class="tab-btn px-3.5 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 flex items-center gap-2">
+        <i class="ph ph-chart-bar"></i> Standings & Points Table
+      </button>
+      <button onclick="switchTab('knockoutsTab')" id="tabBtn_knockoutsTab" class="tab-btn px-3.5 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 flex items-center gap-2">
+        <i class="ph ph-trophy"></i> Knockout Stage & Playoffs
+      </button>
+      <button onclick="switchTab('studioTab')" id="tabBtn_studioTab" class="tab-btn px-3.5 py-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/60 flex items-center gap-2">
+        <i class="ph ph-sparkle text-amber-400"></i> Broadcast Studio
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 bg-[#0F172A] border border-amber-500/50 text-white px-4 py-3 rounded-2xl shadow-2xl">
+    <div id="toastIcon" class="text-xl"></div>
+    <div id="toastMessage" class="text-xs font-semibold"></div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 lg:p-8 space-y-8">
+    
+    <!-- TAB 1: TOURNAMENT SETUP & CONFIG -->
+    <div id="configTab" class="tab-content space-y-6">
+      <section class="bg-[#0F1626] border border-slate-800/80 rounded-2xl p-5 md:p-7 shadow-2xl relative overflow-hidden">
+        <div class="flex flex-col lg:flex-row gap-4 lg:items-center justify-between border-b border-slate-800/60 pb-5 mb-6">
+          <div>
+            <span class="text-amber-400 font-semibold text-xs tracking-wider uppercase flex items-center gap-1.5">
+              <i class="ph-fill ph-trophy text-sm"></i> Tournament Master Configuration
+            </span>
+            <h2 class="text-2xl md:text-3xl font-display tracking-wide text-white mt-1">League Rules, Matchdays & Format</h2>
+            <p class="text-xs md:text-sm text-slate-400 max-w-2xl mt-1">
+              Select between a 2-Group / Pool structure or a Single Round-Robin. Set your weekend cricket schedule (Saturdays or Fridays) and venues.
+            </p>
+          </div>
+
+          <!-- Quick Presets -->
+          <div class="flex flex-wrap items-center gap-2">
+            <button type="button" onclick="loadSamplePreset('rpl8_groups')" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white px-3 py-2 rounded-xl border border-slate-700 transition flex items-center gap-1.5">
+              <i class="ph ph-lightning text-amber-400"></i> 8 Teams (2 Pools)
+            </button>
+            <button type="button" onclick="loadSamplePreset('rpl8_single')" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white px-3 py-2 rounded-xl border border-slate-700 transition flex items-center gap-1.5">
+              <i class="ph ph-lightning text-emerald-400"></i> 8 Teams (Single Table)
+            </button>
+            <button type="button" onclick="loadSamplePreset('rpl6')" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white px-3 py-2 rounded-xl border border-slate-700 transition flex items-center gap-1.5">
+              <i class="ph ph-lightning text-cyan-400"></i> 6 Teams Quick
+            </button>
+          </div>
+        </div>
+
+        <!-- Format Selector Highlight Box -->
+        <div class="mb-6 p-4 rounded-xl bg-[#080D1A] border border-amber-500/30">
+          <label class="block text-xs font-semibold text-amber-400 uppercase tracking-wider mb-2">Tournament League Structure</label>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <label class="cursor-pointer flex items-start gap-3 p-3.5 rounded-xl border border-slate-700 bg-[#0B101D] hover:border-amber-500/50 has-[:checked]:border-amber-500 has-[:checked]:bg-amber-500/10 transition">
+              <input type="radio" name="leagueStructureRadio" value="groups" checked onchange="handleStructureChange('groups')" class="mt-1 text-amber-500 focus:ring-amber-500">
+              <div>
+                <span class="block text-sm font-bold text-white">Split into 2 Pools (Pool A & Pool B)</span>
+                <span class="block text-xs text-slate-400 mt-0.5">Teams play within their assigned pool. Top 2 from each pool advance to playoffs.</span>
+              </div>
+            </label>
+
+            <label class="cursor-pointer flex items-start gap-3 p-3.5 rounded-xl border border-slate-700 bg-[#0B101D] hover:border-amber-500/50 has-[:checked]:border-amber-500 has-[:checked]:bg-amber-500/10 transition">
+              <input type="radio" name="leagueStructureRadio" value="single" onchange="handleStructureChange('single')" class="mt-1 text-amber-500 focus:ring-amber-500">
+              <div>
+                <span class="block text-sm font-bold text-white">Single Unified Round Robin</span>
+                <span class="block text-xs text-slate-400 mt-0.5">All teams in one single table. Everyone plays everyone, top 4 advance to playoffs.</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Form Inputs Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Tournament Title</label>
+            <input type="text" id="cfgTournamentName" value="Riyadh Premier League Season 25" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Season / Month Tag</label>
+            <input type="text" id="cfgTournamentTag" value="October 2026 • Riyadh, KSA" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+          </div>
+
+          <!-- Hidden select synced with radio for compatibility -->
+          <input type="hidden" id="cfgLeagueStructure" value="groups">
+
+          <!-- Matchday selector (Friday / Saturday only) -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Matchday (Once A Week)</label>
+            <div class="relative">
+              <select id="cfgMatchDay" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 appearance-none">
+                <option value="saturday" selected>Saturday Only (RPL Standard)</option>
+                <option value="friday">Friday Only (Weekend Slot)</option>
+                <option value="both">Both Friday & Saturday</option>
+              </select>
+              <i class="ph ph-caret-down absolute right-3.5 top-3.5 text-slate-400 pointer-events-none"></i>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Opening Match Date</label>
+            <input type="date" id="cfgStartDate" value="2026-10-03" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Overs & Format</label>
+            <input type="text" id="cfgMatchFormat" value="T20 Championship (20 Overs)" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Grounds / Venues</label>
+            <input type="text" id="cfgVenues" value="RCA Ground 1, RCA Ground 2, Diriyah Cricket Arena" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500" placeholder="Comma separated">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Time Slots</label>
+            <input type="text" id="cfgTimeSlots" value="07:30 AM, 01:30 PM, 06:30 PM" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500" placeholder="Comma separated">
+          </div>
+
+          <!-- Tournament Crest / Logo -->
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Tournament Logo</label>
+            <div class="flex items-center gap-3">
+              <label class="flex-1 cursor-pointer bg-[#080D1A] hover:bg-slate-900 border border-slate-700 hover:border-amber-500 rounded-xl px-3.5 py-2.5 text-xs font-medium text-slate-300 flex items-center justify-center gap-2 transition">
+                <i class="ph ph-upload-simple text-amber-400 text-sm"></i>
+                <span id="tournamentLogoBtnText">Upload Tournament Logo</span>
+                <input type="file" id="cfgTournamentLogoInput" accept="image/*" class="hidden" onchange="handleTournamentLogoUpload(event)">
+              </label>
+              <button type="button" onclick="resetTournamentLogo()" class="px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs">Reset</button>
+            </div>
+          </div>
+
+          <!-- Playoff Structure -->
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Knockout Stage System</label>
+            <div class="relative">
+              <select id="cfgPlayoffFormat" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 appearance-none">
+                <option value="ipl" selected>IPL Style (Qualifier 1, Eliminator, Qualifier 2, Final)</option>
+                <option value="standard">Standard Semi-Finals (SF1, SF2, 3rd Place, Final)</option>
+                <option value="final_only">Top 2 Straight to Grand Final</option>
+              </select>
+              <i class="ph ph-caret-down absolute right-3.5 top-3.5 text-slate-400 pointer-events-none"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 flex justify-end">
+          <button type="button" id="btnSaveConfig" onclick="saveConfigAndProceed()" class="px-7 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-sm uppercase tracking-wider shadow-lg shadow-amber-500/20 transition flex items-center gap-2 cursor-pointer">
+            Save & Manage Teams <i class="ph-bold ph-arrow-right"></i>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- TAB 2: TEAMS & POOLS MANAGEMENT -->
+    <div id="teamsTab" class="tab-content hidden space-y-6">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-display text-white tracking-wide">Franchises & Pool Assignment</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Manage teams, assign jersey colors, upload crests, and configure pools.</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button type="button" id="autoSplitBtn" onclick="autoDistributePools()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition flex items-center gap-1.5">
+            <i class="ph ph-arrows-split text-amber-400"></i> Auto Split 50/50
+          </button>
+          <button type="button" onclick="openAddTeamModal()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 transition flex items-center gap-1.5">
+            <i class="ph-bold ph-plus"></i> Add New Team
+          </button>
+        </div>
+      </div>
+
+      <!-- Groups Grid Containers -->
+      <div id="groupsDisplayContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Rendered via JS: Group A and Group B or Single Table -->
+      </div>
+    </div>
+
+    <!-- TAB 3: LEAGUE FIXTURES -->
+    <div id="fixturesTab" class="tab-content hidden space-y-6">
+      <div class="bg-gradient-to-r from-amber-500/10 via-slate-900 to-emerald-500/10 border border-amber-500/30 rounded-2xl p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xl">
+        <div>
+          <h3 class="text-xl font-display text-white tracking-wide">Generate Weekend Schedule</h3>
+          <p class="text-xs text-slate-300 mt-1">Builds every pairing from the teams above, then assigns dates, grounds and time slots from your setup.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2.5">
+          <button type="button" onclick="generateFixtures()" class="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs uppercase tracking-wider shadow-xl shadow-amber-500/25 transition flex items-center gap-2">
+            <i class="ph-bold ph-calendar-plus text-base"></i> Generate Schedule Now
+          </button>
+          <label class="flex items-center gap-2 px-3 py-2.5 rounded-xl border border-slate-700 bg-slate-800 text-xs font-semibold text-slate-100 cursor-pointer select-none">
+            <input type="checkbox" id="shuffleToggle" class="accent-amber-500"> Shuffle draw
+          </label>
+          <button type="button" onclick="shuffleSchedule()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 font-bold text-xs border border-slate-700 transition flex items-center gap-2">
+            <i class="ph-bold ph-shuffle text-base text-amber-400"></i> Shuffle &amp; Generate
+          </button>
+          <button type="button" id="fullImageBtn" onclick="downloadFullFixtureImage()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 font-bold text-xs border border-slate-700 transition flex items-center gap-2">
+            <i class="ph-bold ph-image text-base text-amber-400"></i> Full Fixture Image
+          </button>
+        </div>
+      </div>
+
+      <!-- Teams in this draw -->
+      <section class="rounded-2xl border p-5 md:p-6 bg-[#0F1626]">
+        <div class="flex flex-wrap items-end justify-between gap-3 mb-5">
+          <div>
+            <h3 class="font-display text-2xl text-white">Teams in this draw</h3>
+            <p id="rosterSummary" class="text-sm text-slate-400 mt-1"></p>
+          </div>
+          <button type="button" onclick="switchTab('teamsTab')" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 flex items-center gap-1.5">
+            <i class="ph ph-pencil-simple text-amber-400"></i> Edit teams
+          </button>
+        </div>
+        <div id="fixturesRoster" class="grid gap-6"></div>
+        <div id="rosterWarnings" class="mt-4 space-y-2"></div>
+      </section>
+
+      <div id="fixturesStaleBanner" class="hidden stale-banner">
+        <span><i class="ph-fill ph-warning"></i> Teams changed since this schedule was built. Regenerating clears any scores you entered.</span>
+        <button type="button" onclick="generateFixtures()" class="px-3.5 py-2 rounded-xl bg-amber-500 text-black font-bold text-xs">Regenerate schedule</button>
+      </div>
+
+      <!-- Round Filter -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <span class="p-1 rounded bg-amber-500/20 text-amber-400 text-sm"><i class="ph ph-calendar-blank"></i></span>
+          <h3 class="text-lg font-bold text-white">Scheduled League Matches</h3>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-1 flex text-xs overflow-x-auto max-w-full">
+          <button type="button" id="viewAllBtn" onclick="filterRounds('all')" class="px-3 py-1.5 rounded-lg bg-amber-500 text-black font-bold">All Matches</button>
+          <div id="roundFilterContainer" class="flex gap-1 ml-1"></div>
+        </div>
+      </div>
+
+      <!-- Fixtures Cards Container -->
+      <div id="fixturesListContainer" class="space-y-4">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+
+    <!-- TAB 4: STANDINGS & POINTS TABLE -->
+    <div id="standingsTab" class="tab-content hidden space-y-6">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-display text-white tracking-wide">League Standings & Points Table</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Click any match in fixtures to enter scores and update rankings in real time.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="simulateScores()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition flex items-center gap-1.5">
+            <i class="ph ph-magic-wand text-amber-400"></i> Auto-Simulate Demo Scores
+          </button>
+          <button type="button" onclick="resetAllScores()" class="px-3.5 py-2 rounded-xl bg-rose-950/40 hover:bg-rose-900 border border-rose-800/60 text-rose-300 text-xs font-semibold transition">
+            Reset Scores
+          </button>
+        </div>
+      </div>
+
+      <!-- Tables Container -->
+      <div id="pointsTablesWrapper" class="space-y-6">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+
+    <!-- TAB 5: KNOCKOUT STAGE & PLAYOFFS -->
+    <div id="knockoutsTab" class="tab-content hidden space-y-6">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-display text-white tracking-wide">Championship Playoffs & Final</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Click "Seed from Standings" to feed top qualifiers into the playoff bracket.</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="populateKnockoutsFromStandings()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-lg shadow-emerald-900/30 transition flex items-center gap-2">
+            <i class="ph-bold ph-lightning"></i> Seed from Standings
+          </button>
+        </div>
+      </div>
+
+      <!-- Playoff Bracket Visualizer -->
+      <div id="playoffsContainer" class="bg-[#0B101D] border border-slate-800 rounded-2xl p-5 md:p-8 shadow-2xl space-y-6">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+
+    <!-- TAB 6: BROADCAST GRAPHICS STUDIO -->
+    <div id="studioTab" class="tab-content hidden space-y-6">
+      <section id="posterPreviewSection" class="bg-[#0A0E18] border border-amber-500/30 rounded-3xl p-5 md:p-8 shadow-2xl relative">
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs font-bold mb-2 uppercase tracking-widest">
+              <i class="ph-fill ph-sparkle text-sm"></i> Official Broadcast Graphics Studio
+            </div>
+            <h2 class="text-3xl font-display tracking-wide text-white">Matchday & Playoffs Social Card</h2>
+            <p class="text-xs md:text-sm text-slate-400 mt-1">Export high-resolution Instagram & WhatsApp ready graphic cards with official television broadcast styling.</p>
+          </div>
+
+          <!-- Controls & Export Button -->
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="flex items-center gap-2 bg-[#121929] px-3 py-1.5 rounded-xl border border-slate-700">
+              <span class="text-xs text-slate-400">Type:</span>
+              <select id="posterTypeSelect" onchange="switchPosterMode(this.value)" class="bg-transparent text-xs text-white font-semibold focus:outline-none">
+                <option value="match">Matchday Clash (1 Match)</option>
+                <option value="schedule">Round Fixture Sheet</option>
+                <option value="knockout">Playoff / Final Clash</option>
+              </select>
+            </div>
+
+            <button type="button" onclick="downloadPosterImage()" id="downloadPosterBtn" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-black font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20 flex items-center gap-2 transition cursor-pointer">
+              <i class="ph-bold ph-download-simple text-sm"></i> Download 2.5K PNG
+            </button>
+          </div>
+        </div>
+
+        <!-- Poster Canvas Element -->
+        <div class="mt-8 flex justify-center overflow-x-auto py-4">
+          <div id="cricketBroadcastPoster" class="w-[620px] max-w-full bg-[#080B14] rounded-2xl border-2 border-amber-500/40 shadow-2xl shadow-black relative overflow-hidden flex flex-col p-6 text-white select-none transition-all">
+            
+            <!-- Glows -->
+            <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-0 right-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <!-- Top Broadcast Ribbon -->
+            <div class="relative z-10 flex flex-col items-center text-center">
+              <div id="posterTournamentLogoBox" class="poster-crest">
+                <span id="posterTournamentLogoText">RPL</span>
+                <img id="posterTournamentLogoImg" class="hidden" alt="Poster Logo">
+              </div>
+              <h4 id="posterTournamentName" class="font-display text-3xl text-white" style="letter-spacing:.03em!important">RIYADH PREMIER LEAGUE</h4>
+              <p id="posterTournamentMeta" class="text-[11px] font-semibold tracking-widest text-amber-400 uppercase mt-1">SEASON 25 • OCTOBER 2026</p>
+              <div class="poster-rule"><i></i><b></b><i></i></div>
+              <div class="flex items-center justify-center gap-3">
+                <span id="posterFormatBadge" class="bg-amber-500 text-black font-display text-sm px-3 py-1 rounded shadow uppercase">OFFICIAL MATCHDAY</span>
+                <p id="posterRoundNumber" class="text-[10px] text-slate-400 uppercase tracking-widest font-mono">ROUND 1 • SATURDAY CLASH</p>
+              </div>
+            </div>
+
+            <!-- Dynamic Poster Body -->
+            <div id="posterDynamicContent" class="relative z-10 py-6">
+              <!-- Populated via JS -->
+            </div>
+
+            <!-- Poster Footer -->
+            <div class="relative z-10 pt-4 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400 font-medium">
+              <div class="flex items-center gap-2">
+                <i class="ph-fill ph-map-pin text-amber-400"></i>
+                <span id="posterVenueFooter">RCA Grounds • Riyadh, Saudi Arabia</span>
+              </div>
+              <div class="flex items-center gap-3 font-semibold text-slate-300">
+                <span class="flex items-center gap-1"><i class="ph ph-clock text-amber-400"></i> RPL BROADCAST</span>
+                <span class="text-amber-400 font-bold">#RPL25</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Selector for Active Poster Match -->
+        <div id="activeMatchPicker" class="mt-6 flex flex-wrap items-center justify-center gap-2"></div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- MODAL: ADMIN LOGIN -->
+  <div id="adminLoginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-[#0F1626] border border-slate-700 w-full max-w-md rounded-2xl p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          <i class="ph ph-lock-key text-amber-400 text-xl"></i> Commissioner Login
+        </h3>
+        <button type="button" onclick="closeAdminLoginModal()" class="text-slate-400 hover:text-white p-1 rounded-lg">
+          <i class="ph ph-x text-lg"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <div id="loginErrorMessage" class="hidden p-3 rounded-xl bg-rose-950/40 border border-rose-500/40 text-rose-300">
+          <p id="loginErrorText" class="font-medium">Invalid credentials</p>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 uppercase mb-1">Admin Email</label>
+          <input type="email" id="loginAdminEmail" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500" placeholder="amankhan@smartstudygrid.com">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 uppercase mb-1">Password</label>
+          <div class="relative">
+            <input type="password" id="loginAdminPassword" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 pr-10" placeholder="••••••••">
+            <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3 top-3 text-slate-400 hover:text-slate-200">
+              <i id="togglePwdIcon" class="ph ph-eye text-base"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-slate-800 flex justify-end gap-2">
+        <button type="button" onclick="closeAdminLoginModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 font-semibold text-xs">Cancel</button>
+        <button type="button" onclick="submitAdminLogin()" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs">Sign In</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ADMIN COMMAND CENTER (GOOGLE SHEETS & TOURNAMENT MANAGEMENT) -->
+  <div id="adminPortalModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="bg-[#0F1626] border border-slate-700 w-full max-w-3xl rounded-2xl p-6 shadow-2xl space-y-4 max-h-[92vh] flex flex-col">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center font-bold text-sm">AK</div>
+          <div>
+            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+              Commissioner Admin Center
+              <span id="adminSheetsStatusBadge" class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Synced with Sheets</span>
+            </h3>
+            <p class="text-xs text-slate-400">Aman Khan (Chief League Commissioner)</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeAdminPortalModal()" class="text-slate-400 hover:text-white p-1 rounded-lg">
+          <i class="ph ph-x text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Navigation Tabs inside Admin Modal -->
+      <div class="flex items-center gap-2 border-b border-slate-800 pb-2 text-xs font-semibold">
+        <button type="button" onclick="switchAdminPortalTab('adminTab_sheets')" id="btn_adminTab_sheets" class="admin-portal-tab px-3.5 py-1.5 rounded-lg bg-amber-500 text-black font-bold flex items-center gap-1.5">
+          <i class="ph ph-file-csv"></i> Google Sheets Sync
+        </button>
+        <button type="button" onclick="switchAdminPortalTab('adminTab_account')" id="btn_adminTab_account" class="admin-portal-tab px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white flex items-center gap-1.5">
+          <i class="ph ph-user"></i> Commissioner Account
+        </button>
+        <button type="button" onclick="switchAdminPortalTab('adminTab_system')" id="btn_adminTab_system" class="admin-portal-tab px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white flex items-center gap-1.5">
+          <i class="ph ph-database"></i> Database & Backups
+        </button>
+      </div>
+
+      <!-- TAB 1: GOOGLE SHEETS & APPS SCRIPT -->
+      <div id="adminTab_sheets" class="admin-subcontent space-y-4 overflow-y-auto pr-1 flex-1 text-xs">
+        <div class="bg-emerald-950/40 border border-emerald-500/30 rounded-xl p-3.5 text-emerald-200 leading-relaxed">
+          <div class="flex items-center justify-between mb-1">
+            <span class="font-bold text-sm text-emerald-300 flex items-center gap-1.5">
+              <i class="ph-fill ph-check-circle text-base text-emerald-400"></i> Google Sheets Web App Endpoint
+            </span>
+            <span id="lastSyncTimeBadge" class="text-[10px] font-mono bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded border border-emerald-500/30">Ready to Sync</span>
+          </div>
+          All teams, fixtures, points tables, and knockouts will be written into 4 formatted tabs in your Google Sheet.
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase mb-1.5">Connected Apps Script Web App URL</label>
+          <div class="flex gap-2">
+            <input type="url" id="adminSheetsWebAppUrl" class="flex-1 bg-[#080D1A] border border-emerald-500/40 text-emerald-300 font-mono text-[11px] rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-amber-500" value="https://script.google.com/macros/s/AKfycbz_Y61cvyye1pkwdSNGB3k-m3zuMmmtjPaY3NcCliV0RXHz-DuJvUeDvBTGpWP_MAS9SQ/exec">
+            <button type="button" onclick="testAdminSheetsConnection()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl border border-slate-700 transition">Test</button>
+          </div>
+        </div>
+
+        <!-- Sync Action Buttons -->
+        <div class="grid grid-cols-2 gap-3 pt-1">
+          <button type="button" id="btnPushToSheets" onclick="syncPushToSheets()" class="p-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-emerald-900/30 transition">
+            <i class="ph-bold ph-cloud-arrow-up text-base"></i> Push All Data to Google Sheet
+          </button>
+          <button type="button" onclick="syncPullFromSheets()" class="p-3 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl font-bold flex items-center justify-center gap-2 border border-slate-700 transition">
+            <i class="ph-bold ph-cloud-arrow-down text-base"></i> Verify Sheet Connection
+          </button>
+        </div>
+
+        <!-- Code.gs Section -->
+        <div class="pt-2 border-t border-slate-800">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="font-bold text-slate-300 uppercase text-[11px]">Recommended Google Apps Script (`code.gs`)</span>
+            <button type="button" onclick="copyAppsScriptCode()" class="text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1 text-[11px]">
+              <i class="ph ph-copy"></i> Copy Script
+            </button>
+          </div>
+          <pre id="adminAppsScriptCodeBlock" class="bg-[#080D1A] border border-slate-800 rounded-xl p-3 font-mono text-[10px] text-slate-300 overflow-x-auto max-h-44 selection:bg-amber-500 selection:text-black">
+// --- Riyadh Premier League Season 25 Sync Script ---
+function doPost(e) {
+  var lock = LockService.getScriptLock();
+  lock.tryLock(15000);
+  
+  try {
+    if (!e || !e.postData || !e.postData.contents) {
+      return ContentService.createTextOutput(JSON.stringify({ status: "error", message: "No data received" }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    var data = JSON.parse(e.postData.contents);
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    if (!ss) {
+      return ContentService.createTextOutput(JSON.stringify({ status: "error", message: "No active spreadsheet" }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // 1. Teams Sheet
+    var sheetTeams = getOrCreateSheet(ss, "Teams");
+    sheetTeams.clearContents();
+    sheetTeams.appendRow(["Team ID", "Franchise Name", "Code", "Pool", "Color"]);
+    sheetTeams.getRange(1, 1, 1, 5).setFontWeight("bold").setBackground("#F59E0B").setFontColor("#000000");
+    if (data.teams && data.teams.length > 0) {
+      data.teams.forEach(function(t) {
+        sheetTeams.appendRow([t.id, t.name, t.code, t.group || "A", t.color]);
+      });
+    }
+
+    // 2. Fixtures Sheet
+    var sheetFix = getOrCreateSheet(ss, "Fixtures");
+    sheetFix.clearContents();
+    sheetFix.appendRow(["Match #", "Round", "Date", "Time", "Venue", "Pool", "Home Franchise", "Score A", "Away Franchise", "Score B", "Result / Winner"]);
+    sheetFix.getRange(1, 1, 1, 11).setFontWeight("bold").setBackground("#10B981").setFontColor("#FFFFFF");
+    if (data.fixtures && data.fixtures.length > 0) {
+      data.fixtures.forEach(function(r) {
+        r.matches.forEach(function(m) {
+          sheetFix.appendRow([
+            m.matchNumber,
+            "Round " + m.round,
+            m.date,
+            m.time,
+            m.venue,
+            m.group ? "Pool " + m.group : "League",
+            m.homeTeam ? m.homeTeam.name : "",
+            m.scoreA || "-",
+            m.awayTeam ? m.awayTeam.name : "",
+            m.scoreB || "-",
+            m.summary || (m.winner ? "Winner: " + m.winner : "Upcoming")
+          ]);
+        });
+      });
+    }
+
+    // 3. Points Table Sheet
+    var sheetPts = getOrCreateSheet(ss, "Points_Table");
+    sheetPts.clearContents();
+    sheetPts.appendRow(["Franchise", "Pool", "Played", "Won", "Lost", "Points"]);
+    sheetPts.getRange(1, 1, 1, 6).setFontWeight("bold").setBackground("#3B82F6").setFontColor("#FFFFFF");
+    if (data.standings && data.standings.length > 0) {
+      data.standings.forEach(function(s) {
+        sheetPts.appendRow([s.teamName, "Pool " + (s.group || "A"), s.played, s.won, s.lost, s.pts]);
+      });
+    }
+
+    // 4. Knockouts Sheet
+    if (data.knockouts) {
+      var sheetKO = getOrCreateSheet(ss, "Knockouts");
+      sheetKO.clearContents();
+      sheetKO.appendRow(["Stage", "Date", "Venue", "Team A", "Team B", "Winner"]);
+      sheetKO.getRange(1, 1, 1, 6).setFontWeight("bold").setBackground("#8B5CF6").setFontColor("#FFFFFF");
+      var koKeys = ["q1", "elim", "q2", "final"];
+      koKeys.forEach(function(k) {
+        var match = data.knockouts[k];
+        if (match) {
+          sheetKO.appendRow([match.title, match.date, match.venue, match.teamA, match.teamB, match.winner]);
+        }
+      });
+    }
+
+    return ContentService.createTextOutput(JSON.stringify({ status: "success", timestamp: new Date() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: err.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function doGet(e) {
+  return ContentService.createTextOutput(JSON.stringify({ status: "online", tournament: "RPL Season 25" }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function getOrCreateSheet(ss, name) {
+  var sheet = ss.getSheetByName(name);
+  if (!sheet) { sheet = ss.insertSheet(name); }
+  return sheet;
+}
+          </pre>
+        </div>
+      </div>
+
+      <!-- TAB 2: COMMISSIONER CREDENTIALS -->
+      <div id="adminTab_account" class="admin-subcontent hidden space-y-4 overflow-y-auto pr-1 flex-1 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-300 uppercase mb-1">Director Name</label>
+          <input type="text" id="adminDirectorName" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-white text-sm">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 uppercase mb-1">Official Commissioner Email</label>
+          <input type="email" id="adminDirectorEmail" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-white text-sm">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 uppercase mb-1">Admin Password</label>
+          <input type="text" id="adminDirectorPassword" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-white text-sm">
+        </div>
+
+        <div class="pt-2 flex justify-between items-center">
+          <button type="button" onclick="handleAdminLogout()" class="px-4 py-2 rounded-xl bg-rose-950/50 hover:bg-rose-900 border border-rose-800 text-rose-300 font-bold transition">
+            Log Out of Admin
+          </button>
+          <button type="button" onclick="saveAdminProfileCredentials()" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold">
+            Update Credentials
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB 3: SYSTEM DATABASE & BACKUPS -->
+      <div id="adminTab_system" class="admin-subcontent hidden space-y-4 overflow-y-auto pr-1 flex-1 text-xs">
+        <div class="p-4 bg-slate-900 rounded-xl border border-slate-800 space-y-2">
+          <h4 class="font-bold text-white text-sm">Download Tournament Snapshot</h4>
+          <p class="text-slate-400 text-xs">Export the full state including team logos, match scores, brackets, and fixtures as a JSON file.</p>
+          <button type="button" onclick="downloadBackupJSON()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold flex items-center gap-2">
+            <i class="ph ph-file-arrow-down text-base text-amber-400"></i> Download JSON Snapshot
+          </button>
+        </div>
+      </div>
+
+      <div class="pt-3 border-t border-slate-800 flex justify-end">
+        <button type="button" onclick="closeAdminPortalModal()" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT TEAM -->
+  <div id="teamModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-[#0F1626] border border-slate-700 w-full max-w-md rounded-2xl p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 id="teamModalTitle" class="text-lg font-bold text-white flex items-center gap-2">
+          <i class="ph ph-shield-chevron text-amber-400"></i> Add Team
+        </h3>
+        <button type="button" onclick="closeTeamModal()" class="text-slate-400 hover:text-white p-1 rounded-lg">
+          <i class="ph ph-x text-lg"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase mb-1.5">Team Name</label>
+          <input type="text" id="modalTeamName" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500" placeholder="e.g. Riyadh Vipers CC">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase mb-1.5">Short Code</label>
+            <input type="text" id="modalTeamCode" maxlength="4" class="w-full uppercase bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500" placeholder="e.g. RVP">
+          </div>
+          <div id="modalPoolField">
+            <label class="block text-xs font-semibold text-slate-300 uppercase mb-1.5">Assigned Pool</label>
+            <select id="modalTeamGroup" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+              <option value="A">Pool A</option>
+              <option value="B">Pool B</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase mb-1.5">Team Brand Color</label>
+          <div class="flex items-center gap-3">
+            <input type="color" id="modalTeamColor" value="#F59E0B" class="w-12 h-10 rounded-lg cursor-pointer bg-transparent border-0">
+            <span class="text-xs text-slate-400">Used for broadcast gradients and cards</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase mb-1.5">Team Crest / Logo</label>
+          <div class="flex items-center gap-3">
+            <div id="modalLogoPreviewBox" class="w-12 h-12 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center overflow-hidden">
+              <span id="modalLogoPreviewFallback" class="font-bold text-slate-400 text-sm">--</span>
+              <img id="modalLogoPreviewImg" class="w-full h-full object-cover hidden" alt="Preview">
+            </div>
+            <label class="flex-1 cursor-pointer bg-[#080D1A] hover:bg-slate-900 border border-slate-700 hover:border-amber-500 rounded-xl px-3 py-2 text-xs font-medium text-slate-300 flex items-center justify-center gap-2">
+              <i class="ph ph-upload-simple text-amber-400"></i>
+              <span>Upload Image</span>
+              <input type="file" id="modalTeamLogoFile" accept="image/*" class="hidden" onchange="handleTeamLogoUpload(event)">
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <input type="hidden" id="modalEditingTeamId" value="">
+
+      <div class="pt-4 border-t border-slate-800 flex items-center justify-end gap-2.5">
+        <button type="button" onclick="closeTeamModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold">Cancel</button>
+        <button type="button" onclick="saveTeamFromModal()" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs">Save Team</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: MATCH RESULT & SCORE INPUT -->
+  <div id="matchScoreModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-[#0F1626] border border-slate-700 w-full max-w-md rounded-2xl p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          <i class="ph ph-scoreboard text-amber-400"></i> Record Match Result
+        </h3>
+        <button type="button" onclick="closeMatchScoreModal()" class="text-slate-400 hover:text-white p-1 rounded-lg">
+          <i class="ph ph-x text-lg"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <input type="hidden" id="scoreMatchId" value="">
+
+        <div class="grid grid-cols-2 gap-3 p-3 rounded-xl bg-slate-900 border border-slate-800">
+          <div>
+            <span id="scoreModalTeamA" class="font-bold text-white block truncate mb-1">Team A</span>
+            <input type="text" id="scoreModalScoreA" placeholder="e.g. 175/4 (20)" class="w-full bg-[#080D1A] border border-slate-700 rounded-lg px-2.5 py-1.5 text-white">
+          </div>
+          <div>
+            <span id="scoreModalTeamB" class="font-bold text-white block truncate mb-1">Team B</span>
+            <input type="text" id="scoreModalScoreB" placeholder="e.g. 162/8 (20)" class="w-full bg-[#080D1A] border border-slate-700 rounded-lg px-2.5 py-1.5 text-white">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 uppercase mb-1">Select Winner</label>
+          <select id="scoreModalWinnerSelect" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+            <!-- Populated via JS -->
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 uppercase mb-1">Match Summary / Description</label>
+          <input type="text" id="scoreModalSummary" placeholder="e.g. Vipers won by 13 runs" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3 py-2 text-white">
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-slate-800 flex justify-end gap-2">
+        <button type="button" onclick="closeMatchScoreModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 font-semibold text-xs">Cancel</button>
+        <button type="button" onclick="saveMatchScoreResult()" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs">Save Score</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN SCRIPT ENGINE -->
+  <script>
+    const DEFAULT_PRESET_TEAMS = [
+      { id: 't1', name: 'Riyadh Vipers CC', code: 'RVP', group: 'A', color: '#F59E0B', logo: null },
+      { id: 't2', name: 'Diriyah Warriors', code: 'DWA', group: 'A', color: '#10B981', logo: null },
+      { id: 't3', name: 'Najd Strikers', code: 'NST', group: 'A', color: '#3B82F6', logo: null },
+      { id: 't4', name: 'Olaya Kings', code: 'OLK', group: 'A', color: '#EC4899', logo: null },
+      { id: 't5', name: 'Diplomatic Eagles', code: 'DEA', group: 'B', color: '#8B5CF6', logo: null },
+      { id: 't6', name: 'Al Malaz Titans', code: 'AMT', group: 'B', color: '#06B6D4', logo: null },
+      { id: 't7', name: 'Batha Blasters', code: 'BBL', group: 'B', color: '#EAB308', logo: null },
+      { id: 't8', name: 'Sulaimaniya Stars', code: 'SST', group: 'B', color: '#EF4444', logo: null }
+    ];
+
+    const RPL_STATE = {
+      tournament: {
+        name: "Riyadh Premier League Season 25",
+        tag: "October 2026 • Riyadh, KSA",
+        structure: "groups", // 'groups' (Pool A/B) or 'single' (Round Robin)
+        matchDay: "saturday",
+        startDate: "2026-10-03",
+        format: "T20 Championship (20 Overs)",
+        venues: ["RCA Ground 1", "RCA Ground 2", "Diriyah Cricket Arena"],
+        timeSlots: ["07:30 AM", "01:30 PM", "06:30 PM"],
+        playoffFormat: "ipl",
+        logoBase64: null
+      },
+      teams: JSON.parse(JSON.stringify(DEFAULT_PRESET_TEAMS)),
+      fixtures: [],
+      activeFilter: 'all',
+      posterMatchId: null,
+      posterMode: 'match',
+      adminAuth: {
+        isLoggedIn: false,
+        name: "Aman Khan",
+        email: "amankhan@smartstudygrid.com",
+        password: "Pakistan@1947"
+      },
+      sheetsConfig: {
+        webAppUrl: "https://script.google.com/macros/s/AKfycbz_Y61cvyye1pkwdSNGB3k-m3zuMmmtjPaY3NcCliV0RXHz-DuJvUeDvBTGpWP_MAS9SQ/exec",
+        connected: true
+      },
+      knockouts: {
+        q1: { title: "Qualifier 1", date: "Sat, 21 Nov 2026", venue: "Diriyah Arena", time: "07:30 AM", teamA: null, teamB: null, winner: null },
+        elim: { title: "Eliminator", date: "Sat, 21 Nov 2026", venue: "RCA Ground 1", time: "01:30 PM", teamA: null, teamB: null, winner: null },
+        q2: { title: "Qualifier 2", date: "Sat, 28 Nov 2026", venue: "Diriyah Arena", time: "01:30 PM", teamA: null, teamB: null, winner: null },
+        final: { title: "Grand Final", date: "Sat, 05 Dec 2026", venue: "Diriyah Arena", time: "06:30 PM", teamA: null, teamB: null, winner: null }
+      }
+    };
+
+    let tempTeamLogoBase64 = null;
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-amber-500', 'text-black', 'active');
+        btn.classList.add('text-slate-400');
+      });
+
+      const activeContent = document.getElementById(tabId);
+      if (activeContent) {
+        activeContent.classList.remove('hidden');
+      }
+
+      const activeBtn = document.getElementById('tabBtn_' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.remove('text-slate-400');
+        activeBtn.classList.add('bg-amber-500', 'text-black', 'active');
+      }
+
+      if (tabId === 'teamsTab') renderTeams();
+      if (tabId === 'fixturesTab') { renderRoster(); syncFixtureTeams(); renderFixtures(); }
+      if (tabId === 'standingsTab') renderPointsTable();
+      if (tabId === 'knockoutsTab') renderPlayoffs();
+      if (tabId === 'studioTab') renderPoster();
+    }
+
+    function saveConfigAndProceed() {
+      try {
+        syncTournamentInputs();
+        showToast('Tournament settings saved successfully!', 'success');
+        switchTab('teamsTab');
+      } catch (err) {
+        console.error('Error in saveConfigAndProceed:', err);
+        showToast('Error saving settings: ' + err.message, 'error');
+      }
+    }
+
+    function handleStructureChange(mode) {
+      RPL_STATE.tournament.structure = mode;
+      const hiddenInput = document.getElementById('cfgLeagueStructure');
+      if (hiddenInput) hiddenInput.value = mode;
+
+      const autoBtn = document.getElementById('autoSplitBtn');
+      if (autoBtn) {
+        if (mode === 'single') {
+          autoBtn.classList.add('hidden');
+        } else {
+          autoBtn.classList.remove('hidden');
+        }
+      }
+      onTeamsChanged();
+      showToast(mode === 'groups' ? 'Switched to 2 Pools format.' : 'Switched to Single Round Robin.', 'info');
+    }
+
+    function syncTournamentInputs() {
+      const nameInput = document.getElementById('cfgTournamentName');
+      const tagInput = document.getElementById('cfgTournamentTag');
+      const matchDaySelect = document.getElementById('cfgMatchDay');
+      const startDateInput = document.getElementById('cfgStartDate');
+      const formatInput = document.getElementById('cfgMatchFormat');
+      const playoffSelect = document.getElementById('cfgPlayoffFormat');
+      const venuesInput = document.getElementById('cfgVenues');
+      const timeSlotsInput = document.getElementById('cfgTimeSlots');
+
+      if (nameInput) RPL_STATE.tournament.name = nameInput.value.trim() || "Riyadh Premier League";
+      if (tagInput) RPL_STATE.tournament.tag = tagInput.value.trim() || "October 2026";
+      if (matchDaySelect) RPL_STATE.tournament.matchDay = matchDaySelect.value;
+      if (startDateInput) RPL_STATE.tournament.startDate = startDateInput.value || "2026-10-03";
+      if (formatInput) RPL_STATE.tournament.format = formatInput.value.trim();
+      if (playoffSelect) RPL_STATE.tournament.playoffFormat = playoffSelect.value;
+
+      if (venuesInput) {
+        const raw = venuesInput.value;
+        RPL_STATE.tournament.venues = raw.split(',').map(s => s.trim()).filter(Boolean);
+        if (RPL_STATE.tournament.venues.length === 0) RPL_STATE.tournament.venues = ["RCA Ground 1"];
+      }
+
+      if (timeSlotsInput) {
+        const raw = timeSlotsInput.value;
+        RPL_STATE.tournament.timeSlots = raw.split(',').map(s => s.trim()).filter(Boolean);
+        if (RPL_STATE.tournament.timeSlots.length === 0) RPL_STATE.tournament.timeSlots = ["07:30 AM", "01:30 PM", "06:30 PM"];
+      }
+
+      const navTitle = document.getElementById('navTournamentTitle');
+      if (navTitle) {
+        navTitle.innerHTML = `${RPL_STATE.tournament.name} <span class="bg-amber-500/20 text-amber-400 text-xs px-2 py-0.5 rounded-full font-semibold border border-amber-500/30">S25</span>`;
+      }
+      const navSub = document.getElementById('navTournamentSub');
+      if (navSub) {
+        navSub.textContent = `${RPL_STATE.tournament.tag} • League Studio`;
+      }
+      const pName = document.getElementById('posterTournamentName');
+      if (pName) pName.textContent = RPL_STATE.tournament.name.toUpperCase();
+      const pMeta = document.getElementById('posterTournamentMeta');
+      if (pMeta) pMeta.textContent = RPL_STATE.tournament.tag.toUpperCase();
+      const pVen = document.getElementById('posterVenueFooter');
+      if (pVen) pVen.textContent = RPL_STATE.tournament.venues.join(' • ');
+    }
+
+    function renderTeams() {
+      const container = document.getElementById('groupsDisplayContainer');
+      const countEl = document.getElementById('tabTeamsCount');
+      if (countEl) countEl.textContent = RPL_STATE.teams.length;
+      if (!container) return;
+
+      container.innerHTML = '';
+      const isGrouped = RPL_STATE.tournament.structure === 'groups';
+
+      if (!isGrouped) {
+        // Single unified pool
+        container.className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4";
+        RPL_STATE.teams.forEach((t, i) => {
+          container.appendChild(createTeamCardElement(t, i, false));
+        });
+        return;
+      }
+
+      // 2 Groups: Pool A and Pool B
+      container.className = "grid grid-cols-1 lg:grid-cols-2 gap-6";
+      ['A', 'B'].forEach(groupKey => {
+        const groupTeams = RPL_STATE.teams.filter(t => t.group === groupKey);
+        const groupCol = document.createElement('div');
+        groupCol.className = "bg-[#0B101D] border border-slate-800 rounded-2xl p-5 space-y-4 shadow-xl";
+
+        groupCol.innerHTML = `
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full ${groupKey === 'A' ? 'bg-amber-400' : 'bg-emerald-400'}"></span>
+              <h3 class="font-display text-xl text-white tracking-wider">POOL ${groupKey} (${groupTeams.length} TEAMS)</h3>
+            </div>
+            <span class="text-xs text-slate-400">Intra-Pool Round Robin</span>
+          </div>
+          <div class="space-y-3 teamListSlot"></div>
+        `;
+
+        const slot = groupCol.querySelector('.teamListSlot');
+        if (groupTeams.length === 0) {
+          slot.innerHTML = `<p class="text-xs text-slate-500 py-4 text-center italic">No teams in Pool ${groupKey} yet.</p>`;
+        } else {
+          groupTeams.forEach((t, i) => {
+            slot.appendChild(createTeamCardElement(t, i, true));
+          });
+        }
+        container.appendChild(groupCol);
+      });
+    }
+
+    function createTeamCardElement(team, index, showGroupToggle) {
+      const card = document.createElement('div');
+      card.className = "bg-[#080D1A] border border-slate-800 hover:border-amber-500/40 rounded-xl p-3 flex items-center justify-between gap-3 transition group relative overflow-hidden";
+      card.innerHTML = `
+        <div class="absolute left-0 top-0 bottom-0 w-1" style="background-color: ${team.color};"></div>
+        <div class="flex items-center gap-3 pl-1.5 min-w-0">
+          <div class="w-10 h-10 rounded-lg flex-shrink-0 flex items-center justify-center font-bold text-xs uppercase overflow-hidden" style="background: linear-gradient(135deg, ${team.color}22, ${team.color}55); border: 1px solid ${team.color}44;">
+            ${team.logo ? `<img src="${team.logo}" class="w-full h-full object-cover">` : `<span style="color:${team.color};">${team.code}</span>`}
+          </div>
+          <div class="min-w-0">
+            <h4 class="text-xs md:text-sm font-bold text-white truncate">${team.name}</h4>
+            <span class="text-[10px] text-slate-400 font-mono">Code: ${team.code} ${showGroupToggle ? `• Pool ${team.group || 'A'}` : ''}</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-1">
+          ${showGroupToggle ? `
+          <button type="button" onclick="toggleTeamGroup('${team.id}')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[10px] text-amber-300 font-mono" title="Move to alternate pool">
+            Pool ${team.group === 'A' ? 'B ➔' : 'A ➔'}
+          </button>
+          ` : ''}
+          <button type="button" onclick="editTeam('${team.id}')" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-amber-400 transition">
+            <i class="ph ph-pencil-simple"></i>
+          </button>
+          <button type="button" onclick="deleteTeam('${team.id}')" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-rose-400 transition">
+            <i class="ph ph-trash"></i>
+          </button>
+        </div>
+      `;
+      return card;
+    }
+
+    function toggleTeamGroup(teamId) {
+      const team = RPL_STATE.teams.find(t => t.id === teamId);
+      if (team) {
+        team.group = team.group === 'A' ? 'B' : 'A';
+        onTeamsChanged();
+        showToast(`Moved ${team.name} to Pool ${team.group}`, 'info');
+      }
+    }
+
+    function autoDistributePools() {
+      RPL_STATE.teams.forEach((team, idx) => {
+        team.group = idx % 2 === 0 ? 'A' : 'B';
+      });
+      onTeamsChanged();
+      showToast('Distributed teams 50/50 between Pool A and Pool B', 'success');
+    }
+
+    let SHUFFLE_NEXT = false;
+    function shuffleSchedule() { SHUFFLE_NEXT = true; generateFixtures(); }
+    function shuffled(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+      return a;
+    }
+
+    function generateFixtures() {
+      const tg = document.getElementById('shuffleToggle');
+      window.__shuffle = SHUFFLE_NEXT || !!(tg && tg.checked);
+      SHUFFLE_NEXT = false;
+      syncTournamentInputs();
+      if (RPL_STATE.teams.length < 2) {
+        showToast('Please add at least 2 teams before generating fixtures.', 'error');
+        return;
+      }
+
+      const isGrouped = RPL_STATE.tournament.structure === 'groups';
+      if (isGrouped) {
+        const thin = ['A','B'].filter(g => RPL_STATE.teams.filter(t => t.group === g).length < 2);
+        if (thin.length) { showToast('Pool ' + thin.join(' and ') + ' needs at least 2 teams.', 'error'); renderRoster(); return; }
+      }
+      let roundCounter = 1;
+      let matchCounter = 1;
+      const roundsList = [];
+
+      let currentDate = new Date(RPL_STATE.tournament.startDate);
+      const targetDay = RPL_STATE.tournament.matchDay;
+
+      // Adjust starting day
+      if (targetDay === 'saturday') {
+        while (currentDate.getDay() !== 6) currentDate.setDate(currentDate.getDate() + 1);
+      } else if (targetDay === 'friday') {
+        while (currentDate.getDay() !== 5) currentDate.setDate(currentDate.getDate() + 1);
+      }
+
+      if (isGrouped) {
+        const groups = window.__shuffle ? shuffled(['A', 'B']) : ['A', 'B'];
+        const groupRoundsMap = {};
+
+        groups.forEach(grp => {
+          const grpTeams = RPL_STATE.teams.filter(t => t.group === grp);
+          groupRoundsMap[grp] = buildBergerRounds(grpTeams);
+        });
+
+        const maxRounds = Math.max(groupRoundsMap['A'].length, groupRoundsMap['B'].length);
+
+        for (let r = 0; r < maxRounds; r++) {
+          const roundDate = new Date(currentDate);
+          const dateFormatted = roundDate.toLocaleDateString('en-GB', {
+            weekday: 'short', day: '2-digit', month: 'short', year: 'numeric'
+          });
+
+          const matchesInRound = [];
+          groups.forEach(grp => {
+            const grpMatches = groupRoundsMap[grp][r] || [];
+            grpMatches.forEach((pair) => {
+              const venue = RPL_STATE.tournament.venues[(matchesInRound.length) % RPL_STATE.tournament.venues.length];
+              const slot = RPL_STATE.tournament.timeSlots[(matchesInRound.length) % RPL_STATE.tournament.timeSlots.length];
+
+              matchesInRound.push({
+                id: 'm_' + matchCounter,
+                matchNumber: matchCounter++,
+                round: r + 1,
+                group: grp,
+                date: dateFormatted,
+                rawDate: roundDate.toISOString().split('T')[0],
+                time: slot,
+                venue: venue,
+                homeTeam: pair.teamA,
+                awayTeam: pair.teamB,
+                scoreA: '',
+                scoreB: '',
+                winner: null,
+                summary: ''
+              });
+            });
+          });
+
+          roundsList.push({
+            roundNumber: r + 1,
+            date: dateFormatted,
+            matches: matchesInRound
+          });
+
+          currentDate.setDate(currentDate.getDate() + 7);
+        }
+      } else {
+        const pairsRounds = buildBergerRounds(RPL_STATE.teams);
+        pairsRounds.forEach((roundPairs, rIdx) => {
+          const roundDate = new Date(currentDate);
+          const dateFormatted = roundDate.toLocaleDateString('en-GB', {
+            weekday: 'short', day: '2-digit', month: 'short', year: 'numeric'
+          });
+
+          const matchesInRound = [];
+          roundPairs.forEach((pair, pIdx) => {
+            const venue = RPL_STATE.tournament.venues[pIdx % RPL_STATE.tournament.venues.length];
+            const slot = RPL_STATE.tournament.timeSlots[pIdx % RPL_STATE.tournament.timeSlots.length];
+
+            matchesInRound.push({
+              id: 'm_' + matchCounter,
+              matchNumber: matchCounter++,
+              round: rIdx + 1,
+              group: null,
+              date: dateFormatted,
+              rawDate: roundDate.toISOString().split('T')[0],
+              time: slot,
+              venue: venue,
+              homeTeam: pair.teamA,
+              awayTeam: pair.teamB,
+              scoreA: '',
+              scoreB: '',
+              winner: null,
+              summary: ''
+            });
+          });
+
+          roundsList.push({
+            roundNumber: rIdx + 1,
+            date: dateFormatted,
+            matches: matchesInRound
+          });
+
+          currentDate.setDate(currentDate.getDate() + 7);
+        });
+      }
+
+      RPL_STATE.fixtures = roundsList;
+      if (roundsList.length > 0 && roundsList[0].matches.length > 0) {
+        RPL_STATE.posterMatchId = roundsList[0].matches[0].id;
+      }
+
+      setStale(false);
+      renderRoster();
+      renderFixtures();
+      renderPointsTable();
+      showToast(`${window.__shuffle ? 'Shuffled schedule' : 'Generated schedule'}: ${matchCounter - 1} matches across ${roundsList.length} tournament rounds!`, 'success');
+    }
+
+    function buildBergerRounds(teamList) {
+      const teams = window.__shuffle ? shuffled(teamList) : [...teamList];
+      if (teams.length <= 1) return [];
+
+      if (teams.length % 2 !== 0) {
+        teams.push({ id: '__BYE__', name: 'BYE', code: 'BYE' });
+      }
+
+      const n = teams.length;
+      const totalRounds = n - 1;
+      const half = n / 2;
+      const rounds = [];
+      let roundTeams = [...teams];
+
+      for (let r = 0; r < totalRounds; r++) {
+        const roundPairs = [];
+        for (let i = 0; i < half; i++) {
+          const tA = roundTeams[i];
+          const tB = roundTeams[n - 1 - i];
+          if (tA.id !== '__BYE__' && tB.id !== '__BYE__') {
+            roundPairs.push({ teamA: tA, teamB: tB });
+          }
+        }
+        rounds.push(roundPairs);
+
+        const fixed = roundTeams[0];
+        const last = roundTeams[roundTeams.length - 1];
+        const rest = roundTeams.slice(1, roundTeams.length - 1);
+        roundTeams = [fixed, last, ...rest];
+      }
+      if (window.__shuffle) {
+        return shuffled(rounds).map(rp => shuffled(rp).map(p => Math.random() < 0.5 ? { teamA: p.teamB, teamB: p.teamA } : p));
+      }
+      return rounds;
+    }
+
+    function filterRounds(round) {
+      RPL_STATE.activeFilter = round;
+      renderFixtures();
+    }
+
+    function renderFixtures() {
+      const container = document.getElementById('fixturesListContainer');
+      const filterContainer = document.getElementById('roundFilterContainer');
+      if (!container || !filterContainer) return;
+
+      container.innerHTML = '';
+      filterContainer.innerHTML = '';
+
+      if (RPL_STATE.fixtures.length === 0) {
+        container.innerHTML = `
+          <div class="py-12 text-center border border-slate-800 rounded-2xl bg-slate-900/40">
+            <i class="ph ph-calendar-x text-4xl text-slate-500 mb-2"></i>
+            <p class="text-slate-300 font-semibold">No fixtures generated yet</p>
+            <p class="text-xs text-slate-500 mt-1">Configure your rules and click "Generate Schedule Now".</p>
+          </div>
+        `;
+        return;
+      }
+
+      const allBtn = document.getElementById('viewAllBtn');
+      if (allBtn) {
+        allBtn.className = RPL_STATE.activeFilter === 'all' 
+          ? "px-3 py-1.5 rounded-lg bg-amber-500 text-black font-bold" 
+          : "px-3 py-1.5 rounded-lg text-slate-400 hover:text-white";
+      }
+
+      RPL_STATE.fixtures.forEach(r => {
+        const btn = document.createElement('button');
+        const isActive = RPL_STATE.activeFilter === String(r.roundNumber);
+        btn.className = `px-3 py-1.5 rounded-lg font-bold ${isActive ? 'bg-amber-500 text-black' : 'text-slate-400 hover:text-white'}`;
+        btn.textContent = `R${r.roundNumber}`;
+        btn.onclick = () => filterRounds(String(r.roundNumber));
+        filterContainer.appendChild(btn);
+      });
+
+      const displayRounds = RPL_STATE.activeFilter === 'all'
+        ? RPL_STATE.fixtures
+        : RPL_STATE.fixtures.filter(r => String(r.roundNumber) === RPL_STATE.activeFilter);
+
+      displayRounds.forEach(roundObj => {
+        const roundCard = document.createElement('div');
+        roundCard.className = "bg-[#0B101C] border border-slate-800/90 rounded-2xl p-4 md:p-6 shadow-xl space-y-4";
+        
+        roundCard.innerHTML = `
+          <div class="flex items-center justify-between border-b border-slate-800/70 pb-3">
+            <div class="flex items-center gap-3">
+              <span class="font-display text-lg text-amber-400 tracking-wider">ROUND ${roundObj.roundNumber}</span>
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700 flex items-center gap-1.5">
+                <i class="ph ph-calendar text-amber-400"></i> ${roundObj.date}
+              </span>
+            </div>
+            <span class="text-xs text-slate-400">${roundObj.matches.length} Matches Scheduled</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 matchGrid"></div>
+        `;
+
+        const matchGrid = roundCard.querySelector('.matchGrid');
+
+        roundObj.matches.forEach(m => {
+          const mCard = document.createElement('div');
+          const isSelected = RPL_STATE.posterMatchId === m.id;
+          const hasResult = m.winner !== null;
+
+          mCard.className = `bg-[#080D1A] border ${isSelected ? 'border-amber-500 ring-2 ring-amber-500/20' : 'border-slate-800 hover:border-slate-700'} rounded-xl p-3.5 flex flex-col justify-between gap-3 transition cursor-pointer hover:shadow-lg`;
+          mCard.onclick = () => {
+            RPL_STATE.posterMatchId = m.id;
+            switchTab('studioTab');
+          };
+
+          mCard.innerHTML = `
+            <div class="flex items-center justify-between text-[11px] text-slate-400 pb-2 border-b border-slate-800/50">
+              <span class="font-mono font-bold text-amber-400">MATCH #${m.matchNumber} ${m.group ? `• POOL ${m.group}` : ''}</span>
+              <span class="flex items-center gap-1"><i class="ph ph-clock text-slate-400"></i> ${m.time}</span>
+            </div>
+
+            <div class="flex items-center justify-between gap-2 py-1">
+              <div class="flex items-center gap-2 min-w-0 flex-1">
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs flex-shrink-0" style="background:${m.homeTeam.color}22; border:1px solid ${m.homeTeam.color}55;">
+                  ${m.homeTeam.logo ? `<img src="${m.homeTeam.logo}" class="w-full h-full object-cover rounded-lg">` : `<span style="color:${m.homeTeam.color}">${m.homeTeam.code}</span>`}
+                </div>
+                <div class="min-w-0">
+                  <span class="text-xs font-bold text-white block truncate">${m.homeTeam.name}</span>
+                  ${m.scoreA ? `<span class="text-[10px] font-mono text-amber-400 font-semibold">${m.scoreA}</span>` : ''}
+                </div>
+              </div>
+
+              <span class="font-display text-sm text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">VS</span>
+
+              <div class="flex items-center justify-end gap-2 min-w-0 flex-1 text-right">
+                <div class="min-w-0">
+                  <span class="text-xs font-bold text-white block truncate">${m.awayTeam.name}</span>
+                  ${m.scoreB ? `<span class="text-[10px] font-mono text-amber-400 font-semibold">${m.scoreB}</span>` : ''}
+                </div>
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs flex-shrink-0" style="background:${m.awayTeam.color}22; border:1px solid ${m.awayTeam.color}55;">
+                  ${m.awayTeam.logo ? `<img src="${m.awayTeam.logo}" class="w-full h-full object-cover rounded-lg">` : `<span style="color:${m.awayTeam.color}">${m.awayTeam.code}</span>`}
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-2 border-t border-slate-800/50 text-[11px] text-slate-400">
+              <span class="truncate flex items-center gap-1">
+                <i class="ph-fill ph-map-pin text-slate-500"></i> ${m.venue}
+              </span>
+              <button type="button" onclick="event.stopPropagation(); openMatchScoreModal('${m.id}')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] font-semibold border border-slate-700 flex items-center gap-1">
+                <i class="ph ph-scoreboard text-amber-400"></i> ${hasResult ? 'Score Added' : 'Enter Score'}
+              </button>
+            </div>
+          `;
+
+          matchGrid.appendChild(mCard);
+        });
+
+        container.appendChild(roundCard);
+      });
+    }
+
+    function calculateStandings() {
+      const stats = {};
+      RPL_STATE.teams.forEach(t => {
+        stats[t.id] = {
+          teamId: t.id,
+          teamName: t.name,
+          teamCode: t.code,
+          group: t.group || 'A',
+          color: t.color,
+          logo: t.logo,
+          played: 0,
+          won: 0,
+          lost: 0,
+          tied: 0,
+          pts: 0
+        };
+      });
+
+      RPL_STATE.fixtures.forEach(r => {
+        r.matches.forEach(m => {
+          if (m.winner) {
+            const hStats = stats[m.homeTeam.id];
+            const aStats = stats[m.awayTeam.id];
+            if (!hStats || !aStats) return;
+
+            hStats.played++;
+            aStats.played++;
+
+            if (m.winner === m.homeTeam.id) {
+              hStats.won++;
+              hStats.pts += 2;
+              aStats.lost++;
+            } else if (m.winner === m.awayTeam.id) {
+              aStats.won++;
+              aStats.pts += 2;
+              hStats.lost++;
+            } else {
+              hStats.tied++;
+              aStats.tied++;
+              hStats.pts += 1;
+              aStats.pts += 1;
+            }
+          }
+        });
+      });
+
+      return Object.values(stats);
+    }
+
+    function renderPointsTable() {
+      const wrapper = document.getElementById('pointsTablesWrapper');
+      if (!wrapper) return;
+      wrapper.innerHTML = '';
+
+      const allStats = calculateStandings();
+      const isGrouped = RPL_STATE.tournament.structure === 'groups';
+
+      const renderGroupTable = (tableTeams, title, qualifyingCount = 2) => {
+        tableTeams.sort((a, b) => b.pts - a.pts || b.won - a.won);
+
+        const card = document.createElement('div');
+        card.className = "bg-[#0B101D] border border-slate-800 rounded-2xl p-5 shadow-xl space-y-3";
+        card.innerHTML = `
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <h3 class="font-display text-xl text-white tracking-wider">${title}</h3>
+            <span class="text-xs text-amber-400 font-semibold">Top ${qualifyingCount} Qualify to Playoffs</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left">
+              <thead class="text-slate-400 uppercase font-mono bg-slate-900/60 border-b border-slate-800">
+                <tr>
+                  <th class="py-2.5 px-3">POS</th>
+                  <th class="py-2.5 px-3">FRANCHISE</th>
+                  <th class="py-2.5 px-3 text-center">P</th>
+                  <th class="py-2.5 px-3 text-center">W</th>
+                  <th class="py-2.5 px-3 text-center">L</th>
+                  <th class="py-2.5 px-3 text-center font-bold text-amber-400">PTS</th>
+                  <th class="py-2.5 px-3 text-center">STATUS</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/60">
+                ${tableTeams.map((row, idx) => `
+                  <tr class="hover:bg-slate-800/30 transition ${idx < qualifyingCount ? 'bg-amber-500/5' : ''}">
+                    <td class="py-3 px-3 font-mono font-bold ${idx < qualifyingCount ? 'text-amber-400' : 'text-slate-400'}">0${idx + 1}</td>
+                    <td class="py-3 px-3 font-bold text-white flex items-center gap-2">
+                      <div class="w-6 h-6 rounded flex items-center justify-center text-[10px] font-mono" style="background:${row.color}33; color:${row.color};">
+                        ${row.teamCode}
+                      </div>
+                      ${row.teamName}
+                    </td>
+                    <td class="py-3 px-3 text-center font-mono">${row.played}</td>
+                    <td class="py-3 px-3 text-center font-mono text-emerald-400 font-semibold">${row.won}</td>
+                    <td class="py-3 px-3 text-center font-mono text-rose-400 font-semibold">${row.lost}</td>
+                    <td class="py-3 px-3 text-center font-mono font-extrabold text-amber-400 text-sm">${row.pts}</td>
+                    <td class="py-3 px-3 text-center">
+                      ${idx < qualifyingCount ? '<span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">PLAYOFF SPOT</span>' : '<span class="text-slate-500 text-[10px] font-mono">--</span>'}
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        `;
+        return card;
+      };
+
+      if (isGrouped) {
+        wrapper.appendChild(renderGroupTable(allStats.filter(s => s.group === 'A'), 'POOL A STANDINGS', 2));
+        wrapper.appendChild(renderGroupTable(allStats.filter(s => s.group === 'B'), 'POOL B STANDINGS', 2));
+      } else {
+        wrapper.appendChild(renderGroupTable(allStats, 'OVERALL LEAGUE STANDINGS', 4));
+      }
+    }
+
+    function renderPlayoffs() {
+      const container = document.getElementById('playoffsContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const ko = RPL_STATE.knockouts;
+
+      container.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+          
+          <!-- Column 1: Qualifiers & Eliminators -->
+          <div class="space-y-4">
+            <h4 class="font-display text-base text-amber-400 tracking-wider uppercase border-b border-slate-800 pb-2">PLAYOFF ROUND 1</h4>
+            
+            <!-- Qualifier 1 Card -->
+            <div class="bg-[#080D1A] border border-amber-500/40 rounded-xl p-3.5 space-y-2 shadow-lg">
+              <div class="flex items-center justify-between text-[11px] text-slate-400">
+                <span class="font-bold text-amber-400">QUALIFIER 1</span>
+                <span>${ko.q1.date}</span>
+              </div>
+              <div class="space-y-1.5">
+                <div class="p-2 rounded bg-slate-900 flex items-center justify-between ${ko.q1.winner === 'A' ? 'border-l-4 border-emerald-400' : ''}">
+                  <span class="font-bold text-xs text-white">${ko.q1.teamA ? ko.q1.teamA.name : 'Rank 1 / Seed 1'}</span>
+                  <button type="button" onclick="setKnockoutWinner('q1', 'A')" class="text-[10px] px-2 py-0.5 rounded bg-slate-800 hover:bg-emerald-600 text-slate-300 hover:text-white">Win</button>
+                </div>
+                <div class="p-2 rounded bg-slate-900 flex items-center justify-between ${ko.q1.winner === 'B' ? 'border-l-4 border-emerald-400' : ''}">
+                  <span class="font-bold text-xs text-white">${ko.q1.teamB ? ko.q1.teamB.name : 'Rank 2 / Seed 2'}</span>
+                  <button type="button" onclick="setKnockoutWinner('q1', 'B')" class="text-[10px] px-2 py-0.5 rounded bg-slate-800 hover:bg-emerald-600 text-slate-300 hover:text-white">Win</button>
+                </div>
+              </div>
+              <div class="text-[10px] text-slate-500 pt-1">Winner ➔ Grand Final | Loser ➔ Qualifier 2</div>
+            </div>
+
+            <!-- Eliminator Card -->
+            <div class="bg-[#080D1A] border border-slate-800 rounded-xl p-3.5 space-y-2 shadow-lg">
+              <div class="flex items-center justify-between text-[11px] text-slate-400">
+                <span class="font-bold text-cyan-400">ELIMINATOR</span>
+                <span>${ko.elim.date}</span>
+              </div>
+              <div class="space-y-1.5">
+                <div class="p-2 rounded bg-slate-900 flex items-center justify-between ${ko.elim.winner === 'A' ? 'border-l-4 border-emerald-400' : ''}">
+                  <span class="font-bold text-xs text-white">${ko.elim.teamA ? ko.elim.teamA.name : 'Rank 3 / Seed 3'}</span>
+                  <button type="button" onclick="setKnockoutWinner('elim', 'A')" class="text-[10px] px-2 py-0.5 rounded bg-slate-800 hover:bg-emerald-600 text-slate-300 hover:text-white">Win</button>
+                </div>
+                <div class="p-2 rounded bg-slate-900 flex items-center justify-between ${ko.elim.winner === 'B' ? 'border-l-4 border-emerald-400' : ''}">
+                  <span class="font-bold text-xs text-white">${ko.elim.teamB ? ko.elim.teamB.name : 'Rank 4 / Seed 4'}</span>
+                  <button type="button" onclick="setKnockoutWinner('elim', 'B')" class="text-[10px] px-2 py-0.5 rounded bg-slate-800 hover:bg-emerald-600 text-slate-300 hover:text-white">Win</button>
+                </div>
+              </div>
+              <div class="text-[10px] text-slate-500 pt-1">Winner ➔ Qualifier 2 | Loser Eliminated</div>
+            </div>
+          </div>
+
+          <!-- Column 2: Qualifier 2 -->
+          <div class="space-y-4">
+            <h4 class="font-display text-base text-amber-400 tracking-wider uppercase border-b border-slate-800 pb-2">PRE-FINAL</h4>
+            <div class="bg-[#080D1A] border border-amber-500/40 rounded-xl p-3.5 space-y-2 shadow-lg mt-8">
+              <div class="flex items-center justify-between text-[11px] text-slate-400">
+                <span class="font-bold text-amber-400">QUALIFIER 2</span>
+                <span>${ko.q2.date}</span>
+              </div>
+              <div class="space-y-1.5">
+                <div class="p-2 rounded bg-slate-900 flex items-center justify-between ${ko.q2.winner === 'A' ? 'border-l-4 border-emerald-400' : ''}">
+                  <span class="font-bold text-xs text-white">${ko.q2.teamA ? ko.q2.teamA.name : 'Loser Q1'}</span>
+                  <button type="button" onclick="setKnockoutWinner('q2', 'A')" class="text-[10px] px-2 py-0.5 rounded bg-slate-800 hover:bg-emerald-600 text-slate-300 hover:text-white">Win</button>
+                </div>
+                <div class="p-2 rounded bg-slate-900 flex items-center justify-between ${ko.q2.winner === 'B' ? 'border-l-4 border-emerald-400' : ''}">
+                  <span class="font-bold text-xs text-white">${ko.q2.teamB ? ko.q2.teamB.name : 'Winner Eliminator'}</span>
+                  <button type="button" onclick="setKnockoutWinner('q2', 'B')" class="text-[10px] px-2 py-0.5 rounded bg-slate-800 hover:bg-emerald-600 text-slate-300 hover:text-white">Win</button>
+                </div>
+              </div>
+              <div class="text-[10px] text-slate-500 pt-1">Winner ➔ Grand Final</div>
+            </div>
+          </div>
+
+          <!-- Column 3: Grand Final -->
+          <div class="space-y-4">
+            <h4 class="font-display text-base text-amber-400 tracking-wider uppercase border-b border-slate-800 pb-2">CHAMPIONSHIP FINAL</h4>
+            <div class="bg-gradient-to-b from-[#141C30] to-[#0A0E18] border-2 border-amber-500 rounded-2xl p-5 space-y-3 shadow-2xl relative overflow-hidden">
+              <div class="flex items-center justify-between text-xs text-slate-300">
+                <span class="font-display text-lg text-amber-400 tracking-wider flex items-center gap-1.5"><i class="ph-fill ph-trophy"></i> GRAND FINAL</span>
+                <span>${ko.final.date}</span>
+              </div>
+              <div class="space-y-2">
+                <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between ${ko.final.winner === 'A' ? 'ring-2 ring-amber-500 bg-amber-500/10' : ''}">
+                  <span class="font-bold text-sm text-white">${ko.final.teamA ? ko.final.teamA.name : 'Winner Q1'}</span>
+                  <button type="button" onclick="setKnockoutWinner('final', 'A')" class="text-xs px-2.5 py-1 rounded bg-amber-500 text-black font-extrabold">Crown Champion</button>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between ${ko.final.winner === 'B' ? 'ring-2 ring-amber-500 bg-amber-500/10' : ''}">
+                  <span class="font-bold text-sm text-white">${ko.final.teamB ? ko.final.teamB.name : 'Winner Q2'}</span>
+                  <button type="button" onclick="setKnockoutWinner('final', 'B')" class="text-xs px-2.5 py-1 rounded bg-amber-500 text-black font-extrabold">Crown Champion</button>
+                </div>
+              </div>
+              <div class="pt-2 text-center">
+                ${ko.final.winner ? `
+                  <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold animate-pulse">
+                    🏆 RPL S25 CHAMPION: ${ko.final.winner === 'A' ? ko.final.teamA.name : ko.final.teamB.name}
+                  </div>
+                ` : `<span class="text-xs text-slate-400">Diriyah Cricket Arena • Riyadh Night Final</span>`}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
+    function populateKnockoutsFromStandings() {
+      const stats = calculateStandings();
+      const isGrouped = RPL_STATE.tournament.structure === 'groups';
+
+      if (isGrouped) {
+        const poolA = stats.filter(s => s.group === 'A').sort((a,b) => b.pts - a.pts || b.won - a.won);
+        const poolB = stats.filter(s => s.group === 'B').sort((a,b) => b.pts - a.pts || b.won - a.won);
+
+        if (poolA.length < 2 || poolB.length < 2) {
+          showToast('Please have at least 2 teams per pool to seed playoffs.', 'error');
+          return;
+        }
+
+        RPL_STATE.knockouts.q1.teamA = RPL_STATE.teams.find(t => t.id === poolA[0].teamId);
+        RPL_STATE.knockouts.q1.teamB = RPL_STATE.teams.find(t => t.id === poolB[0].teamId);
+        RPL_STATE.knockouts.elim.teamA = RPL_STATE.teams.find(t => t.id === poolA[1].teamId);
+        RPL_STATE.knockouts.elim.teamB = RPL_STATE.teams.find(t => t.id === poolB[1].teamId);
+      } else {
+        const sorted = [...stats].sort((a,b) => b.pts - a.pts || b.won - a.won);
+        if (sorted.length < 4) {
+          showToast('Please have at least 4 teams to seed playoffs.', 'error');
+          return;
+        }
+        RPL_STATE.knockouts.q1.teamA = RPL_STATE.teams.find(t => t.id === sorted[0].teamId);
+        RPL_STATE.knockouts.q1.teamB = RPL_STATE.teams.find(t => t.id === sorted[1].teamId);
+        RPL_STATE.knockouts.elim.teamA = RPL_STATE.teams.find(t => t.id === sorted[2].teamId);
+        RPL_STATE.knockouts.elim.teamB = RPL_STATE.teams.find(t => t.id === sorted[3].teamId);
+      }
+
+      renderPlayoffs();
+      showToast('Seeded Playoff Bracket from Standings!', 'success');
+    }
+
+    function setKnockoutWinner(matchKey, winnerSlot) {
+      RPL_STATE.knockouts[matchKey].winner = winnerSlot;
+
+      if (matchKey === 'q1') {
+        const winner = winnerSlot === 'A' ? RPL_STATE.knockouts.q1.teamA : RPL_STATE.knockouts.q1.teamB;
+        const loser = winnerSlot === 'A' ? RPL_STATE.knockouts.q1.teamB : RPL_STATE.knockouts.q1.teamA;
+        RPL_STATE.knockouts.final.teamA = winner;
+        RPL_STATE.knockouts.q2.teamA = loser;
+      } else if (matchKey === 'elim') {
+        const winner = winnerSlot === 'A' ? RPL_STATE.knockouts.elim.teamA : RPL_STATE.knockouts.elim.teamB;
+        RPL_STATE.knockouts.q2.teamB = winner;
+      } else if (matchKey === 'q2') {
+        const winner = winnerSlot === 'A' ? RPL_STATE.knockouts.q2.teamA : RPL_STATE.knockouts.q2.teamB;
+        RPL_STATE.knockouts.final.teamB = winner;
+      }
+
+      renderPlayoffs();
+      showToast('Playoff result recorded and advanced!', 'success');
+    }
+
+    function switchPosterMode(mode) {
+      RPL_STATE.posterMode = mode;
+      renderPoster();
+    }
+
+    function renderPoster() {
+      const container = document.getElementById('posterDynamicContent');
+      const picker = document.getElementById('activeMatchPicker');
+      if (!container || !picker) return;
+      picker.innerHTML = '';
+
+      if (RPL_STATE.fixtures.length === 0) {
+        container.innerHTML = `<div class="py-16 text-center text-slate-500"><p>Generate fixtures to load broadcast card.</p></div>`;
+        return;
+      }
+
+      let allMatches = [];
+      RPL_STATE.fixtures.forEach(r => allMatches.push(...r.matches));
+
+      allMatches.forEach(m => {
+        const btn = document.createElement('button');
+        const isSelected = m.id === RPL_STATE.posterMatchId;
+        btn.className = `px-3 py-1 rounded-lg text-xs font-semibold border ${isSelected ? 'bg-amber-500 text-black border-amber-400 font-bold' : 'bg-slate-900 text-slate-300 border-slate-800'}`;
+        btn.textContent = `M${m.matchNumber}: ${m.homeTeam.code} vs ${m.awayTeam.code}`;
+        btn.onclick = () => {
+          RPL_STATE.posterMatchId = m.id;
+          renderPoster();
+        };
+        picker.appendChild(btn);
+      });
+
+      let selectedMatch = allMatches.find(m => m.id === RPL_STATE.posterMatchId) || allMatches[0];
+
+      if (RPL_STATE.posterMode === 'match') {
+        const roundTitle = document.getElementById('posterRoundNumber');
+        if (roundTitle) roundTitle.textContent = `ROUND ${selectedMatch.round} • ${selectedMatch.date.toUpperCase()}`;
+
+        container.innerHTML = `
+          <div class="my-4">
+            <div class="flex justify-center mb-6">
+              <div class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/20 via-amber-500/30 to-amber-500/20 px-5 py-1.5 rounded-full border border-amber-500/40 shadow-lg">
+                <i class="ph-fill ph-cricket text-amber-400"></i>
+                <span class="font-display tracking-widest text-amber-300 text-base">MATCH #${selectedMatch.matchNumber}</span>
+                <span class="text-slate-400">•</span>
+                <span class="text-xs font-bold text-white tracking-wider">${RPL_STATE.tournament.format}</span>
+              </div>
+            </div>
+
+            <!-- Head-To-Head Big Team Cards -->
+            <div class="grid grid-cols-11 items-center gap-2">
+              <div class="col-span-5 flex flex-col items-center text-center p-4 rounded-2xl bg-gradient-to-b from-slate-900/90 to-[#0A0F1D]/90 border border-slate-800 shadow-xl relative overflow-hidden">
+                <div class="w-24 h-24 md:w-28 md:h-28 rounded-2xl p-1 mb-3 flex items-center justify-center shadow-2xl relative" style="background: radial-gradient(circle, ${selectedMatch.homeTeam.color}33, transparent); border: 2px solid ${selectedMatch.homeTeam.color}88;">
+                  ${selectedMatch.homeTeam.logo ? `<img src="${selectedMatch.homeTeam.logo}" class="w-full h-full object-cover rounded-xl shadow-lg">` : `<div class="font-display text-4xl font-black" style="color:${selectedMatch.homeTeam.color};">${selectedMatch.homeTeam.code}</div>`}
+                </div>
+                <h3 class="font-display text-2xl text-white tracking-wide leading-tight">${selectedMatch.homeTeam.name.toUpperCase()}</h3>
+                <span class="text-xs font-mono font-bold tracking-widest px-2.5 py-0.5 rounded-md mt-1" style="background:${selectedMatch.homeTeam.color}22; color:${selectedMatch.homeTeam.color}; border:1px solid ${selectedMatch.homeTeam.color}44;">
+                  ${selectedMatch.homeTeam.code}
+                </span>
+              </div>
+
+              <div class="col-span-1 flex flex-col items-center justify-center">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-b from-amber-500 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/30 text-black font-display text-2xl font-black">
+                  VS
+                </div>
+              </div>
+
+              <div class="col-span-5 flex flex-col items-center text-center p-4 rounded-2xl bg-gradient-to-b from-slate-900/90 to-[#0A0F1D]/90 border border-slate-800 shadow-xl relative overflow-hidden">
+                <div class="w-24 h-24 md:w-28 md:h-28 rounded-2xl p-1 mb-3 flex items-center justify-center shadow-2xl relative" style="background: radial-gradient(circle, ${selectedMatch.awayTeam.color}33, transparent); border: 2px solid ${selectedMatch.awayTeam.color}88;">
+                  ${selectedMatch.awayTeam.logo ? `<img src="${selectedMatch.awayTeam.logo}" class="w-full h-full object-cover rounded-xl shadow-lg">` : `<div class="font-display text-4xl font-black" style="color:${selectedMatch.awayTeam.color};">${selectedMatch.awayTeam.code}</div>`}
+                </div>
+                <h3 class="font-display text-2xl text-white tracking-wide leading-tight">${selectedMatch.awayTeam.name.toUpperCase()}</h3>
+                <span class="text-xs font-mono font-bold tracking-widest px-2.5 py-0.5 rounded-md mt-1" style="background:${selectedMatch.awayTeam.color}22; color:${selectedMatch.awayTeam.color}; border:1px solid ${selectedMatch.awayTeam.color}44;">
+                  ${selectedMatch.awayTeam.code}
+                </span>
+              </div>
+            </div>
+
+            <div class="mt-6 bg-[#0E1526]/80 border border-amber-500/20 rounded-xl p-3.5 flex items-center justify-around text-center backdrop-blur-sm">
+              <div>
+                <span class="text-[10px] uppercase font-mono text-slate-400 block tracking-wider">DATE</span>
+                <span class="font-bold text-xs text-white">${selectedMatch.date}</span>
+              </div>
+              <div class="w-px h-6 bg-slate-800"></div>
+              <div>
+                <span class="text-[10px] uppercase font-mono text-amber-400 block tracking-wider">FIRST BALL</span>
+                <span class="font-bold text-sm text-amber-400">${selectedMatch.time}</span>
+              </div>
+              <div class="w-px h-6 bg-slate-800"></div>
+              <div>
+                <span class="text-[10px] uppercase font-mono text-slate-400 block tracking-wider">GROUND</span>
+                <span class="font-bold text-xs text-white">${selectedMatch.venue}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (RPL_STATE.posterMode === 'knockout') {
+        const finalObj = RPL_STATE.knockouts.final;
+        const roundTitle = document.getElementById('posterRoundNumber');
+        if (roundTitle) roundTitle.textContent = `CHAMPIONSHIP FINAL • ${finalObj.date.toUpperCase()}`;
+        container.innerHTML = `
+          <div class="my-4 text-center">
+            <span class="px-4 py-1 rounded-full bg-amber-500 text-black font-display tracking-widest text-lg font-black inline-block mb-4">GRAND FINAL SHOWDOWN</span>
+            <div class="grid grid-cols-2 gap-4 my-2">
+              <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+                <h4 class="font-display text-2xl text-amber-400">${finalObj.teamA ? finalObj.teamA.name : 'QUALIFIER 1 WINNER'}</h4>
+              </div>
+              <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+                <h4 class="font-display text-2xl text-amber-400">${finalObj.teamB ? finalObj.teamB.name : 'QUALIFIER 2 WINNER'}</h4>
+              </div>
+            </div>
+            <p class="text-xs font-bold text-slate-300 mt-4">${finalObj.venue} • First Ball at ${finalObj.time}</p>
+          </div>
+        `;
+      } else {
+        const roundObj = RPL_STATE.fixtures.find(r => r.roundNumber === selectedMatch.round) || RPL_STATE.fixtures[0];
+        const roundTitle = document.getElementById('posterRoundNumber');
+        if (roundTitle) roundTitle.textContent = `ROUND ${roundObj.roundNumber} FIXTURE CARD`;
+        let listHtml = '';
+        roundObj.matches.forEach(m => {
+          listHtml += `
+            <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 flex items-center justify-between gap-3">
+              <div class="w-20 text-left">
+                <span class="text-[10px] font-mono text-amber-400 block">MATCH #${m.matchNumber}</span>
+                <span class="text-xs font-bold text-white">${m.time}</span>
+              </div>
+              <div class="flex items-center gap-3 flex-1 justify-center">
+                <span class="font-display text-lg text-white font-bold">${m.homeTeam.code}</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-bold">VS</span>
+                <span class="font-display text-lg text-white font-bold">${m.awayTeam.code}</span>
+              </div>
+              <div class="w-28 text-right truncate text-[11px] text-slate-400">${m.venue}</div>
+            </div>
+          `;
+        });
+        container.innerHTML = `<div class="my-3 space-y-2.5">${listHtml}</div>`;
+      }
+    }
+
+    async function downloadPosterImage() {
+      const poster = document.getElementById('cricketBroadcastPoster');
+      const btn = document.getElementById('downloadPosterBtn');
+      if (!poster) return;
+      const originalText = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<i class="ph ph-spinner-gap animate-spin"></i> Exporting 2.5K...`;
+      }
+
+      try {
+        const canvas = await html2canvas(poster, {
+          scale: 2.5,
+          backgroundColor: '#080B14',
+          useCORS: true,
+          logging: false
+        });
+        const link = document.createElement('a');
+        link.download = `RPL_Season25_Card_${Date.now()}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        showToast('Poster downloaded in 2.5K ultra resolution!', 'success');
+      } catch (err) {
+        console.error(err);
+        showToast('Export failed. Try again.', 'error');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = originalText;
+        }
+      }
+    }
+
+    function updateAdminUI() {
+      const container = document.getElementById('adminHeaderContainer');
+      if (!container) return;
+
+      if (RPL_STATE.adminAuth.isLoggedIn) {
+        container.innerHTML = `
+          <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Sheets Synced</span>
+          </div>
+
+          <button type="button" onclick="openAdminPortalModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black text-xs font-extrabold shadow-md shadow-amber-500/20 transition cursor-pointer">
+            <i class="ph-bold ph-gear text-sm"></i>
+            <span>Admin Hub</span>
+          </button>
+
+          <button type="button" onclick="handleAdminLogout()" class="p-1.5 rounded-xl text-slate-400 hover:text-rose-400 transition" title="Log Out">
+            <i class="ph ph-sign-out text-lg"></i>
+          </button>
+        `;
+      } else {
+        container.innerHTML = `
+          <button type="button" onclick="openAdminLoginModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 text-xs font-bold transition cursor-pointer">
+            <i class="ph ph-lock-key text-amber-400 text-sm"></i>
+            <span>Commissioner Login</span>
+          </button>
+        `;
+      }
+    }
+
+    function openAdminLoginModal() {
+      const emailIn = document.getElementById('loginAdminEmail');
+      const passIn = document.getElementById('loginAdminPassword');
+      const errBox = document.getElementById('loginErrorMessage');
+      if (emailIn) emailIn.value = '';
+      if (passIn) passIn.value = '';
+      if (errBox) errBox.classList.add('hidden');
+
+      const modal = document.getElementById('adminLoginModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    }
+
+    function closeAdminLoginModal() {
+      const modal = document.getElementById('adminLoginModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function togglePasswordVisibility() {
+      const input = document.getElementById('loginAdminPassword');
+      const icon = document.getElementById('togglePwdIcon');
+      if (!input || !icon) return;
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'ph ph-eye-slash text-base';
+      } else {
+        input.type = 'password';
+        icon.className = 'ph ph-eye text-base';
+      }
+    }
+
+    function submitAdminLogin() {
+      const email = document.getElementById('loginAdminEmail').value.trim();
+      const pwd = document.getElementById('loginAdminPassword').value.trim();
+
+      if (email === RPL_STATE.adminAuth.email && pwd === RPL_STATE.adminAuth.password) {
+        RPL_STATE.adminAuth.isLoggedIn = true;
+        closeAdminLoginModal();
+        updateAdminUI();
+        showToast('Welcome Aman Khan! Commissioner session active.', 'success');
+        openAdminPortalModal();
+      } else {
+        const errBox = document.getElementById('loginErrorMessage');
+        const errTxt = document.getElementById('loginErrorText');
+        if (errBox) errBox.classList.remove('hidden');
+        if (errTxt) errTxt.textContent = 'Invalid credentials. Access restricted to Commissioner.';
+      }
+    }
+
+    function handleAdminLogout() {
+      RPL_STATE.adminAuth.isLoggedIn = false;
+      closeAdminPortalModal();
+      updateAdminUI();
+      showToast('Logged out of Admin session.', 'info');
+    }
+
+    function openAdminPortalModal() {
+      if (!RPL_STATE.adminAuth.isLoggedIn) {
+        openAdminLoginModal();
+        return;
+      }
+      document.getElementById('adminSheetsWebAppUrl').value = RPL_STATE.sheetsConfig.webAppUrl;
+      document.getElementById('adminDirectorName').value = RPL_STATE.adminAuth.name;
+      document.getElementById('adminDirectorEmail').value = RPL_STATE.adminAuth.email;
+      document.getElementById('adminDirectorPassword').value = RPL_STATE.adminAuth.password;
+
+      switchAdminPortalTab('adminTab_sheets');
+      const modal = document.getElementById('adminPortalModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    }
+
+    function closeAdminPortalModal() {
+      const modal = document.getElementById('adminPortalModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function switchAdminPortalTab(tabId) {
+      document.querySelectorAll('.admin-subcontent').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.admin-portal-tab').forEach(btn => {
+        btn.classList.remove('bg-amber-500', 'text-black', 'font-bold');
+        btn.classList.add('text-slate-400');
+      });
+
+      const target = document.getElementById(tabId);
+      if (target) target.classList.remove('hidden');
+
+      const targetBtn = document.getElementById('btn_' + tabId);
+      if (targetBtn) {
+        targetBtn.classList.remove('text-slate-400');
+        targetBtn.classList.add('bg-amber-500', 'text-black', 'font-bold');
+      }
+    }
+
+    function saveAdminProfileCredentials() {
+      const name = document.getElementById('adminDirectorName').value.trim();
+      const email = document.getElementById('adminDirectorEmail').value.trim();
+      const pwd = document.getElementById('adminDirectorPassword').value.trim();
+
+      if (!name || !email || !pwd) {
+        showToast('All fields required.', 'error');
+        return;
+      }
+
+      RPL_STATE.adminAuth.name = name;
+      RPL_STATE.adminAuth.email = email;
+      RPL_STATE.adminAuth.password = pwd;
+
+      updateAdminUI();
+      showToast('Credentials updated!', 'success');
+    }
+
+    function copyAppsScriptCode() {
+      const code = document.getElementById('adminAppsScriptCodeBlock').innerText;
+      const dummy = document.createElement('textarea');
+      dummy.value = code;
+      document.body.appendChild(dummy);
+      dummy.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummy);
+      showToast('Apps Script (code.gs) copied!', 'success');
+    }
+
+    async function testAdminSheetsConnection() {
+      const url = document.getElementById('adminSheetsWebAppUrl').value.trim();
+      if (!url) {
+        showToast('Please enter your Apps Script Web App URL.', 'error');
+        return;
+      }
+
+      showToast('Testing Apps Script connection...', 'info');
+      try {
+        await fetch(url, { method: 'GET', mode: 'no-cors' });
+        RPL_STATE.sheetsConfig.webAppUrl = url;
+        RPL_STATE.sheetsConfig.connected = true;
+        updateAdminUI();
+        showToast('Connection verified with Google Apps Script Web App!', 'success');
+      } catch (e) {
+        showToast('Could not reach Web App. Verify "Anyone" access in deployment.', 'error');
+      }
+    }
+
+    function prepareCleanSheetsPayload() {
+      const cleanTeams = RPL_STATE.teams.map(t => ({
+        id: t.id,
+        name: t.name,
+        code: t.code,
+        group: t.group || 'A',
+        color: t.color
+      }));
+
+      const cleanFixtures = RPL_STATE.fixtures.map(r => ({
+        roundNumber: r.roundNumber,
+        date: r.date,
+        matches: r.matches.map(m => ({
+          matchNumber: m.matchNumber,
+          round: m.round,
+          group: m.group || 'League',
+          date: m.date,
+          time: m.time,
+          venue: m.venue,
+          homeTeam: { id: m.homeTeam?.id, name: m.homeTeam?.name, code: m.homeTeam?.code },
+          awayTeam: { id: m.awayTeam?.id, name: m.awayTeam?.name, code: m.awayTeam?.code },
+          scoreA: m.scoreA || '',
+          scoreB: m.scoreB || '',
+          winner: m.winner || '',
+          summary: m.summary || ''
+        }))
+      }));
+
+      const cleanStandings = calculateStandings().map(s => ({
+        teamId: s.teamId,
+        teamName: s.teamName,
+        teamCode: s.teamCode,
+        group: s.group,
+        played: s.played,
+        won: s.won,
+        lost: s.lost,
+        pts: s.pts
+      }));
+
+      const ko = RPL_STATE.knockouts;
+      const cleanKnockouts = {
+        q1: { title: ko.q1.title, date: ko.q1.date, venue: ko.q1.venue, teamA: ko.q1.teamA?.name || 'TBD', teamB: ko.q1.teamB?.name || 'TBD', winner: ko.q1.winner ? (ko.q1.winner === 'A' ? ko.q1.teamA?.name : ko.q1.teamB?.name) : 'Upcoming' },
+        elim: { title: ko.elim.title, date: ko.elim.date, venue: ko.elim.venue, teamA: ko.elim.teamA?.name || 'TBD', teamB: ko.elim.teamB?.name || 'TBD', winner: ko.elim.winner ? (ko.elim.winner === 'A' ? ko.elim.teamA?.name : ko.elim.teamB?.name) : 'Upcoming' },
+        q2: { title: ko.q2.title, date: ko.q2.date, venue: ko.q2.venue, teamA: ko.q2.teamA?.name || 'TBD', teamB: ko.q2.teamB?.name || 'TBD', winner: ko.q2.winner ? (ko.q2.winner === 'A' ? ko.q2.teamA?.name : ko.q2.teamB?.name) : 'Upcoming' },
+        final: { title: ko.final.title, date: ko.final.date, venue: ko.final.venue, teamA: ko.final.teamA?.name || 'TBD', teamB: ko.final.teamB?.name || 'TBD', winner: ko.final.winner ? (ko.final.winner === 'A' ? ko.final.teamA?.name : ko.final.teamB?.name) : 'Upcoming' }
+      };
+
+      return {
+        tournament: {
+          name: RPL_STATE.tournament.name,
+          tag: RPL_STATE.tournament.tag,
+          format: RPL_STATE.tournament.format,
+          structure: RPL_STATE.tournament.structure,
+          matchDay: RPL_STATE.tournament.matchDay,
+          startDate: RPL_STATE.tournament.startDate
+        },
+        teams: cleanTeams,
+        fixtures: cleanFixtures,
+        standings: cleanStandings,
+        knockouts: cleanKnockouts,
+        timestamp: new Date().toISOString()
+      };
+    }
+
+    async function syncPushToSheets() {
+      if (!RPL_STATE.adminAuth.isLoggedIn) {
+        showToast('Administrator login required.', 'error');
+        openAdminLoginModal();
+        return;
+      }
+
+      const url = document.getElementById('adminSheetsWebAppUrl').value.trim() || RPL_STATE.sheetsConfig.webAppUrl;
+      if (!url) {
+        showToast('Please provide your Apps Script Web App URL first.', 'error');
+        return;
+      }
+
+      const btn = document.getElementById('btnPushToSheets');
+      const originalText = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<i class="ph ph-spinner-gap animate-spin text-base"></i> Syncing to Google Sheets...`;
+      }
+
+      showToast('Sending tournament data to Google Sheet...', 'info');
+
+      try {
+        const payload = prepareCleanSheetsPayload();
+        
+        await fetch(url, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        RPL_STATE.sheetsConfig.connected = true;
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        const badge = document.getElementById('lastSyncTimeBadge');
+        if (badge) {
+          badge.textContent = `Synced at ${timeStr}`;
+          badge.className = "text-[10px] font-mono bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded border border-emerald-500/30";
+        }
+        updateAdminUI();
+        showToast('Successfully pushed all Teams, Fixtures & Points to Google Sheets!', 'success');
+      } catch (err) {
+        console.error('Sheet Sync Error:', err);
+        showToast('Sync request error. Check network and Apps Script deployment settings.', 'error');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = originalText;
+        }
+      }
+    }
+
+    function syncPullFromSheets() {
+      if (!RPL_STATE.adminAuth.isLoggedIn) {
+        showToast('Admin login required.', 'error');
+        openAdminLoginModal();
+        return;
+      }
+      showToast('Connection verified. Ready to push updates anytime.', 'success');
+    }
+
+    function downloadBackupJSON() { saveProjectJSON(); }
+
+    function openMatchScoreModal(matchId) {
+      let foundMatch = null;
+      for (const r of RPL_STATE.fixtures) {
+        foundMatch = r.matches.find(m => m.id === matchId);
+        if (foundMatch) break;
+      }
+      if (!foundMatch) return;
+
+      document.getElementById('scoreMatchId').value = foundMatch.id;
+      document.getElementById('scoreModalTeamA').textContent = foundMatch.homeTeam.name;
+      document.getElementById('scoreModalTeamB').textContent = foundMatch.awayTeam.name;
+      document.getElementById('scoreModalScoreA').value = foundMatch.scoreA || '';
+      document.getElementById('scoreModalScoreB').value = foundMatch.scoreB || '';
+      document.getElementById('scoreModalSummary').value = foundMatch.summary || '';
+
+      const winSelect = document.getElementById('scoreModalWinnerSelect');
+      winSelect.innerHTML = `
+        <option value="">-- Match Incomplete / Upcoming --</option>
+        <option value="${foundMatch.homeTeam.id}" ${foundMatch.winner === foundMatch.homeTeam.id ? 'selected' : ''}>${foundMatch.homeTeam.name} Won</option>
+        <option value="${foundMatch.awayTeam.id}" ${foundMatch.winner === foundMatch.awayTeam.id ? 'selected' : ''}>${foundMatch.awayTeam.name} Won</option>
+        <option value="TIE" ${foundMatch.winner === 'TIE' ? 'selected' : ''}>Tied / Match Abandoned</option>
+      `;
+
+      const modal = document.getElementById('matchScoreModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    }
+
+    function closeMatchScoreModal() {
+      const modal = document.getElementById('matchScoreModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function saveMatchScoreResult() {
+      const matchId = document.getElementById('scoreMatchId').value;
+      const scoreA = document.getElementById('scoreModalScoreA').value.trim();
+      const scoreB = document.getElementById('scoreModalScoreB').value.trim();
+      const winner = document.getElementById('scoreModalWinnerSelect').value;
+      const summary = document.getElementById('scoreModalSummary').value.trim();
+
+      for (const r of RPL_STATE.fixtures) {
+        const match = r.matches.find(m => m.id === matchId);
+        if (match) {
+          match.scoreA = scoreA;
+          match.scoreB = scoreB;
+          match.winner = winner || null;
+          match.summary = summary;
+          break;
+        }
+      }
+
+      closeMatchScoreModal();
+      renderFixtures();
+      renderPointsTable();
+      showToast('Score recorded & Points Table updated!', 'success');
+    }
+
+    function simulateScores() {
+      RPL_STATE.fixtures.forEach(r => {
+        r.matches.forEach(m => {
+          const runA = Math.floor(Math.random() * 60) + 140;
+          const runB = Math.floor(Math.random() * 60) + 135;
+          m.scoreA = `${runA}/6 (20)`;
+          m.scoreB = `${runB}/8 (20)`;
+          m.winner = runA >= runB ? m.homeTeam.id : m.awayTeam.id;
+          m.summary = runA >= runB ? `${m.homeTeam.name} won by ${runA - runB} runs` : `${m.awayTeam.name} won by 4 wickets`;
+        });
+      });
+      renderFixtures();
+      renderPointsTable();
+      showToast('Simulated complete round scores for demo!', 'success');
+    }
+
+    function resetAllScores() {
+      RPL_STATE.fixtures.forEach(r => {
+        r.matches.forEach(m => {
+          m.scoreA = '';
+          m.scoreB = '';
+          m.winner = null;
+          m.summary = '';
+        });
+      });
+      renderFixtures();
+      renderPointsTable();
+      showToast('Reset all match scores.', 'info');
+    }
+
+    function openAddTeamModal() {
+      document.getElementById('teamModalTitle').innerHTML = '<i class="ph ph-shield-chevron text-amber-400"></i> Add Team';
+      document.getElementById('modalEditingTeamId').value = '';
+      document.getElementById('modalTeamName').value = '';
+      document.getElementById('modalTeamCode').value = '';
+      document.getElementById('modalTeamGroup').value = smallerPool();
+      document.getElementById('modalTeamColor').value = '#F59E0B';
+      tempTeamLogoBase64 = null;
+      document.getElementById('modalLogoPreviewImg').classList.add('hidden');
+      document.getElementById('modalLogoPreviewFallback').classList.remove('hidden');
+      const modal = document.getElementById('teamModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+      syncModalPoolField();
+    }
+
+    function closeTeamModal() {
+      const modal = document.getElementById('teamModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function editTeam(id) {
+      const team = RPL_STATE.teams.find(t => t.id === id);
+      if (!team) return;
+      document.getElementById('teamModalTitle').innerHTML = '<i class="ph ph-pencil-simple text-amber-400"></i> Edit Team';
+      document.getElementById('modalEditingTeamId').value = team.id;
+      document.getElementById('modalTeamName').value = team.name;
+      document.getElementById('modalTeamCode').value = team.code;
+      document.getElementById('modalTeamGroup').value = team.group || 'A';
+      document.getElementById('modalTeamColor').value = team.color;
+      tempTeamLogoBase64 = team.logo;
+
+      if (team.logo) {
+        document.getElementById('modalLogoPreviewImg').src = team.logo;
+        document.getElementById('modalLogoPreviewImg').classList.remove('hidden');
+        document.getElementById('modalLogoPreviewFallback').classList.add('hidden');
+      } else {
+        document.getElementById('modalLogoPreviewImg').classList.add('hidden');
+        document.getElementById('modalLogoPreviewFallback').classList.remove('hidden');
+      }
+
+      const modal = document.getElementById('teamModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+      syncModalPoolField();
+    }
+
+    function saveTeamFromModal() {
+      const name = document.getElementById('modalTeamName').value.trim();
+      let code = document.getElementById('modalTeamCode').value.trim().toUpperCase();
+      const group = document.getElementById('modalTeamGroup').value;
+      const color = document.getElementById('modalTeamColor').value;
+      const editId = document.getElementById('modalEditingTeamId').value;
+
+      if (!name) {
+        showToast('Please enter a team name.', 'error');
+        return;
+      }
+      if (!code) code = name.substring(0, 3).toUpperCase();
+
+      if (editId) {
+        const team = RPL_STATE.teams.find(t => t.id === editId);
+        if (team) {
+          team.name = name;
+          team.code = code;
+          team.group = group;
+          team.color = color;
+          team.logo = tempTeamLogoBase64;
+          showToast(`Updated ${name}`, 'success');
+        }
+      } else {
+        RPL_STATE.teams.push({
+          id: 'team_' + Date.now(),
+          name: name,
+          code: code,
+          group: group,
+          color: color,
+          logo: tempTeamLogoBase64
+        });
+        showToast(`Team ${name} added!`, 'success');
+      }
+
+      closeTeamModal();
+      onTeamsChanged();
+    }
+
+    function deleteTeam(id) {
+      RPL_STATE.teams = RPL_STATE.teams.filter(t => t.id !== id);
+      onTeamsChanged();
+      showToast('Team removed.', 'info');
+    }
+
+    function handleTeamLogoUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        tempTeamLogoBase64 = e.target.result;
+        document.getElementById('modalLogoPreviewImg').src = tempTeamLogoBase64;
+        document.getElementById('modalLogoPreviewImg').classList.remove('hidden');
+        document.getElementById('modalLogoPreviewFallback').classList.add('hidden');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function handleTournamentLogoUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const b64 = e.target.result;
+        RPL_STATE.tournament.logoBase64 = b64;
+        const hImg = document.getElementById('headerTournamentLogoImg');
+        const hFbk = document.getElementById('headerLogoFallback');
+        if (hImg) { hImg.src = b64; hImg.classList.remove('hidden'); }
+        if (hFbk) hFbk.classList.add('hidden');
+
+        const pImg = document.getElementById('posterTournamentLogoImg');
+        const pTxt = document.getElementById('posterTournamentLogoText');
+        if (pImg) { pImg.src = b64; pImg.classList.remove('hidden'); }
+        if (pTxt) pTxt.classList.add('hidden');
+
+        document.getElementById('tournamentLogoBtnText').textContent = 'Change Logo';
+        showToast('Tournament logo updated!', 'success');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function resetTournamentLogo() {
+      RPL_STATE.tournament.logoBase64 = null;
+      document.getElementById('headerTournamentLogoImg').classList.add('hidden');
+      document.getElementById('headerLogoFallback').classList.remove('hidden');
+      document.getElementById('posterTournamentLogoImg').classList.add('hidden');
+      document.getElementById('posterTournamentLogoText').classList.remove('hidden');
+      document.getElementById('tournamentLogoBtnText').textContent = 'Upload Logo';
+      showToast('Reset tournament crest.', 'info');
+    }
+
+    function loadSamplePreset(presetKey) {
+      if (presetKey === 'rpl8_groups') {
+        handleStructureChange('groups');
+        const r1 = document.querySelector('input[name="leagueStructureRadio"][value="groups"]');
+        if (r1) r1.checked = true;
+        RPL_STATE.teams = JSON.parse(JSON.stringify(DEFAULT_PRESET_TEAMS));
+      } else if (presetKey === 'rpl8_single') {
+        handleStructureChange('single');
+        const r2 = document.querySelector('input[name="leagueStructureRadio"][value="single"]');
+        if (r2) r2.checked = true;
+        RPL_STATE.teams = JSON.parse(JSON.stringify(DEFAULT_PRESET_TEAMS));
+      } else {
+        handleStructureChange('groups');
+        const r3 = document.querySelector('input[name="leagueStructureRadio"][value="groups"]');
+        if (r3) r3.checked = true;
+        RPL_STATE.teams = JSON.parse(JSON.stringify(DEFAULT_PRESET_TEAMS.slice(0, 6)));
+      }
+      renderTeams();
+      generateFixtures();
+      showToast(`Loaded preset (${RPL_STATE.teams.length} teams)!`, 'success');
+    }
+
+    function exportToWhatsApp() {
+      if (RPL_STATE.fixtures.length === 0) {
+        showToast('Generate fixtures first to copy WhatsApp schedule!', 'error');
+        return;
+      }
+      let text = `🏏 *${RPL_STATE.tournament.name.toUpperCase()}* 🏏\n`;
+      text += `📅 _${RPL_STATE.tournament.tag}_\n`;
+      text += `⚔️ Format: ${RPL_STATE.tournament.format}\n\n`;
+      text += `📋 *OFFICIAL FIXTURES*\n\n`;
+
+      RPL_STATE.fixtures.forEach(r => {
+        text += `🔹 *ROUND ${r.roundNumber} (${r.date})*\n`;
+        r.matches.forEach(m => {
+          text += `  • *M#${m.matchNumber}:* ${m.homeTeam.name} (${m.homeTeam.code}) 🆚 ${m.awayTeam.name} (${m.awayTeam.code})\n`;
+          text += `    ⏰ ${m.time} | 📍 ${m.venue}\n`;
+        });
+        text += `\n`;
+      });
+      text += `🏆 Riyadh Premier League Season 25 #RPL25`;
+
+      const dummy = document.createElement('textarea');
+      dummy.value = text;
+      document.body.appendChild(dummy);
+      dummy.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummy);
+      showToast('WhatsApp schedule copied to clipboard!', 'success');
+    }
+
+    function showToast(message, type = 'info') {
+      const toast = document.getElementById('toastNotification');
+      const msgEl = document.getElementById('toastMessage');
+      const iconEl = document.getElementById('toastIcon');
+      if (!toast || !msgEl || !iconEl) return;
+
+      msgEl.textContent = message;
+
+      if (type === 'success') {
+        iconEl.innerHTML = '<i class="ph-bold ph-check-circle text-emerald-400"></i>';
+      } else if (type === 'error') {
+        iconEl.innerHTML = '<i class="ph-bold ph-warning-circle text-rose-400"></i>';
+      } else {
+        iconEl.innerHTML = '<i class="ph-bold ph-info text-amber-400"></i>';
+      }
+
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3000);
+    }
+
+
+    function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+    function smallerPool() {
+      const a = RPL_STATE.teams.filter(t => t.group === 'A').length;
+      const b = RPL_STATE.teams.filter(t => t.group === 'B').length;
+      return a <= b ? 'A' : 'B';
+    }
+
+    function syncModalPoolField() {
+      const f = document.getElementById('modalPoolField');
+      if (f) f.classList.toggle('hidden', RPL_STATE.tournament.structure !== 'groups');
+    }
+
+    function setStale(on) {
+      const b = document.getElementById('fixturesStaleBanner');
+      if (!b) return;
+      b.classList.toggle('hidden', !on);
+      b.classList.toggle('flex', on);
+    }
+
+    function onTeamsChanged() {
+      renderTeams();
+      syncFixtureTeams();
+      renderRoster();
+    }
+
+    function syncFixtureTeams() {
+      if (!RPL_STATE.fixtures.length) { setStale(false); return; }
+      const byId = Object.fromEntries(RPL_STATE.teams.map(t => [t.id, t]));
+      const grouped = RPL_STATE.tournament.structure === 'groups';
+      const used = new Set();
+      let stale = false;
+      RPL_STATE.fixtures.forEach(r => r.matches.forEach(m => {
+        const h = byId[m.homeTeam.id], a = byId[m.awayTeam.id];
+        if (!h || !a || (grouped && (h.group !== m.group || a.group !== m.group))) { stale = true; return; }
+        m.homeTeam = h; m.awayTeam = a;
+        used.add(h.id); used.add(a.id);
+      }));
+      if (RPL_STATE.teams.some(t => !used.has(t.id))) stale = true;
+      setStale(stale);
+    }
+
+    function renderRoster() {
+      const el = document.getElementById('fixturesRoster');
+      if (!el) return;
+      const grouped = RPL_STATE.tournament.structure === 'groups';
+      const chip = t => `<div class="roster-chip" style="--c:${esc(t.color)}"><span class="roster-dot">${t.logo ? `<img src="${esc(t.logo)}" alt="">` : esc(t.code)}</span><span>${esc(t.name)}</span></div>`;
+      const col = (title, list) => `<div><div class="roster-title">${title}<b>${list.length} ${list.length === 1 ? 'team' : 'teams'}</b></div><div class="roster-list">${list.length ? list.map(chip).join('') : '<p class="roster-empty">No teams yet. Add some under Franchises &amp; Pools.</p>'}</div></div>`;
+      const pairs = n => n * (n - 1) / 2;
+      const rounds = n => n < 2 ? 0 : (n % 2 ? n : n - 1);
+      let html, matches, maxRounds, warns = [];
+
+      if (grouped) {
+        const A = RPL_STATE.teams.filter(t => t.group === 'A'), B = RPL_STATE.teams.filter(t => t.group === 'B');
+        html = col('Pool A', A) + col('Pool B', B);
+        matches = pairs(A.length) + pairs(B.length);
+        maxRounds = Math.max(rounds(A.length), rounds(B.length));
+        [['A', A], ['B', B]].forEach(([g, l]) => { if (l.length < 2) warns.push(`Pool ${g} has ${l.length} team${l.length === 1 ? '' : 's'}. Each pool needs at least 2 to generate fixtures.`); });
+      } else {
+        const T = RPL_STATE.teams;
+        html = col('All teams', T);
+        matches = pairs(T.length); maxRounds = rounds(T.length);
+        if (T.length < 2) warns.push('Add at least 2 teams to generate fixtures.');
+      }
+      el.className = grouped ? 'grid gap-6 md:grid-cols-2' : 'grid gap-6';
+      el.innerHTML = html;
+      const s = document.getElementById('rosterSummary');
+      if (s) s.textContent = `${RPL_STATE.teams.length} teams, ${matches} league matches over ${maxRounds} rounds`;
+      const w = document.getElementById('rosterWarnings');
+      if (w) w.innerHTML = warns.map(x => `<div class="roster-warn"><i class="ph-fill ph-warning-circle"></i>${x}</div>`).join('');
+    }
+
+
+    /* ---------- Local project save / open ---------- */
+    function saveProjectJSON() {
+      const { adminAuth, sheetsConfig, ...rest } = RPL_STATE;
+      const payload = { app: 'rpl-fixtures', version: 2, savedAt: new Date().toISOString(), data: JSON.parse(JSON.stringify(rest)) };
+      const name = (RPL_STATE.tournament.name || 'RPL').replace(/[^\w\-]+/g, '_');
+      const url = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' }));
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${name}_${new Date().toISOString().slice(0, 10)}.json`;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      showToast('Project saved to your device.', 'success');
+    }
+
+    function loadProjectJSON(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const json = JSON.parse(reader.result);
+          applyProject(json.data || json);
+          showToast(`Opened "${RPL_STATE.tournament.name}".`, 'success');
+        } catch (err) {
+          showToast('Could not open file: ' + err.message, 'error');
+        }
+        event.target.value = '';
+      };
+      reader.readAsText(file);
+    }
+
+    function applyTournamentLogo(b64) {
+      RPL_STATE.tournament.logoBase64 = b64 || null;
+      [['headerTournamentLogoImg', 'headerLogoFallback'], ['posterTournamentLogoImg', 'posterTournamentLogoText']].forEach(([i, f]) => {
+        const img = document.getElementById(i), fb = document.getElementById(f);
+        if (img) { if (b64) img.src = b64; img.classList.toggle('hidden', !b64); }
+        if (fb) fb.classList.toggle('hidden', !!b64);
+      });
+      const bt = document.getElementById('tournamentLogoBtnText');
+      if (bt) bt.textContent = b64 ? 'Change Logo' : 'Upload Tournament Logo';
+    }
+
+    function applyProject(d) {
+      if (!d || !d.tournament || !Array.isArray(d.teams)) throw new Error('this is not an RPL project file.');
+      Object.assign(RPL_STATE.tournament, d.tournament);
+      RPL_STATE.teams = d.teams;
+      RPL_STATE.fixtures = Array.isArray(d.fixtures) ? d.fixtures : [];
+      if (d.knockouts) RPL_STATE.knockouts = d.knockouts;
+      RPL_STATE.posterMatchId = d.posterMatchId || null;
+      RPL_STATE.posterMode = d.posterMode || 'match';
+      RPL_STATE.activeFilter = 'all';
+
+      const t = RPL_STATE.tournament;
+      const set = (id, v) => { const e = document.getElementById(id); if (e) e.value = v; };
+      set('cfgTournamentName', t.name); set('cfgTournamentTag', t.tag);
+      set('cfgMatchDay', t.matchDay); set('cfgStartDate', t.startDate);
+      set('cfgMatchFormat', t.format); set('cfgPlayoffFormat', t.playoffFormat);
+      set('cfgVenues', (t.venues || []).join(', ')); set('cfgTimeSlots', (t.timeSlots || []).join(', '));
+      set('cfgLeagueStructure', t.structure);
+      const radio = document.querySelector(`input[name="leagueStructureRadio"][value="${t.structure}"]`);
+      if (radio) radio.checked = true;
+      const auto = document.getElementById('autoSplitBtn');
+      if (auto) auto.classList.toggle('hidden', t.structure === 'single');
+
+      syncTournamentInputs();
+      applyTournamentLogo(t.logoBase64);
+      onTeamsChanged();
+      renderFixtures(); renderPointsTable(); renderPlayoffs();
+    }
+
+    /* ---------- Complete fixture sheet as one PNG ---------- */
+    async function downloadFullFixtureImage() {
+      if (!RPL_STATE.fixtures.length) { showToast('Generate the schedule first.', 'error'); return; }
+      syncTournamentInputs();
+      const T = RPL_STATE.tournament, grouped = T.structure === 'groups';
+      const btn = document.getElementById('fullImageBtn');
+      const original = btn ? btn.innerHTML : '';
+      if (btn) { btn.disabled = true; btn.innerHTML = '<i class="ph ph-spinner-gap animate-spin"></i> Building image'; }
+
+      const crest = t => `<span class="fx-crest" style="border-color:${esc(t.color)}99;background:${esc(t.color)}22;color:${esc(t.color)}">${t.logo ? `<img src="${esc(t.logo)}" alt="">` : esc(t.code)}</span>`;
+      const rounds = RPL_STATE.fixtures.map(r => `
+        <div class="fx-round">
+          <div class="fx-rhead">Round ${r.roundNumber}<span>${esc(r.date)}</span></div>
+          ${r.matches.map(m => `
+            <div class="fx-match">
+              <div class="fx-when">M${m.matchNumber}<span>${esc(m.time)}</span></div>
+              <div class="fx-team fx-home"><span>${esc(m.homeTeam.name)}</span>${crest(m.homeTeam)}</div>
+              <div class="fx-vs">VS</div>
+              <div class="fx-team">${crest(m.awayTeam)}<span>${esc(m.awayTeam.name)}</span></div>
+              <div class="fx-venue"><span>${esc(m.venue)}</span>${grouped && m.group ? `<span>Pool ${esc(m.group)}</span>` : ''}</div>
+            </div>`).join('')}
+        </div>`).join('');
+
+      const ko = RPL_STATE.knockouts;
+      const keys = T.playoffFormat === 'ipl' ? ['q1', 'elim', 'q2', 'final'] : T.playoffFormat === 'final_only' ? ['final'] : [];
+      const koHtml = keys.length ? `
+        <div class="fx-h2">Playoffs</div>
+        <div class="fx-ko" style="grid-template-columns:repeat(${keys.length},1fr)">
+          ${keys.map(k => { const x = ko[k]; return `<div class="fx-kocard"><h4>${esc(x.title)}</h4>
+            <p>${x.teamA ? esc(x.teamA.name) : 'TBD'} vs ${x.teamB ? esc(x.teamB.name) : 'TBD'}</p>
+            <small>${esc(x.date)}, ${esc(x.time)}</small><small>${esc(x.venue)}</small></div>`; }).join('')}
+        </div>` : '';
+
+      const chips = [T.format, grouped ? 'Two pools' : 'Single round robin', T.matchDay === 'both' ? 'Friday and Saturday' : (T.matchDay === 'friday' ? 'Fridays' : 'Saturdays'), `${RPL_STATE.teams.length} teams`]
+        .filter(Boolean).map(c => `<span>${esc(c)}</span>`).join('');
+
+      const host = document.createElement('div');
+      host.className = 'fx-host';
+      host.innerHTML = `
+        <div class="fx-sheet" id="fxSheet">
+          <div class="fx-frame"></div>
+          <div class="fx-head">
+            <div class="fx-logo">${T.logoBase64 ? `<img src="${esc(T.logoBase64)}" alt="">` : '<span>RPL</span>'}</div>
+            <div class="fx-title">${esc(T.name)}</div>
+            <div class="fx-meta">${esc(T.tag)}</div>
+            <div class="fx-rule"><i></i><b></b><i></i></div>
+            <div class="fx-chips">${chips}</div>
+          </div>
+          <div class="fx-rounds">${rounds}</div>
+          ${koHtml}
+          <div class="fx-foot"><b>Grounds:</b> ${esc(T.venues.join(', '))}</div>
+        </div>`;
+      document.body.appendChild(host);
+
+      try {
+        if (document.fonts && document.fonts.ready) await document.fonts.ready;
+        await new Promise(r => setTimeout(r, 200));
+        const sheet = host.firstElementChild;
+        const scale = Math.max(1, Math.min(2, 15000 / sheet.offsetHeight));
+        const canvas = await html2canvas(sheet, { scale, backgroundColor: '#07100D', useCORS: true, logging: false });
+        const a = document.createElement('a');
+        a.download = `${T.name.replace(/[^\w\-]+/g, '_')}_Full_Fixtures.png`;
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+        showToast('Full fixture image downloaded.', 'success');
+      } catch (err) {
+        console.error(err);
+        showToast('Image export failed. Try again.', 'error');
+      } finally {
+        host.remove();
+        if (btn) { btn.disabled = false; btn.innerHTML = original; }
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadSamplePreset('rpl8_groups');
+      updateAdminUI();
+    });
+  </script>
+</body>
+</html>
