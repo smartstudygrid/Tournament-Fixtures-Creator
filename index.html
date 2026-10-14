@@ -131,20 +131,53 @@
     #cricketBroadcastPoster.thumb-mode>div:not(#posterDynamicContent){display:none!important}
     #cricketBroadcastPoster.thumb-mode #posterDynamicContent{position:absolute!important;inset:0;padding:0!important}
     .th{position:relative;width:800px;height:450px;overflow:hidden;font-family:Manrope,sans-serif;color:#fff}
-    .th-top{position:absolute;top:16px;left:22px;right:22px;display:flex;justify-content:space-between;align-items:center}
-    .th-brand{display:flex;align-items:center;gap:10px;font:800 15px Manrope,sans-serif;letter-spacing:.04em;text-transform:uppercase;text-shadow:0 2px 0 rgba(0,0,0,.6)}
-    .th-mini{width:40px;height:40px;border-radius:50%;border:2px solid #E3C677;background:#10241E;display:flex;align-items:center;justify-content:center;overflow:hidden;font:700 14px Fraunces,serif;color:#E3C677}
+    .th-top{position:absolute;top:14px;left:22px;right:22px;height:48px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .th-brand{display:flex;align-items:center;gap:10px;min-width:0;flex:1;font:800 15px/1 Manrope,sans-serif;letter-spacing:.04em;text-transform:uppercase;text-shadow:0 2px 0 rgba(0,0,0,.6)}
+    .th-title{display:inline-flex;align-items:center;line-height:1.3;padding-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .th-mini{width:40px;height:40px;flex:none;border-radius:50%;border:2px solid #E3C677;background:#10241E;display:flex;align-items:center;justify-content:center;overflow:hidden;font:700 14px/1 Fraunces,serif;color:#E3C677}
     .th-mini img{width:100%;height:100%;object-fit:contain;padding:3px}
-    .th-badge{padding:7px 18px;border-radius:8px;background:linear-gradient(180deg,#F1D88A,#C8A456);color:#1A1405;font:800 20px Manrope,sans-serif;box-shadow:0 4px 0 #6B531A}
-    .th-main{position:absolute;top:70px;left:0;right:0;height:310px;display:flex;align-items:center;justify-content:space-around}
+    .th-badge{display:block;flex:none;height:44px;line-height:44px;padding:0;white-space:nowrap;color:#F1D88A;font:800 22px Manrope,sans-serif;text-align:right}
+    .th-badge span{display:inline-block;line-height:22px;vertical-align:middle}
+    .th-main{position:absolute;top:72px;left:0;right:0;height:290px;display:flex;align-items:center;justify-content:space-around}
     .th-side{width:290px;display:flex;flex-direction:column;align-items:center}
     .th-plate{width:210px;height:210px;border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden;background:rgba(255,255,255,.16);border:4px solid #fff;font:800 64px Manrope,sans-serif}
     .th-plate img{width:100%;height:100%;object-fit:contain;padding:18px}
     .th-name{margin-top:18px;font:800 28px/1.05 Manrope,sans-serif;text-transform:uppercase;text-align:center;text-shadow:0 3px 0 rgba(0,0,0,.65)}
     .th-vs{font:700 100px/1 Fraunces,serif;color:#F1D88A;text-shadow:0 6px 0 #6B531A,0 0 34px rgba(241,216,138,.65)}
-    .th-bottom{position:absolute;left:0;right:0;bottom:0;height:70px;background:rgba(5,12,10,.88);border-top:3px solid #C8A456;display:flex;align-items:center;justify-content:space-around;font:800 22px Manrope,sans-serif}
-    .th-bottom small{display:block;font:600 11px Manrope,sans-serif;color:#B3C3BB;letter-spacing:.12em;text-transform:uppercase;margin-bottom:2px}
+    .th-bottom{position:absolute;left:0;right:0;bottom:0;height:88px;background:rgba(5,12,10,.88);border-top:3px solid #C8A456;display:flex;align-items:center;justify-content:center;gap:24px;padding:10px 24px 14px;font:800 22px/1.35 Manrope,sans-serif;text-align:center}
+    .th-cell{flex:1 1 0;min-width:0;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .th-bottom b{color:#F1D88A}
+    /* Export clone: html2canvas mangles text-shadow/tight metrics, so strip them for the PNG only (preview untouched) */
+    .th-export,.th-export *{text-shadow:none!important;letter-spacing:0!important}
+    .th-export .th-top{height:56px}
+    .th-export .th-brand{overflow:visible!important}
+    .th-export .th-title{line-height:1.5!important;padding:2px 0 8px;overflow:visible!important}
+    .th-export .th-cell{overflow:visible!important}
+    .tb-export,.tb-export *{text-shadow:none!important}
+    /* Tournament banner export sheet (2560x1440, high-end international look) */
+    .tb-sheet{box-sizing:border-box;position:relative;width:2560px;height:1440px;display:flex;flex-direction:column;align-items:center;padding:96px 120px 80px;background:radial-gradient(1200px 600px at 50% -10%,rgba(227,198,119,.22),transparent 60%),radial-gradient(1000px 700px at 90% 110%,rgba(16,185,129,.16),transparent 60%),linear-gradient(165deg,#0B1026 0%,#1B1440 38%,#3A2A6A 68%,#0B1026 100%);color:#fff;font-family:Manrope,sans-serif;border:8px solid #C8A456;text-align:center}
+    .tb-frame{position:absolute;top:28px;right:28px;bottom:28px;left:28px;border:2px solid rgba(200,164,86,.55);pointer-events:none}
+    .tb-eyebrow{font:700 36px Manrope,sans-serif;letter-spacing:.5em;text-transform:uppercase;color:#E3C677}
+    .tb-head{display:flex;align-items:center;justify-content:center;gap:56px;margin-top:36px;max-width:100%}
+    .tb-logo{width:270px;height:270px;flex:none;border-radius:50%;border:8px solid #E3C677;background:#10241E;display:flex;align-items:center;justify-content:center;overflow:hidden;font:700 72px/1 Fraunces,serif;color:#E3C677;box-shadow:0 0 0 14px rgba(200,164,86,.15),0 0 90px rgba(227,198,119,.35)}
+    .tb-logo img{width:100%;height:100%;object-fit:cover;padding:0}
+    .tb-title{font:800 108px/1.05 Manrope,sans-serif;letter-spacing:.015em;text-transform:uppercase;text-shadow:0 5px 0 rgba(0,0,0,.55)}
+    .tb-meta{margin-top:22px;font:600 34px Manrope,sans-serif;letter-spacing:.28em;text-transform:uppercase;color:#E3C677}
+    .tb-rule{display:flex;align-items:center;gap:18px;width:1400px;margin:44px 0 30px}
+    .tb-rule i{flex:1;height:2px;background:linear-gradient(90deg,transparent,#C8A456)}
+    .tb-rule i:last-child{background:linear-gradient(270deg,transparent,#C8A456)}
+    .tb-rule b{width:16px;height:16px;background:#C8A456;transform:rotate(45deg)}
+    .tb-chips{display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+    .tb-chips span{padding:14px 34px;border:2px solid rgba(200,164,86,.6);border-radius:999px;font:700 30px Manrope,sans-serif;color:#F1ECDF;background:rgba(200,164,86,.10);white-space:nowrap}
+    .tb-teams-label{margin:48px 0 26px;font:600 44px Fraunces,serif;letter-spacing:.12em;text-transform:uppercase;color:#E3C677}
+    .tb-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;width:100%}
+    .tb-team{display:flex;align-items:center;gap:22px;padding:24px 26px;border:2px solid rgba(200,164,86,.45);border-radius:22px;background:rgba(255,255,255,.055);text-align:left}
+    .tb-crest{width:118px;height:118px;flex:none;border-radius:20px;display:flex;align-items:center;justify-content:center;overflow:hidden;font:800 34px Manrope,sans-serif;border:3px solid}
+    .tb-crest img{width:100%;height:100%;object-fit:cover}
+    .tb-tname{font:800 33px/1.15 Manrope,sans-serif;text-transform:uppercase}
+    .tb-tcode{margin-top:6px;font:700 24px Manrope,sans-serif;letter-spacing:.18em;color:#B3C3BB}
+    .tb-foot{margin-top:auto;padding-top:34px;font:500 30px Manrope,sans-serif;color:#B3C3BB}
+    .tb-foot b{color:#E3C677;font-weight:800}
     .fx-sheet{width:1400px!important;padding:60px 68px 44px!important;background:linear-gradient(180deg,#16403A 0%,#0F2D27 40%,#0B221D 100%)!important}
     .fx-chips span{font-size:18px!important;padding:9px 20px!important}
     .fx-rounds{grid-template-columns:1fr 1fr!important;gap:26px!important}
@@ -166,6 +199,39 @@
     .fx-kocard small{font-size:16px!important}
     .fx-foot{color:#B3C3BB!important;font-size:19px!important}
     .fx-logo img,.poster-crest img,.th-plate img,.th-mini img{object-fit:cover!important;padding:0!important}
+    /* ---------- Light mode (toggle) ---------- */
+    html.light{--ink:#F4F1E8;--panel:#FFFFFF;--panel2:#EFEAD9;--line:#DCD2B8;--ivory:#1C1A13;--mute:#6B7268;--brass:#9A7A2E;--brass-hi:#7A5F1E}
+    html.light body{background:repeating-linear-gradient(90deg,rgba(0,0,0,.025) 0 90px,transparent 90px 180px),radial-gradient(1100px 520px at 85% -8%,rgba(154,122,46,.14),transparent),var(--ink)!important;color:var(--ivory)}
+    html.light ::-webkit-scrollbar-track{background:var(--ink)}
+    html.light [class*="bg-[#0F1626]"],html.light [class*="bg-[#0B101D]"],html.light [class*="bg-[#0B101C]"]{background:linear-gradient(180deg,#FFFFFF,#F8F3E5)!important;border-color:var(--line)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 18px 36px -26px rgba(120,100,50,.35)!important}
+    html.light [class*="bg-[#080D1A]"]{background:#FFFFFF!important;border-color:var(--line)!important}
+    html.light body>header{background:rgba(255,255,255,.93)!important;border-color:var(--line)!important}
+    html.light body>div[class*="bg-[#0A0E18]"]{background:#EFEAD9!important;border-color:var(--line)!important}
+    html.light .text-white{color:#1C1A13!important}
+    html.light .text-slate-200,html.light .text-slate-300{color:#3E463F!important}
+    html.light .text-slate-400,html.light .text-slate-500{color:#6B7268!important}
+    html.light .bg-slate-800{background:#E9E2CE!important}
+    html.light .hover\:bg-slate-700:hover{background:#DED4B8!important}
+    html.light .bg-slate-900{background:#F1ECE0!important}
+    html.light .border-slate-700,.html.light .border-slate-700,html.light .border-slate-700,html.light .border-slate-800{border-color:var(--line)!important}
+    html.light .tab-btn{color:var(--mute)!important}
+    html.light .tab-btn:hover{color:var(--ivory)!important}
+    html.light .tab-btn.active{color:var(--ivory)!important;border-bottom-color:var(--brass)}
+    html.light .text-amber-400{color:#7A5F1E!important}
+    html.light main label.uppercase,.html.light main label.uppercase,html.light .fixed label.uppercase{color:#3E463F}
+    html.light input,html.light select,html.light textarea{background:#FFFFFF!important;color:#1C1A13!important;border-color:#DCD2B8!important}
+    html.light input::placeholder{color:#9AA09A}
+    html.light .roster-chip{background:#FFFFFF!important}
+    html.light .roster-title{color:var(--ivory)}
+    /* Keep broadcast/export graphics dark in both modes */
+    html.light #cricketBroadcastPoster{background:linear-gradient(180deg,#0E1F1A,#07100D)!important;color:#F1ECDF!important;border-color:rgba(200,164,86,.65)!important}
+    html.light #cricketBroadcastPoster .text-white{color:#fff!important}
+    html.light #cricketBroadcastPoster .text-slate-400{color:#93A39B!important}
+    html.light .fx-host .fx-sheet{background:linear-gradient(180deg,#16403A 0%,#0F2D27 40%,#0B221D 100%)!important;color:#F1ECDF!important}
+    html.light .cricket-mesh {
+      background-image: radial-gradient(rgba(122, 95, 30, 0.10) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
     .cricket-mesh {
       background-image: radial-gradient(rgba(245, 158, 11, 0.08) 1px, transparent 0);
       background-size: 24px 24px;
@@ -179,9 +245,9 @@
   <header class="sticky top-0 z-40 bg-[#0B101D]/90 backdrop-blur-md border-b border-slate-800/80 px-4 lg:px-8 py-3 flex items-center justify-between">
     <div class="flex items-center gap-3">
       <input type="file" id="appLogoFile" accept="image/*" class="hidden" onchange="handleAppLogoUpload(event)">
-      <div id="headerTournamentLogoWrapper" role="button" tabindex="0" title="Click to choose your app logo" onclick="document.getElementById('appLogoFile').click()" onkeydown="if(event.key==='Enter')this.click()" class="cursor-pointer w-11 h-11 rounded-xl shadow-lg shadow-black/30 flex items-center justify-center overflow-hidden flex-none bg-gradient-to-br from-amber-500 to-emerald-700">
-        <img id="headerAppLogo" alt="Smart Fixtures Creator" class="w-full h-full object-cover" />
-        <span id="headerLogoFallback" class="hidden font-display text-lg text-black font-extrabold">SF</span>
+      <div id="headerTournamentLogoWrapper" role="button" tabindex="0" title="Click to choose your app logo (or place an applogo image file next to this HTML file)" onclick="document.getElementById('appLogoFile').click()" onkeydown="if(event.key==='Enter')this.click()" class="cursor-pointer w-11 h-11 rounded-xl shadow-lg shadow-black/30 flex items-center justify-center overflow-hidden flex-none bg-gradient-to-br from-amber-500 to-emerald-700">
+        <img id="headerAppLogo" alt="Smart Fixtures Creator" class="w-full h-full object-cover hidden" />
+        <span id="headerLogoFallback" class="font-display text-lg text-black font-extrabold">SF</span>
       </div>
       <div>
         <div class="flex items-center gap-2">
@@ -193,11 +259,9 @@
 
     <!-- Right Header Actions -->
     <div class="flex items-center gap-2 sm:gap-3">
-      <!-- Admin Hub & Status Button (Rendered dynamically based on auth) -->
-      <div id="adminHeaderContainer" class="flex items-center gap-2">
-        <!-- Rendered by updateAdminUI() -->
-      </div>
-
+      <button type="button" onclick="toggleTheme()" id="themeToggleBtn" title="Toggle light / dark mode" aria-label="Toggle theme" class="inline-flex items-center justify-center w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 transition">
+        <i id="themeToggleIcon" class="ph-bold ph-moon text-base"></i>
+      </button>
       <button type="button" onclick="openHelpModal()" title="How saving and opening works" aria-label="Help" class="inline-flex items-center justify-center w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 transition">
         <i class="ph-bold ph-question text-base"></i>
       </button>
@@ -408,22 +472,22 @@
 
     <!-- TAB 3: LEAGUE FIXTURES -->
     <div id="fixturesTab" class="tab-content hidden space-y-6">
-      <div class="bg-gradient-to-r from-amber-500/10 via-slate-900 to-emerald-500/10 border border-amber-500/30 rounded-2xl p-5 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 shadow-xl">
+      <div class="bg-gradient-to-r from-amber-500/10 via-slate-900 to-emerald-500/10 border border-amber-500/30 rounded-2xl p-5 md:p-6 flex flex-col gap-4 shadow-xl">
         <div>
           <h3 class="text-xl font-display text-white tracking-wide">Generate Weekend Schedule</h3>
           <p class="text-xs text-slate-300 mt-1">Builds every pairing from the teams above, then assigns dates, grounds and time slots from your setup.</p>
         </div>
-        <div class="flex flex-wrap items-center gap-2.5">
-          <button type="button" onclick="generateFixtures()" class="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs uppercase tracking-wider shadow-xl shadow-amber-500/25 transition flex items-center gap-2">
+        <div class="flex items-center gap-2.5 flex-nowrap overflow-x-auto w-full pb-1">
+          <button type="button" onclick="generateFixtures()" class="flex-none whitespace-nowrap px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs uppercase tracking-wider shadow-xl shadow-amber-500/25 transition flex items-center gap-2">
             <i class="ph-bold ph-calendar-plus text-base"></i> Generate Schedule Now
           </button>
-          <label class="flex items-center gap-2 px-3 py-2.5 rounded-xl border border-slate-700 bg-slate-800 text-xs font-semibold text-slate-100 cursor-pointer select-none">
+          <label class="flex-none whitespace-nowrap flex items-center gap-2 px-3 py-2.5 rounded-xl border border-slate-700 bg-slate-800 text-xs font-semibold text-slate-100 cursor-pointer select-none">
             <input type="checkbox" id="shuffleToggle" class="accent-amber-500"> Shuffle draw
           </label>
-          <button type="button" onclick="shuffleSchedule()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 font-bold text-xs border border-slate-700 transition flex items-center gap-2">
+          <button type="button" onclick="shuffleSchedule()" class="flex-none whitespace-nowrap px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 font-bold text-xs border border-slate-700 transition flex items-center gap-2">
             <i class="ph-bold ph-shuffle text-base text-amber-400"></i> Shuffle &amp; Generate
           </button>
-          <button type="button" id="fullImageBtn" onclick="downloadFullFixtureImage()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 font-bold text-xs border border-slate-700 transition flex items-center gap-2">
+          <button type="button" id="fullImageBtn" onclick="downloadFullFixtureImage()" class="flex-none whitespace-nowrap px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 font-bold text-xs border border-slate-700 transition flex items-center gap-2">
             <i class="ph-bold ph-image text-base text-amber-400"></i> Full Fixture Image
           </button>
         </div>
@@ -537,6 +601,9 @@
             <button type="button" onclick="downloadPosterImage()" id="downloadPosterBtn" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-black font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20 flex items-center gap-2 transition cursor-pointer">
               <i class="ph-bold ph-download-simple text-sm"></i> Download 2.5K PNG
             </button>
+            <button type="button" onclick="downloadTournamentBanner()" id="downloadBannerBtn" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 flex items-center gap-2 transition cursor-pointer">
+              <i class="ph-bold ph-flag-banner text-sm"></i> Banner PNG
+            </button>
           </div>
         </div>
 
@@ -604,268 +671,9 @@
         <li class="flex gap-3"><span class="w-6 h-6 flex-none rounded-full bg-amber-500 text-black text-xs font-bold flex items-center justify-center">3</span><span><b>Continue later:</b> open this page again, click <b>Open</b> and choose that file. Everything comes back as you left it.</span></li>
       </ol>
       <div class="rounded-xl border border-slate-700 bg-slate-900/60 p-3 text-xs text-slate-400 leading-relaxed">
-        Tip: save again after you enter scores or change teams. Each save makes a new file with today's date, so older ones stay as backups. The file never contains your admin password.
+        Tip: save again after you enter scores or change teams. Each save makes a new file with today's date, so older ones stay as backups.
       </div>
       <div class="flex justify-end"><button type="button" onclick="closeHelpModal()" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs">Got it</button></div>
-    </div>
-  </div>
-
-  <!-- MODAL: ADMIN LOGIN -->
-  <div id="adminLoginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="bg-[#0F1626] border border-slate-700 w-full max-w-md rounded-2xl p-6 shadow-2xl space-y-4">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-        <h3 class="text-lg font-bold text-white flex items-center gap-2">
-          <i class="ph ph-lock-key text-amber-400 text-xl"></i> Commissioner Login
-        </h3>
-        <button type="button" onclick="closeAdminLoginModal()" class="text-slate-400 hover:text-white p-1 rounded-lg">
-          <i class="ph ph-x text-lg"></i>
-        </button>
-      </div>
-
-      <div class="space-y-4 text-xs">
-        <div id="loginErrorMessage" class="hidden p-3 rounded-xl bg-rose-950/40 border border-rose-500/40 text-rose-300">
-          <p id="loginErrorText" class="font-medium">Invalid credentials</p>
-        </div>
-
-        <div>
-          <label class="block font-semibold text-slate-300 uppercase mb-1">Admin Email</label>
-          <input type="email" id="loginAdminEmail" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500" placeholder="amankhan@smartstudygrid.com">
-        </div>
-
-        <div>
-          <label class="block font-semibold text-slate-300 uppercase mb-1">Password</label>
-          <div class="relative">
-            <input type="password" id="loginAdminPassword" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-white text-sm focus:outline-none focus:border-amber-500 pr-10" placeholder="••••••••">
-            <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3 top-3 text-slate-400 hover:text-slate-200">
-              <i id="togglePwdIcon" class="ph ph-eye text-base"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="pt-4 border-t border-slate-800 flex justify-end gap-2">
-        <button type="button" onclick="closeAdminLoginModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 font-semibold text-xs">Cancel</button>
-        <button type="button" onclick="submitAdminLogin()" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs">Sign In</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL: ADMIN COMMAND CENTER (GOOGLE SHEETS & TOURNAMENT MANAGEMENT) -->
-  <div id="adminPortalModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4">
-    <div class="bg-[#0F1626] border border-slate-700 w-full max-w-3xl rounded-2xl p-6 shadow-2xl space-y-4 max-h-[92vh] flex flex-col">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center font-bold text-sm">AK</div>
-          <div>
-            <h3 class="text-lg font-bold text-white flex items-center gap-2">
-              Commissioner Admin Center
-              <span id="adminSheetsStatusBadge" class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Synced with Sheets</span>
-            </h3>
-            <p class="text-xs text-slate-400">Aman Khan (Chief League Commissioner)</p>
-          </div>
-        </div>
-        <button type="button" onclick="closeAdminPortalModal()" class="text-slate-400 hover:text-white p-1 rounded-lg">
-          <i class="ph ph-x text-lg"></i>
-        </button>
-      </div>
-
-      <!-- Navigation Tabs inside Admin Modal -->
-      <div class="flex items-center gap-2 border-b border-slate-800 pb-2 text-xs font-semibold">
-        <button type="button" onclick="switchAdminPortalTab('adminTab_sheets')" id="btn_adminTab_sheets" class="admin-portal-tab px-3.5 py-1.5 rounded-lg bg-amber-500 text-black font-bold flex items-center gap-1.5">
-          <i class="ph ph-file-csv"></i> Google Sheets Sync
-        </button>
-        <button type="button" onclick="switchAdminPortalTab('adminTab_account')" id="btn_adminTab_account" class="admin-portal-tab px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white flex items-center gap-1.5">
-          <i class="ph ph-user"></i> Commissioner Account
-        </button>
-        <button type="button" onclick="switchAdminPortalTab('adminTab_system')" id="btn_adminTab_system" class="admin-portal-tab px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-white flex items-center gap-1.5">
-          <i class="ph ph-database"></i> Database & Backups
-        </button>
-      </div>
-
-      <!-- TAB 1: GOOGLE SHEETS & APPS SCRIPT -->
-      <div id="adminTab_sheets" class="admin-subcontent space-y-4 overflow-y-auto pr-1 flex-1 text-xs">
-        <div class="bg-emerald-950/40 border border-emerald-500/30 rounded-xl p-3.5 text-emerald-200 leading-relaxed">
-          <div class="flex items-center justify-between mb-1">
-            <span class="font-bold text-sm text-emerald-300 flex items-center gap-1.5">
-              <i class="ph-fill ph-check-circle text-base text-emerald-400"></i> Google Sheets Web App Endpoint
-            </span>
-            <span id="lastSyncTimeBadge" class="text-[10px] font-mono bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded border border-emerald-500/30">Ready to Sync</span>
-          </div>
-          All teams, fixtures, points tables, and knockouts will be written into 4 formatted tabs in your Google Sheet.
-        </div>
-
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 uppercase mb-1.5">Connected Apps Script Web App URL</label>
-          <div class="flex gap-2">
-            <input type="url" id="adminSheetsWebAppUrl" class="flex-1 bg-[#080D1A] border border-emerald-500/40 text-emerald-300 font-mono text-[11px] rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-amber-500" value="https://script.google.com/macros/s/AKfycbz_Y61cvyye1pkwdSNGB3k-m3zuMmmtjPaY3NcCliV0RXHz-DuJvUeDvBTGpWP_MAS9SQ/exec">
-            <button type="button" onclick="testAdminSheetsConnection()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl border border-slate-700 transition">Test</button>
-          </div>
-        </div>
-
-        <!-- Sync Action Buttons -->
-        <div class="grid grid-cols-2 gap-3 pt-1">
-          <button type="button" id="btnPushToSheets" onclick="syncPushToSheets()" class="p-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-emerald-900/30 transition">
-            <i class="ph-bold ph-cloud-arrow-up text-base"></i> Push All Data to Google Sheet
-          </button>
-          <button type="button" onclick="syncPullFromSheets()" class="p-3 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl font-bold flex items-center justify-center gap-2 border border-slate-700 transition">
-            <i class="ph-bold ph-cloud-arrow-down text-base"></i> Verify Sheet Connection
-          </button>
-        </div>
-
-        <!-- Code.gs Section -->
-        <div class="pt-2 border-t border-slate-800">
-          <div class="flex items-center justify-between mb-1.5">
-            <span class="font-bold text-slate-300 uppercase text-[11px]">Recommended Google Apps Script (`code.gs`)</span>
-            <button type="button" onclick="copyAppsScriptCode()" class="text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1 text-[11px]">
-              <i class="ph ph-copy"></i> Copy Script
-            </button>
-          </div>
-          <pre id="adminAppsScriptCodeBlock" class="bg-[#080D1A] border border-slate-800 rounded-xl p-3 font-mono text-[10px] text-slate-300 overflow-x-auto max-h-44 selection:bg-amber-500 selection:text-black">
-// --- Riyadh Premier League Season 25 Sync Script ---
-function doPost(e) {
-  var lock = LockService.getScriptLock();
-  lock.tryLock(15000);
-  
-  try {
-    if (!e || !e.postData || !e.postData.contents) {
-      return ContentService.createTextOutput(JSON.stringify({ status: "error", message: "No data received" }))
-        .setMimeType(ContentService.MimeType.JSON);
-    }
-    
-    var data = JSON.parse(e.postData.contents);
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
-    if (!ss) {
-      return ContentService.createTextOutput(JSON.stringify({ status: "error", message: "No active spreadsheet" }))
-        .setMimeType(ContentService.MimeType.JSON);
-    }
-
-    // 1. Teams Sheet
-    var sheetTeams = getOrCreateSheet(ss, "Teams");
-    sheetTeams.clearContents();
-    sheetTeams.appendRow(["Team ID", "Franchise Name", "Code", "Pool", "Color"]);
-    sheetTeams.getRange(1, 1, 1, 5).setFontWeight("bold").setBackground("#F59E0B").setFontColor("#000000");
-    if (data.teams && data.teams.length > 0) {
-      data.teams.forEach(function(t) {
-        sheetTeams.appendRow([t.id, t.name, t.code, t.group || "A", t.color]);
-      });
-    }
-
-    // 2. Fixtures Sheet
-    var sheetFix = getOrCreateSheet(ss, "Fixtures");
-    sheetFix.clearContents();
-    sheetFix.appendRow(["Match #", "Round", "Date", "Time", "Venue", "Pool", "Home Franchise", "Score A", "Away Franchise", "Score B", "Result / Winner"]);
-    sheetFix.getRange(1, 1, 1, 11).setFontWeight("bold").setBackground("#10B981").setFontColor("#FFFFFF");
-    if (data.fixtures && data.fixtures.length > 0) {
-      data.fixtures.forEach(function(r) {
-        r.matches.forEach(function(m) {
-          sheetFix.appendRow([
-            m.matchNumber,
-            "Round " + m.round,
-            m.date,
-            m.time,
-            m.venue,
-            m.group ? "Pool " + m.group : "League",
-            m.homeTeam ? m.homeTeam.name : "",
-            m.scoreA || "-",
-            m.awayTeam ? m.awayTeam.name : "",
-            m.scoreB || "-",
-            m.summary || (m.winner ? "Winner: " + m.winner : "Upcoming")
-          ]);
-        });
-      });
-    }
-
-    // 3. Points Table Sheet
-    var sheetPts = getOrCreateSheet(ss, "Points_Table");
-    sheetPts.clearContents();
-    sheetPts.appendRow(["Franchise", "Pool", "Played", "Won", "Lost", "Points"]);
-    sheetPts.getRange(1, 1, 1, 6).setFontWeight("bold").setBackground("#3B82F6").setFontColor("#FFFFFF");
-    if (data.standings && data.standings.length > 0) {
-      data.standings.forEach(function(s) {
-        sheetPts.appendRow([s.teamName, "Pool " + (s.group || "A"), s.played, s.won, s.lost, s.pts]);
-      });
-    }
-
-    // 4. Knockouts Sheet
-    if (data.knockouts) {
-      var sheetKO = getOrCreateSheet(ss, "Knockouts");
-      sheetKO.clearContents();
-      sheetKO.appendRow(["Stage", "Date", "Venue", "Team A", "Team B", "Winner"]);
-      sheetKO.getRange(1, 1, 1, 6).setFontWeight("bold").setBackground("#8B5CF6").setFontColor("#FFFFFF");
-      var koKeys = ["q1", "elim", "q2", "final"];
-      koKeys.forEach(function(k) {
-        var match = data.knockouts[k];
-        if (match) {
-          sheetKO.appendRow([match.title, match.date, match.venue, match.teamA, match.teamB, match.winner]);
-        }
-      });
-    }
-
-    return ContentService.createTextOutput(JSON.stringify({ status: "success", timestamp: new Date() }))
-      .setMimeType(ContentService.MimeType.JSON);
-  } catch (err) {
-    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: err.toString() }))
-      .setMimeType(ContentService.MimeType.JSON);
-  } finally {
-    lock.releaseLock();
-  }
-}
-
-function doGet(e) {
-  return ContentService.createTextOutput(JSON.stringify({ status: "online", tournament: "RPL Season 25" }))
-    .setMimeType(ContentService.MimeType.JSON);
-}
-
-function getOrCreateSheet(ss, name) {
-  var sheet = ss.getSheetByName(name);
-  if (!sheet) { sheet = ss.insertSheet(name); }
-  return sheet;
-}
-          </pre>
-        </div>
-      </div>
-
-      <!-- TAB 2: COMMISSIONER CREDENTIALS -->
-      <div id="adminTab_account" class="admin-subcontent hidden space-y-4 overflow-y-auto pr-1 flex-1 text-xs">
-        <div>
-          <label class="block font-semibold text-slate-300 uppercase mb-1">Director Name</label>
-          <input type="text" id="adminDirectorName" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-white text-sm">
-        </div>
-
-        <div>
-          <label class="block font-semibold text-slate-300 uppercase mb-1">Official Commissioner Email</label>
-          <input type="email" id="adminDirectorEmail" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-white text-sm">
-        </div>
-
-        <div>
-          <label class="block font-semibold text-slate-300 uppercase mb-1">Admin Password</label>
-          <input type="text" id="adminDirectorPassword" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-white text-sm">
-        </div>
-
-        <div class="pt-2 flex justify-between items-center">
-          <button type="button" onclick="handleAdminLogout()" class="px-4 py-2 rounded-xl bg-rose-950/50 hover:bg-rose-900 border border-rose-800 text-rose-300 font-bold transition">
-            Log Out of Admin
-          </button>
-          <button type="button" onclick="saveAdminProfileCredentials()" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold">
-            Update Credentials
-          </button>
-        </div>
-      </div>
-
-      <!-- TAB 3: SYSTEM DATABASE & BACKUPS -->
-      <div id="adminTab_system" class="admin-subcontent hidden space-y-4 overflow-y-auto pr-1 flex-1 text-xs">
-        <div class="p-4 bg-slate-900 rounded-xl border border-slate-800 space-y-2">
-          <h4 class="font-bold text-white text-sm">Download Tournament Snapshot</h4>
-          <p class="text-slate-400 text-xs">Export the full state including team logos, match scores, brackets, and fixtures as a JSON file.</p>
-          <button type="button" onclick="downloadBackupJSON()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold flex items-center gap-2">
-            <i class="ph ph-file-arrow-down text-base text-amber-400"></i> Download JSON Snapshot
-          </button>
-        </div>
-      </div>
-
-      <div class="pt-3 border-t border-slate-800 flex justify-end">
-        <button type="button" onclick="closeAdminPortalModal()" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs">Close</button>
-      </div>
     </div>
   </div>
 
@@ -1011,16 +819,6 @@ function getOrCreateSheet(ss, name) {
       activeFilter: 'all',
       posterMatchId: null,
       posterMode: 'match',
-      adminAuth: {
-        isLoggedIn: false,
-        name: "Aman Khan",
-        email: "amankhan@smartstudygrid.com",
-        password: "Pakistan@1947"
-      },
-      sheetsConfig: {
-        webAppUrl: "https://script.google.com/macros/s/AKfycbz_Y61cvyye1pkwdSNGB3k-m3zuMmmtjPaY3NcCliV0RXHz-DuJvUeDvBTGpWP_MAS9SQ/exec",
-        connected: true
-      },
       knockouts: {
         q1: { title: "Qualifier 1", date: "Sat, 21 Nov 2026", venue: "Diriyah Arena", time: "07:30 AM", teamA: null, teamB: null, winner: null },
         elim: { title: "Eliminator", date: "Sat, 21 Nov 2026", venue: "RCA Ground 1", time: "01:30 PM", teamA: null, teamB: null, winner: null },
@@ -1842,14 +1640,14 @@ function getOrCreateSheet(ss, name) {
         container.innerHTML = `
           <div class="th" style="background:radial-gradient(ellipse at 50% 45%,rgba(255,255,255,.14),transparent 60%),linear-gradient(100deg,${esc(h.color)}dd 0%,${esc(h.color)}55 40%,#0A1511 50%,${esc(a.color)}55 60%,${esc(a.color)}dd 100%)">
             <div class="th-top">
-              <div class="th-brand"><span class="th-mini">${T.logoBase64 ? `<img src="${esc(T.logoBase64)}" alt="">` : 'RPL'}</span>${esc(T.name)}</div>
-              <div class="th-badge">MATCH ${selectedMatch.matchNumber}</div>
+              <div class="th-brand"><span class="th-mini">${T.logoBase64 ? `<img src="${esc(T.logoBase64)}" alt="">` : 'RPL'}</span><span class="th-title">${esc(T.name)}</span></div>
+              <div class="th-badge"><span>MATCH ${selectedMatch.matchNumber}</span></div>
             </div>
             <div class="th-main">${side(h)}<div class="th-vs">VS</div>${side(a)}</div>
             <div class="th-bottom">
-              <div><small>Date</small>${esc(selectedMatch.date)}</div>
-              <div><small>First ball</small><b>${esc(selectedMatch.time)}</b></div>
-              <div><small>Ground</small>${esc(selectedMatch.venue)}</div>
+              <div class="th-cell"><span>${esc(selectedMatch.date)}</span></div>
+              <div class="th-cell"><b>${esc(selectedMatch.time)}</b></div>
+              <div class="th-cell"><span>${esc(selectedMatch.venue)}</span></div>
             </div>
           </div>`;
       } else if (RPL_STATE.posterMode === 'knockout') {
@@ -1896,21 +1694,38 @@ function getOrCreateSheet(ss, name) {
     }
 
     async function downloadPosterImage() {
-      const poster = document.getElementById('cricketBroadcastPoster');
+      const srcCard = document.querySelector('#posterDynamicContent .th');
       const btn = document.getElementById('downloadPosterBtn');
-      if (!poster) return;
+      if (!srcCard) { showToast('Generate the schedule first.', 'error'); return; }
       const originalText = btn ? btn.innerHTML : '';
       if (btn) {
         btn.disabled = true;
         btn.innerHTML = `<i class="ph ph-spinner-gap animate-spin"></i> Exporting 2.5K...`;
       }
 
+      // Preview is browser-rendered; html2canvas re-renders text and mangles
+      // text-shadow / tight line-heights (smeared header, clipped footer).
+      // Capture a cleaned offscreen clone instead; preview keeps its styling.
+      const host = document.createElement('div');
+      host.className = 'fx-host';
+      host.setAttribute('aria-hidden', 'true');
+      const clone = srcCard.cloneNode(true);
+      clone.classList.add('th-export');
+      clone.removeAttribute('id');
+      host.appendChild(clone);
+      document.body.appendChild(host);
+
       try {
-        const canvas = await html2canvas(poster, {
-          scale: 2.5,
-          backgroundColor: '#080B14',
+        if (document.fonts && document.fonts.ready) await document.fonts.ready;
+        await new Promise(r => setTimeout(r, 300));
+        const canvas = await html2canvas(clone, {
+          scale: 2,
+          backgroundColor: '#0A1511',
           useCORS: true,
-          logging: false
+          logging: false,
+          width: 800,
+          height: 450,
+          windowWidth: 1200
         });
         const link = document.createElement('a');
         link.download = `RPL_Season25_Card_${Date.now()}.png`;
@@ -1921,6 +1736,7 @@ function getOrCreateSheet(ss, name) {
         console.error(err);
         showToast('Export failed. Try again.', 'error');
       } finally {
+        host.remove();
         if (btn) {
           btn.disabled = false;
           btn.innerHTML = originalText;
@@ -1928,317 +1744,93 @@ function getOrCreateSheet(ss, name) {
       }
     }
 
-    function updateAdminUI() {
-      const container = document.getElementById('adminHeaderContainer');
-      if (!container) return;
-
-      if (RPL_STATE.adminAuth.isLoggedIn) {
-        container.innerHTML = `
-          <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>Sheets Synced</span>
+    async function downloadTournamentBanner() {
+      syncTournamentInputs();
+      const btn = document.getElementById('downloadBannerBtn');
+      const original = btn ? btn.innerHTML : '';
+      if (btn) { btn.disabled = true; btn.innerHTML = '<i class="ph ph-spinner-gap animate-spin"></i> Building banner'; }
+      const T = RPL_STATE.tournament;
+      const teams = RPL_STATE.teams || [];
+      const grouped = T.structure === 'groups';
+      const n = teams.length;
+      const totalMatches = grouped
+        ? teams.filter(t => t.group === 'A').length * (teams.filter(t => t.group === 'A').length - 1) / 2
+          + teams.filter(t => t.group === 'B').length * (teams.filter(t => t.group === 'B').length - 1) / 2
+        : n * (n - 1) / 2;
+      const dayLabel = T.matchDay === 'both' ? 'Fridays & Saturdays' : (T.matchDay === 'friday' ? 'Every Friday' : 'Every Saturday');
+      const chips = [T.format, grouped ? 'Two Pools' : 'Single Round Robin', dayLabel, `${n} Teams`, `${totalMatches} Matches`]
+        .filter(Boolean).map(c => `<span>${esc(c)}</span>`).join('');
+      const crest = t => t.logo
+        ? `<span class="tb-crest" style="border-color:${esc(t.color)};box-shadow:0 0 26px ${esc(t.color)}66"><img src="${esc(t.logo)}" alt=""></span>`
+        : `<span class="tb-crest" style="border-color:${esc(t.color)};color:${esc(t.color)};background:${esc(t.color)}22">${esc(t.code)}</span>`;
+      const teamCards = teams.map(t => `
+        <div class="tb-team">${crest(t)}
+          <div><div class="tb-tname">${esc(t.name)}</div><div class="tb-tcode">${esc(t.code)}${grouped ? ' • POOL ' + esc(t.group || 'A') : ''}</div></div>
+        </div>`).join('');
+      const host = document.createElement('div');
+      host.className = 'fx-host';
+      host.innerHTML = `
+        <div class="tb-sheet tb-export" id="tbSheet">
+          <div class="tb-frame"></div>
+          <div class="tb-eyebrow">Official Tournament</div>
+          <div class="tb-head">
+            <div class="tb-logo">${T.logoBase64 ? `<img src="${esc(T.logoBase64)}" alt="">` : 'RPL'}</div>
+            <div class="tb-title">${esc(T.name)}</div>
           </div>
-
-          <button type="button" onclick="openAdminPortalModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black text-xs font-extrabold shadow-md shadow-amber-500/20 transition cursor-pointer">
-            <i class="ph-bold ph-gear text-sm"></i>
-            <span>Admin Hub</span>
-          </button>
-
-          <button type="button" onclick="handleAdminLogout()" class="p-1.5 rounded-xl text-slate-400 hover:text-rose-400 transition" title="Log Out">
-            <i class="ph ph-sign-out text-lg"></i>
-          </button>
-        `;
-      } else {
-        container.innerHTML = `
-          <button type="button" onclick="openAdminLoginModal()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 text-xs font-bold transition cursor-pointer">
-            <i class="ph ph-lock-key text-amber-400 text-sm"></i>
-            <span>Commissioner Login</span>
-          </button>
-        `;
-      }
-    }
-
-    function openAdminLoginModal() {
-      const emailIn = document.getElementById('loginAdminEmail');
-      const passIn = document.getElementById('loginAdminPassword');
-      const errBox = document.getElementById('loginErrorMessage');
-      if (emailIn) emailIn.value = '';
-      if (passIn) passIn.value = '';
-      if (errBox) errBox.classList.add('hidden');
-
-      const modal = document.getElementById('adminLoginModal');
-      if (modal) {
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-      }
-    }
-
-    function closeAdminLoginModal() {
-      const modal = document.getElementById('adminLoginModal');
-      if (modal) {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-      }
-    }
-
-    function togglePasswordVisibility() {
-      const input = document.getElementById('loginAdminPassword');
-      const icon = document.getElementById('togglePwdIcon');
-      if (!input || !icon) return;
-      if (input.type === 'password') {
-        input.type = 'text';
-        icon.className = 'ph ph-eye-slash text-base';
-      } else {
-        input.type = 'password';
-        icon.className = 'ph ph-eye text-base';
-      }
-    }
-
-    function submitAdminLogin() {
-      const email = document.getElementById('loginAdminEmail').value.trim();
-      const pwd = document.getElementById('loginAdminPassword').value.trim();
-
-      if (email === RPL_STATE.adminAuth.email && pwd === RPL_STATE.adminAuth.password) {
-        RPL_STATE.adminAuth.isLoggedIn = true;
-        closeAdminLoginModal();
-        updateAdminUI();
-        showToast('Welcome Aman Khan! Commissioner session active.', 'success');
-        openAdminPortalModal();
-      } else {
-        const errBox = document.getElementById('loginErrorMessage');
-        const errTxt = document.getElementById('loginErrorText');
-        if (errBox) errBox.classList.remove('hidden');
-        if (errTxt) errTxt.textContent = 'Invalid credentials. Access restricted to Commissioner.';
-      }
-    }
-
-    function handleAdminLogout() {
-      RPL_STATE.adminAuth.isLoggedIn = false;
-      closeAdminPortalModal();
-      updateAdminUI();
-      showToast('Logged out of Admin session.', 'info');
-    }
-
-    function openAdminPortalModal() {
-      if (!RPL_STATE.adminAuth.isLoggedIn) {
-        openAdminLoginModal();
-        return;
-      }
-      document.getElementById('adminSheetsWebAppUrl').value = RPL_STATE.sheetsConfig.webAppUrl;
-      document.getElementById('adminDirectorName').value = RPL_STATE.adminAuth.name;
-      document.getElementById('adminDirectorEmail').value = RPL_STATE.adminAuth.email;
-      document.getElementById('adminDirectorPassword').value = RPL_STATE.adminAuth.password;
-
-      switchAdminPortalTab('adminTab_sheets');
-      const modal = document.getElementById('adminPortalModal');
-      if (modal) {
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-      }
-    }
-
-    function closeAdminPortalModal() {
-      const modal = document.getElementById('adminPortalModal');
-      if (modal) {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-      }
-    }
-
-    function switchAdminPortalTab(tabId) {
-      document.querySelectorAll('.admin-subcontent').forEach(el => el.classList.add('hidden'));
-      document.querySelectorAll('.admin-portal-tab').forEach(btn => {
-        btn.classList.remove('bg-amber-500', 'text-black', 'font-bold');
-        btn.classList.add('text-slate-400');
-      });
-
-      const target = document.getElementById(tabId);
-      if (target) target.classList.remove('hidden');
-
-      const targetBtn = document.getElementById('btn_' + tabId);
-      if (targetBtn) {
-        targetBtn.classList.remove('text-slate-400');
-        targetBtn.classList.add('bg-amber-500', 'text-black', 'font-bold');
-      }
-    }
-
-    function saveAdminProfileCredentials() {
-      const name = document.getElementById('adminDirectorName').value.trim();
-      const email = document.getElementById('adminDirectorEmail').value.trim();
-      const pwd = document.getElementById('adminDirectorPassword').value.trim();
-
-      if (!name || !email || !pwd) {
-        showToast('All fields required.', 'error');
-        return;
-      }
-
-      RPL_STATE.adminAuth.name = name;
-      RPL_STATE.adminAuth.email = email;
-      RPL_STATE.adminAuth.password = pwd;
-
-      updateAdminUI();
-      showToast('Credentials updated!', 'success');
-    }
-
-    function copyAppsScriptCode() {
-      const code = document.getElementById('adminAppsScriptCodeBlock').innerText;
-      const dummy = document.createElement('textarea');
-      dummy.value = code;
-      document.body.appendChild(dummy);
-      dummy.select();
-      document.execCommand('copy');
-      document.body.removeChild(dummy);
-      showToast('Apps Script (code.gs) copied!', 'success');
-    }
-
-    async function testAdminSheetsConnection() {
-      const url = document.getElementById('adminSheetsWebAppUrl').value.trim();
-      if (!url) {
-        showToast('Please enter your Apps Script Web App URL.', 'error');
-        return;
-      }
-
-      showToast('Testing Apps Script connection...', 'info');
+          <div class="tb-meta">${esc(T.tag)}</div>
+          <div class="tb-rule"><i></i><b></b><i></i></div>
+          <div class="tb-chips">${chips}</div>
+          <div class="tb-teams-label">Participating Teams</div>
+          <div class="tb-grid">${teamCards}</div>
+          <div class="tb-foot"><b>Venues:</b> ${esc(T.venues.join('  •  '))} &nbsp;&nbsp; <b>#RPL25</b></div>
+        </div>`;
+      document.body.appendChild(host);
       try {
-        await fetch(url, { method: 'GET', mode: 'no-cors' });
-        RPL_STATE.sheetsConfig.webAppUrl = url;
-        RPL_STATE.sheetsConfig.connected = true;
-        updateAdminUI();
-        showToast('Connection verified with Google Apps Script Web App!', 'success');
-      } catch (e) {
-        showToast('Could not reach Web App. Verify "Anyone" access in deployment.', 'error');
-      }
-    }
-
-    function prepareCleanSheetsPayload() {
-      const cleanTeams = RPL_STATE.teams.map(t => ({
-        id: t.id,
-        name: t.name,
-        code: t.code,
-        group: t.group || 'A',
-        color: t.color
-      }));
-
-      const cleanFixtures = RPL_STATE.fixtures.map(r => ({
-        roundNumber: r.roundNumber,
-        date: r.date,
-        matches: r.matches.map(m => ({
-          matchNumber: m.matchNumber,
-          round: m.round,
-          group: m.group || 'League',
-          date: m.date,
-          time: m.time,
-          venue: m.venue,
-          homeTeam: { id: m.homeTeam?.id, name: m.homeTeam?.name, code: m.homeTeam?.code },
-          awayTeam: { id: m.awayTeam?.id, name: m.awayTeam?.name, code: m.awayTeam?.code },
-          scoreA: m.scoreA || '',
-          scoreB: m.scoreB || '',
-          winner: m.winner || '',
-          summary: m.summary || ''
-        }))
-      }));
-
-      const cleanStandings = calculateStandings().map(s => ({
-        teamId: s.teamId,
-        teamName: s.teamName,
-        teamCode: s.teamCode,
-        group: s.group,
-        played: s.played,
-        won: s.won,
-        lost: s.lost,
-        pts: s.pts
-      }));
-
-      const ko = RPL_STATE.knockouts;
-      const cleanKnockouts = {
-        q1: { title: ko.q1.title, date: ko.q1.date, venue: ko.q1.venue, teamA: ko.q1.teamA?.name || 'TBD', teamB: ko.q1.teamB?.name || 'TBD', winner: ko.q1.winner ? (ko.q1.winner === 'A' ? ko.q1.teamA?.name : ko.q1.teamB?.name) : 'Upcoming' },
-        elim: { title: ko.elim.title, date: ko.elim.date, venue: ko.elim.venue, teamA: ko.elim.teamA?.name || 'TBD', teamB: ko.elim.teamB?.name || 'TBD', winner: ko.elim.winner ? (ko.elim.winner === 'A' ? ko.elim.teamA?.name : ko.elim.teamB?.name) : 'Upcoming' },
-        q2: { title: ko.q2.title, date: ko.q2.date, venue: ko.q2.venue, teamA: ko.q2.teamA?.name || 'TBD', teamB: ko.q2.teamB?.name || 'TBD', winner: ko.q2.winner ? (ko.q2.winner === 'A' ? ko.q2.teamA?.name : ko.q2.teamB?.name) : 'Upcoming' },
-        final: { title: ko.final.title, date: ko.final.date, venue: ko.final.venue, teamA: ko.final.teamA?.name || 'TBD', teamB: ko.final.teamB?.name || 'TBD', winner: ko.final.winner ? (ko.final.winner === 'A' ? ko.final.teamA?.name : ko.final.teamB?.name) : 'Upcoming' }
-      };
-
-      return {
-        tournament: {
-          name: RPL_STATE.tournament.name,
-          tag: RPL_STATE.tournament.tag,
-          format: RPL_STATE.tournament.format,
-          structure: RPL_STATE.tournament.structure,
-          matchDay: RPL_STATE.tournament.matchDay,
-          startDate: RPL_STATE.tournament.startDate
-        },
-        teams: cleanTeams,
-        fixtures: cleanFixtures,
-        standings: cleanStandings,
-        knockouts: cleanKnockouts,
-        timestamp: new Date().toISOString()
-      };
-    }
-
-    async function syncPushToSheets() {
-      if (!RPL_STATE.adminAuth.isLoggedIn) {
-        showToast('Administrator login required.', 'error');
-        openAdminLoginModal();
-        return;
-      }
-
-      const url = document.getElementById('adminSheetsWebAppUrl').value.trim() || RPL_STATE.sheetsConfig.webAppUrl;
-      if (!url) {
-        showToast('Please provide your Apps Script Web App URL first.', 'error');
-        return;
-      }
-
-      const btn = document.getElementById('btnPushToSheets');
-      const originalText = btn ? btn.innerHTML : '';
-      if (btn) {
-        btn.disabled = true;
-        btn.innerHTML = `<i class="ph ph-spinner-gap animate-spin text-base"></i> Syncing to Google Sheets...`;
-      }
-
-      showToast('Sending tournament data to Google Sheet...', 'info');
-
-      try {
-        const payload = prepareCleanSheetsPayload();
-        
-        await fetch(url, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'text/plain;charset=utf-8'
-          },
-          body: JSON.stringify(payload)
-        });
-
-        RPL_STATE.sheetsConfig.connected = true;
-        const now = new Date();
-        const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-        const badge = document.getElementById('lastSyncTimeBadge');
-        if (badge) {
-          badge.textContent = `Synced at ${timeStr}`;
-          badge.className = "text-[10px] font-mono bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded border border-emerald-500/30";
-        }
-        updateAdminUI();
-        showToast('Successfully pushed all Teams, Fixtures & Points to Google Sheets!', 'success');
+        if (document.fonts && document.fonts.ready) await document.fonts.ready;
+        await new Promise(r => setTimeout(r, 250));
+        const sheet = host.firstElementChild;
+        const canvas = await html2canvas(sheet, { scale: 1, backgroundColor: '#0B1026', useCORS: true, logging: false });
+        const a = document.createElement('a');
+        a.download = `${T.name.replace(/[^\w\-]+/g, '_')}_Banner_2560x1440.png`;
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+        showToast('Tournament banner downloaded (2560x1440).', 'success');
       } catch (err) {
-        console.error('Sheet Sync Error:', err);
-        showToast('Sync request error. Check network and Apps Script deployment settings.', 'error');
+        console.error(err);
+        showToast('Banner export failed. Try again.', 'error');
       } finally {
-        if (btn) {
-          btn.disabled = false;
-          btn.innerHTML = originalText;
-        }
+        host.remove();
+        if (btn) { btn.disabled = false; btn.innerHTML = original; }
       }
     }
 
-    function syncPullFromSheets() {
-      if (!RPL_STATE.adminAuth.isLoggedIn) {
-        showToast('Admin login required.', 'error');
-        openAdminLoginModal();
-        return;
-      }
-      showToast('Connection verified. Ready to push updates anytime.', 'success');
+    /* ---------- Light / Dark theme ---------- */
+    function applyThemeIcon() {
+      const icon = document.getElementById('themeToggleIcon');
+      if (!icon) return;
+      const isLight = document.documentElement.classList.contains('light');
+      icon.className = isLight ? 'ph-bold ph-sun text-base' : 'ph-bold ph-moon text-base';
     }
 
-    function downloadBackupJSON() { saveProjectJSON(); }
+    function setTheme(mode) {
+      const isLight = mode === 'light';
+      document.documentElement.classList.toggle('light', isLight);
+      try { localStorage.setItem('sfc_theme', isLight ? 'light' : 'dark'); } catch (e) {}
+      applyThemeIcon();
+    }
+
+    function toggleTheme() {
+      const isLight = document.documentElement.classList.contains('light');
+      setTheme(isLight ? 'dark' : 'light');
+      showToast(isLight ? 'Switched to dark mode.' : 'Switched to light mode.', 'info');
+    }
+
+    function initTheme() {
+      let saved = null;
+      try { saved = localStorage.getItem('sfc_theme'); } catch (e) {}
+      if (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) saved = 'light';
+      setTheme(saved === 'light' ? 'light' : 'dark');
+    }
 
     function openMatchScoreModal(matchId) {
       let foundMatch = null;
@@ -2622,7 +2214,7 @@ function getOrCreateSheet(ss, name) {
 
     /* ---------- Local project save / open ---------- */
     function saveProjectJSON() {
-      const { adminAuth, sheetsConfig, ...rest } = RPL_STATE;
+      const { adminAuth, ...rest } = RPL_STATE;
       const payload = { app: 'rpl-fixtures', version: 2, savedAt: new Date().toISOString(), data: JSON.parse(JSON.stringify(rest)) };
       const name = (RPL_STATE.tournament.name || 'RPL').replace(/[^\w\-]+/g, '_');
       const url = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' }));
@@ -2769,7 +2361,7 @@ function getOrCreateSheet(ss, name) {
 
     function openHelpModal() { const m = document.getElementById('helpModal'); m.classList.remove('hidden'); m.classList.add('flex'); }
     function closeHelpModal() { const m = document.getElementById('helpModal'); m.classList.add('hidden'); m.classList.remove('flex'); }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeHelpModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeHelpModal(); } });
 
     /* App logo: finds applogo.* in the same folder, whatever the image type */
     function handleAppLogoUpload(event) {
@@ -2798,31 +2390,54 @@ function getOrCreateSheet(ss, name) {
       event.target.value = '';
     }
 
-    function initAppLogo() {
+    function showAppLogo(src) {
       const img = document.getElementById('headerAppLogo');
       const fb = document.getElementById('headerLogoFallback');
       if (!img) return;
-      let saved = null;
-      try { saved = localStorage.getItem('sfc_app_logo'); } catch (e) {}
-      if (saved) { img.onerror = null; img.src = saved; img.classList.remove('hidden'); if (fb) fb.classList.add('hidden'); return; }
-      const exts = ['png', 'jpg', 'jpeg', 'webp', 'svg', 'gif', 'avif', 'jfif', 'bmp', 'ico'];
+      img.onerror = null;
+      img.src = src;
+      img.classList.remove('hidden');
+      if (fb) fb.classList.add('hidden');
+      const ic = document.querySelector('link[rel="icon"]');
+      if (ic) ic.href = src;
+    }
+
+    function showAppLogoFallback() {
+      const img = document.getElementById('headerAppLogo');
+      const fb = document.getElementById('headerLogoFallback');
+      if (img) { img.onerror = null; img.removeAttribute('src'); img.classList.add('hidden'); }
+      if (fb) fb.classList.remove('hidden');
+    }
+
+    function initAppLogo() {
+      const img = document.getElementById('headerAppLogo');
+      if (!img) return;
+      // Try sibling files first: plain "applogo" (no extension) + common extensions.
+      // This covers a file named exactly "applogo" as well as applogo.png / .jpg etc.
+      const candidates = ['applogo', 'applogo.png', 'applogo.jpg', 'applogo.jpeg', 'applogo.webp', 'applogo.svg', 'applogo.gif', 'applogo.avif', 'applogo.jfif', 'applogo.bmp', 'applogo.ico'];
       let i = 0;
-      const next = () => {
-        if (i >= exts.length) { img.classList.add('hidden'); if (fb) fb.classList.remove('hidden'); return; }
-        img.src = 'applogo.' + exts[i++];
+      const probeNext = () => {
+        if (i >= candidates.length) {
+          // No sibling file found: fall back to a previously uploaded logo, else SF placeholder.
+          let saved = null;
+          try { saved = localStorage.getItem('sfc_app_logo'); } catch (e) {}
+          if (saved) showAppLogo(saved);
+          else showAppLogoFallback();
+          return;
+        }
+        const src = candidates[i++];
+        const probe = new Image();
+        probe.onload = () => showAppLogo(src);
+        probe.onerror = probeNext;
+        probe.src = src;
       };
-      img.onerror = next;
-      img.onload = () => {
-        img.classList.remove('hidden'); if (fb) fb.classList.add('hidden');
-        const ic = document.querySelector('link[rel="icon"]'); if (ic) ic.href = img.src;
-      };
-      next();
+      probeNext();
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      initTheme();
       initAppLogo();
       loadSamplePreset('rpl8_groups');
-      updateAdminUI();
     });
   </script>
 </body>
