@@ -178,7 +178,8 @@
   <!-- Top Global Header -->
   <header class="sticky top-0 z-40 bg-[#0B101D]/90 backdrop-blur-md border-b border-slate-800/80 px-4 lg:px-8 py-3 flex items-center justify-between">
     <div class="flex items-center gap-3">
-      <div id="headerTournamentLogoWrapper" class="w-11 h-11 rounded-xl shadow-lg shadow-black/30 flex items-center justify-center overflow-hidden flex-none bg-gradient-to-br from-amber-500 to-emerald-700">
+      <input type="file" id="appLogoFile" accept="image/*" class="hidden" onchange="handleAppLogoUpload(event)">
+      <div id="headerTournamentLogoWrapper" role="button" tabindex="0" title="Click to choose your app logo" onclick="document.getElementById('appLogoFile').click()" onkeydown="if(event.key==='Enter')this.click()" class="cursor-pointer w-11 h-11 rounded-xl shadow-lg shadow-black/30 flex items-center justify-center overflow-hidden flex-none bg-gradient-to-br from-amber-500 to-emerald-700">
         <img id="headerAppLogo" alt="Smart Fixtures Creator" class="w-full h-full object-cover" />
         <span id="headerLogoFallback" class="hidden font-display text-lg text-black font-extrabold">SF</span>
       </div>
@@ -2771,10 +2772,39 @@ function getOrCreateSheet(ss, name) {
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeHelpModal(); });
 
     /* App logo: finds applogo.* in the same folder, whatever the image type */
+    function handleAppLogoUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        const probe = new Image();
+        probe.onload = () => {
+          const size = 256, c = document.createElement('canvas');
+          c.width = c.height = size;
+          const side = Math.min(probe.width, probe.height);
+          c.getContext('2d').drawImage(probe, (probe.width - side) / 2, (probe.height - side) / 2, side, side, 0, 0, size, size);
+          const data = c.toDataURL('image/png');
+          const img = document.getElementById('headerAppLogo'), fb = document.getElementById('headerLogoFallback');
+          img.onerror = null; img.src = data; img.classList.remove('hidden');
+          if (fb) fb.classList.add('hidden');
+          const ic = document.querySelector('link[rel="icon"]'); if (ic) ic.href = data;
+          try { localStorage.setItem('sfc_app_logo', data); showToast('App logo updated and remembered in this browser.', 'success'); }
+          catch (e) { showToast('Logo updated for this session only.', 'info'); }
+        };
+        probe.onerror = () => showToast('That file is not a readable image.', 'error');
+        probe.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+      event.target.value = '';
+    }
+
     function initAppLogo() {
       const img = document.getElementById('headerAppLogo');
       const fb = document.getElementById('headerLogoFallback');
       if (!img) return;
+      let saved = null;
+      try { saved = localStorage.getItem('sfc_app_logo'); } catch (e) {}
+      if (saved) { img.onerror = null; img.src = saved; img.classList.remove('hidden'); if (fb) fb.classList.add('hidden'); return; }
       const exts = ['png', 'jpg', 'jpeg', 'webp', 'svg', 'gif', 'avif', 'jfif', 'bmp', 'ico'];
       let i = 0;
       const next = () => {
