@@ -179,7 +179,7 @@
   <header class="sticky top-0 z-40 bg-[#0B101D]/90 backdrop-blur-md border-b border-slate-800/80 px-4 lg:px-8 py-3 flex items-center justify-between">
     <div class="flex items-center gap-3">
       <div id="headerTournamentLogoWrapper" class="w-11 h-11 rounded-xl shadow-lg shadow-black/30 flex items-center justify-center overflow-hidden flex-none bg-gradient-to-br from-amber-500 to-emerald-700">
-        <img id="headerAppLogo" src="applogo.png" alt="Smart Fixtures Creator" class="w-full h-full object-cover" onerror="this.classList.add('hidden');document.getElementById('headerLogoFallback').classList.remove('hidden')" />
+        <img id="headerAppLogo" alt="Smart Fixtures Creator" class="w-full h-full object-cover" />
         <span id="headerLogoFallback" class="hidden font-display text-lg text-black font-extrabold">SF</span>
       </div>
       <div>
@@ -2770,7 +2770,27 @@ function getOrCreateSheet(ss, name) {
     function closeHelpModal() { const m = document.getElementById('helpModal'); m.classList.add('hidden'); m.classList.remove('flex'); }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeHelpModal(); });
 
+    /* App logo: finds applogo.* in the same folder, whatever the image type */
+    function initAppLogo() {
+      const img = document.getElementById('headerAppLogo');
+      const fb = document.getElementById('headerLogoFallback');
+      if (!img) return;
+      const exts = ['png', 'jpg', 'jpeg', 'webp', 'svg', 'gif', 'avif', 'jfif', 'bmp', 'ico'];
+      let i = 0;
+      const next = () => {
+        if (i >= exts.length) { img.classList.add('hidden'); if (fb) fb.classList.remove('hidden'); return; }
+        img.src = 'applogo.' + exts[i++];
+      };
+      img.onerror = next;
+      img.onload = () => {
+        img.classList.remove('hidden'); if (fb) fb.classList.add('hidden');
+        const ic = document.querySelector('link[rel="icon"]'); if (ic) ic.href = img.src;
+      };
+      next();
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
+      initAppLogo();
       loadSamplePreset('rpl8_groups');
       updateAdminUI();
     });
