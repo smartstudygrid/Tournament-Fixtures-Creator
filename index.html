@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Smart Fixtures Creator</title>
+  <link rel="icon" href="applogo.png">
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -177,9 +178,9 @@
   <!-- Top Global Header -->
   <header class="sticky top-0 z-40 bg-[#0B101D]/90 backdrop-blur-md border-b border-slate-800/80 px-4 lg:px-8 py-3 flex items-center justify-between">
     <div class="flex items-center gap-3">
-      <div id="headerTournamentLogoWrapper" class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 via-amber-600 to-emerald-600 p-0.5 shadow-lg shadow-amber-500/10 flex items-center justify-center overflow-hidden">
-        <span id="headerLogoFallback" class="font-display text-xl text-black font-extrabold tracking-wider">RPL</span>
-        <img id="headerTournamentLogoImg" class="w-full h-full object-cover hidden rounded-lg" alt="Logo" />
+      <div id="headerTournamentLogoWrapper" class="w-11 h-11 rounded-xl shadow-lg shadow-black/30 flex items-center justify-center overflow-hidden flex-none bg-gradient-to-br from-amber-500 to-emerald-700">
+        <img id="headerAppLogo" src="applogo.png" alt="Smart Fixtures Creator" class="w-full h-full object-cover" onerror="this.classList.add('hidden');document.getElementById('headerLogoFallback').classList.remove('hidden')" />
+        <span id="headerLogoFallback" class="hidden font-display text-lg text-black font-extrabold">SF</span>
       </div>
       <div>
         <div class="flex items-center gap-2">
@@ -2449,10 +2450,6 @@ function getOrCreateSheet(ss, name) {
       reader.onload = function(e) {
         const b64 = e.target.result;
         RPL_STATE.tournament.logoBase64 = b64;
-        const hImg = document.getElementById('headerTournamentLogoImg');
-        const hFbk = document.getElementById('headerLogoFallback');
-        if (hImg) { hImg.src = b64; hImg.classList.remove('hidden'); }
-        if (hFbk) hFbk.classList.add('hidden');
 
         const pImg = document.getElementById('posterTournamentLogoImg');
         const pTxt = document.getElementById('posterTournamentLogoText');
@@ -2467,8 +2464,6 @@ function getOrCreateSheet(ss, name) {
 
     function resetTournamentLogo() {
       RPL_STATE.tournament.logoBase64 = null;
-      document.getElementById('headerTournamentLogoImg').classList.add('hidden');
-      document.getElementById('headerLogoFallback').classList.remove('hidden');
       document.getElementById('posterTournamentLogoImg').classList.add('hidden');
       document.getElementById('posterTournamentLogoText').classList.remove('hidden');
       document.getElementById('tournamentLogoBtnText').textContent = 'Upload Logo';
@@ -2657,7 +2652,7 @@ function getOrCreateSheet(ss, name) {
 
     function applyTournamentLogo(b64) {
       RPL_STATE.tournament.logoBase64 = b64 || null;
-      [['headerTournamentLogoImg', 'headerLogoFallback'], ['posterTournamentLogoImg', 'posterTournamentLogoText']].forEach(([i, f]) => {
+      [['posterTournamentLogoImg', 'posterTournamentLogoText']].forEach(([i, f]) => {
         const img = document.getElementById(i), fb = document.getElementById(f);
         if (img) { if (b64) img.src = b64; img.classList.toggle('hidden', !b64); }
         if (fb) fb.classList.toggle('hidden', !!b64);
