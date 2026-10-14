@@ -183,12 +183,9 @@
       </div>
       <div>
         <div class="flex items-center gap-2">
-          <h1 id="navTournamentTitle" class="font-bold text-base md:text-lg tracking-tight text-white flex items-center gap-1.5">
-            Riyadh Premier League
-            <span class="bg-amber-500/20 text-amber-400 text-xs px-2 py-0.5 rounded-full font-semibold border border-amber-500/30">S25</span>
-          </h1>
+          <h1 id="navTournamentTitle" class="font-bold text-base md:text-lg tracking-tight text-white flex items-center gap-1.5">Smart Fixtures Creator</h1>
         </div>
-        <p id="navTournamentSub" class="text-xs text-slate-400">October 2026 • Riyadh, KSA • Smart Fixtures Creator</p>
+        <p id="navTournamentSub" class="text-xs text-slate-400">Riyadh Premier League Season 25 • October 2026 • Riyadh, KSA</p>
       </div>
     </div>
 
@@ -1114,13 +1111,9 @@ function getOrCreateSheet(ss, name) {
         if (RPL_STATE.tournament.timeSlots.length === 0) RPL_STATE.tournament.timeSlots = ["07:30 AM", "01:30 PM", "06:30 PM"];
       }
 
-      const navTitle = document.getElementById('navTournamentTitle');
-      if (navTitle) {
-        navTitle.innerHTML = `${RPL_STATE.tournament.name} <span class="bg-amber-500/20 text-amber-400 text-xs px-2 py-0.5 rounded-full font-semibold border border-amber-500/30">S25</span>`;
-      }
       const navSub = document.getElementById('navTournamentSub');
       if (navSub) {
-        navSub.textContent = `${RPL_STATE.tournament.tag} • Smart Fixtures Creator`;
+        navSub.textContent = `${RPL_STATE.tournament.name} • ${RPL_STATE.tournament.tag}`;
       }
       const pName = document.getElementById('posterTournamentName');
       if (pName) pName.textContent = RPL_STATE.tournament.name.toUpperCase();
