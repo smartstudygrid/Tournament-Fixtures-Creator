@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Fixture Creator</title>
+  <title>Smart Fixtures Creator</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -144,18 +144,27 @@
     .th-bottom{position:absolute;left:0;right:0;bottom:0;height:70px;background:rgba(5,12,10,.88);border-top:3px solid #C8A456;display:flex;align-items:center;justify-content:space-around;font:800 22px Manrope,sans-serif}
     .th-bottom small{display:block;font:600 11px Manrope,sans-serif;color:#B3C3BB;letter-spacing:.12em;text-transform:uppercase;margin-bottom:2px}
     .th-bottom b{color:#F1D88A}
-    .fx-sheet{width:1080px!important;padding:56px 48px 40px!important;background:linear-gradient(180deg,#16403A 0%,#0F2D27 40%,#0B221D 100%)!important}
-    .fx-rounds{grid-template-columns:1fr!important;gap:26px!important}
+    .fx-sheet{width:1400px!important;padding:60px 68px 44px!important;background:linear-gradient(180deg,#16403A 0%,#0F2D27 40%,#0B221D 100%)!important}
+    .fx-chips span{font-size:18px!important;padding:9px 20px!important}
+    .fx-rounds{grid-template-columns:1fr 1fr!important;gap:26px!important}
     .fx-round{border-color:#33574B!important;background:rgba(255,255,255,.06)!important}
-    .fx-match{grid-template-columns:96px 1fr 56px 1fr!important;border-top-color:#2D4F43!important;padding:18px 22px 14px!important}
-    .fx-side{display:flex;align-items:center;justify-content:center;min-height:116px}
-    .fx-plate{width:112px;height:112px;border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden;background:rgba(255,255,255,.16);border:3px solid var(--c,#fff)}
-    .fx-plate img{width:100%;height:100%;object-fit:contain;padding:10px}
-    .fx-nameonly{font:800 26px/1.1 Manrope,sans-serif;text-align:center;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.5)}
-    .fx-vs{font-size:20px!important;color:#E3C677!important}
-    .fx-venue{color:#B3C3BB!important;font-size:15px!important}
-    .fx-ko{grid-template-columns:1fr 1fr!important}
-    .fx-foot{color:#B3C3BB!important}
+    .fx-rhead{font-size:32px!important;padding:16px 24px!important}
+    .fx-rhead span{font-size:20px!important}
+    .fx-match{grid-template-columns:96px 1fr 50px 1fr!important;column-gap:10px!important;border-top-color:#2D4F43!important;padding:18px 20px 14px!important}
+    .fx-when{font-size:16px!important}
+    .fx-when span{font-size:20px!important}
+    .fx-side{display:flex;align-items:center;justify-content:center;min-height:96px;min-width:0}
+    .fx-plate{width:92px;height:92px;border-radius:50%;overflow:hidden;display:flex;flex:none;border:3px solid #fff}
+    .fx-plate img{width:100%;height:100%;object-fit:cover!important;padding:0!important}
+    .fx-nameonly{font:800 25px/1.12 Manrope,sans-serif;text-align:center;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.5)}
+    .fx-vs{font-size:24px!important;color:#E3C677!important}
+    .fx-venue{color:#B3C3BB!important;font-size:18px!important}
+    .fx-h2{font-size:38px!important}
+    .fx-kocard h4{font-size:26px!important}
+    .fx-kocard p{font-size:19px!important}
+    .fx-kocard small{font-size:16px!important}
+    .fx-foot{color:#B3C3BB!important;font-size:19px!important}
+    .fx-logo img,.poster-crest img,.th-plate img,.th-mini img{object-fit:cover!important;padding:0!important}
     .cricket-mesh {
       background-image: radial-gradient(rgba(245, 158, 11, 0.08) 1px, transparent 0);
       background-size: 24px 24px;
@@ -179,7 +188,7 @@
             <span class="bg-amber-500/20 text-amber-400 text-xs px-2 py-0.5 rounded-full font-semibold border border-amber-500/30">S25</span>
           </h1>
         </div>
-        <p id="navTournamentSub" class="text-xs text-slate-400">October 2026 • Riyadh, KSA • Smart Fixture Creator</p>
+        <p id="navTournamentSub" class="text-xs text-slate-400">October 2026 • Riyadh, KSA • Smart Fixtures Creator</p>
       </div>
     </div>
 
@@ -190,6 +199,9 @@
         <!-- Rendered by updateAdminUI() -->
       </div>
 
+      <button type="button" onclick="openHelpModal()" title="How saving and opening works" aria-label="Help" class="inline-flex items-center justify-center w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 transition">
+        <i class="ph-bold ph-question text-base"></i>
+      </button>
       <button type="button" onclick="saveProjectJSON()" title="Save project to a JSON file" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 text-xs font-bold border border-slate-700 transition">
         <i class="ph ph-floppy-disk text-base text-amber-400"></i><span class="hidden md:inline">Save</span>
       </button>
@@ -577,6 +589,27 @@
     </div>
 
   </main>
+
+  <!-- MODAL: HELP -->
+  <div id="helpModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4" onclick="if(event.target===this)closeHelpModal()">
+    <div class="bg-[#0F1626] border border-slate-700 w-full max-w-lg rounded-2xl p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto" role="dialog" aria-labelledby="helpTitle">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 id="helpTitle" class="text-lg font-bold text-white flex items-center gap-2"><i class="ph ph-floppy-disk text-amber-400"></i> Saving and continuing later</h3>
+        <button type="button" onclick="closeHelpModal()" aria-label="Close" class="text-slate-400 hover:text-white p-1 rounded-lg"><i class="ph ph-x text-lg"></i></button>
+      </div>
+      <p class="text-sm text-slate-300 leading-relaxed">This page does not save automatically. If you close or refresh the tab, your work is gone unless you saved it as a file first.</p>
+      <p class="text-sm text-slate-300 leading-relaxed">That file ends in <span class="font-mono text-amber-400">.json</span>. Think of it as a save game: it holds your teams, logos, fixtures, scores and settings. You do not open it in Word or edit it yourself. Only this app reads it.</p>
+      <ol class="space-y-3 text-sm text-slate-200">
+        <li class="flex gap-3"><span class="w-6 h-6 flex-none rounded-full bg-amber-500 text-black text-xs font-bold flex items-center justify-center">1</span><span><b>Save:</b> click <b>Save</b> at the top. A file downloads to your Downloads folder.</span></li>
+        <li class="flex gap-3"><span class="w-6 h-6 flex-none rounded-full bg-amber-500 text-black text-xs font-bold flex items-center justify-center">2</span><span><b>Keep it safe:</b> leave it where it is, or copy it to Google Drive, email or WhatsApp yourself.</span></li>
+        <li class="flex gap-3"><span class="w-6 h-6 flex-none rounded-full bg-amber-500 text-black text-xs font-bold flex items-center justify-center">3</span><span><b>Continue later:</b> open this page again, click <b>Open</b> and choose that file. Everything comes back as you left it.</span></li>
+      </ol>
+      <div class="rounded-xl border border-slate-700 bg-slate-900/60 p-3 text-xs text-slate-400 leading-relaxed">
+        Tip: save again after you enter scores or change teams. Each save makes a new file with today's date, so older ones stay as backups. The file never contains your admin password.
+      </div>
+      <div class="flex justify-end"><button type="button" onclick="closeHelpModal()" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs">Got it</button></div>
+    </div>
+  </div>
 
   <!-- MODAL: ADMIN LOGIN -->
   <div id="adminLoginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
@@ -1087,7 +1120,7 @@ function getOrCreateSheet(ss, name) {
       }
       const navSub = document.getElementById('navTournamentSub');
       if (navSub) {
-        navSub.textContent = `${RPL_STATE.tournament.tag} • Smart Fixture Creator`;
+        navSub.textContent = `${RPL_STATE.tournament.tag} • Smart Fixtures Creator`;
       }
       const pName = document.getElementById('posterTournamentName');
       if (pName) pName.textContent = RPL_STATE.tournament.name.toUpperCase();
@@ -2609,7 +2642,7 @@ function getOrCreateSheet(ss, name) {
       a.download = `${name}_${new Date().toISOString().slice(0, 10)}.json`;
       document.body.appendChild(a); a.click(); a.remove();
       setTimeout(() => URL.revokeObjectURL(url), 1000);
-      showToast('Project saved to your device.', 'success');
+      showToast('Saved. Find the .json file in your Downloads. Use Open to continue later.', 'success');
     }
 
     function loadProjectJSON(event) {
@@ -2743,6 +2776,11 @@ function getOrCreateSheet(ss, name) {
         if (btn) { btn.disabled = false; btn.innerHTML = original; }
       }
     }
+
+
+    function openHelpModal() { const m = document.getElementById('helpModal'); m.classList.remove('hidden'); m.classList.add('flex'); }
+    function closeHelpModal() { const m = document.getElementById('helpModal'); m.classList.add('hidden'); m.classList.remove('flex'); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeHelpModal(); });
 
     window.addEventListener('DOMContentLoaded', () => {
       loadSamplePreset('rpl8_groups');
