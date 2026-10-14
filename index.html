@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RPL Season 25 - Fixtures, Knockouts & Broadcast Studio</title>
+  <title>Smart Fixture Creator</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -125,6 +125,37 @@
     .fx-kocard small{display:block;margin-top:6px;font:500 12px Manrope,sans-serif;color:#93A39B}
     .fx-foot{margin-top:40px;text-align:center;font:500 14px Manrope,sans-serif;color:#93A39B}
     .fx-foot b{color:#E3C677;font-weight:700}
+
+    #cricketBroadcastPoster.thumb-mode{width:800px!important;max-width:none!important;height:450px!important;padding:0!important;flex:none;background:#0A1511!important}
+    #cricketBroadcastPoster.thumb-mode>div:not(#posterDynamicContent){display:none!important}
+    #cricketBroadcastPoster.thumb-mode #posterDynamicContent{position:absolute!important;inset:0;padding:0!important}
+    .th{position:relative;width:800px;height:450px;overflow:hidden;font-family:Manrope,sans-serif;color:#fff}
+    .th-top{position:absolute;top:16px;left:22px;right:22px;display:flex;justify-content:space-between;align-items:center}
+    .th-brand{display:flex;align-items:center;gap:10px;font:800 15px Manrope,sans-serif;letter-spacing:.04em;text-transform:uppercase;text-shadow:0 2px 0 rgba(0,0,0,.6)}
+    .th-mini{width:40px;height:40px;border-radius:50%;border:2px solid #E3C677;background:#10241E;display:flex;align-items:center;justify-content:center;overflow:hidden;font:700 14px Fraunces,serif;color:#E3C677}
+    .th-mini img{width:100%;height:100%;object-fit:contain;padding:3px}
+    .th-badge{padding:7px 18px;border-radius:8px;background:linear-gradient(180deg,#F1D88A,#C8A456);color:#1A1405;font:800 20px Manrope,sans-serif;box-shadow:0 4px 0 #6B531A}
+    .th-main{position:absolute;top:70px;left:0;right:0;height:310px;display:flex;align-items:center;justify-content:space-around}
+    .th-side{width:290px;display:flex;flex-direction:column;align-items:center}
+    .th-plate{width:210px;height:210px;border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden;background:rgba(255,255,255,.16);border:4px solid #fff;font:800 64px Manrope,sans-serif}
+    .th-plate img{width:100%;height:100%;object-fit:contain;padding:18px}
+    .th-name{margin-top:18px;font:800 28px/1.05 Manrope,sans-serif;text-transform:uppercase;text-align:center;text-shadow:0 3px 0 rgba(0,0,0,.65)}
+    .th-vs{font:700 100px/1 Fraunces,serif;color:#F1D88A;text-shadow:0 6px 0 #6B531A,0 0 34px rgba(241,216,138,.65)}
+    .th-bottom{position:absolute;left:0;right:0;bottom:0;height:70px;background:rgba(5,12,10,.88);border-top:3px solid #C8A456;display:flex;align-items:center;justify-content:space-around;font:800 22px Manrope,sans-serif}
+    .th-bottom small{display:block;font:600 11px Manrope,sans-serif;color:#B3C3BB;letter-spacing:.12em;text-transform:uppercase;margin-bottom:2px}
+    .th-bottom b{color:#F1D88A}
+    .fx-sheet{width:1080px!important;padding:56px 48px 40px!important;background:linear-gradient(180deg,#16403A 0%,#0F2D27 40%,#0B221D 100%)!important}
+    .fx-rounds{grid-template-columns:1fr!important;gap:26px!important}
+    .fx-round{border-color:#33574B!important;background:rgba(255,255,255,.06)!important}
+    .fx-match{grid-template-columns:96px 1fr 56px 1fr!important;border-top-color:#2D4F43!important;padding:18px 22px 14px!important}
+    .fx-side{display:flex;align-items:center;justify-content:center;min-height:116px}
+    .fx-plate{width:112px;height:112px;border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden;background:rgba(255,255,255,.16);border:3px solid var(--c,#fff)}
+    .fx-plate img{width:100%;height:100%;object-fit:contain;padding:10px}
+    .fx-nameonly{font:800 26px/1.1 Manrope,sans-serif;text-align:center;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.5)}
+    .fx-vs{font-size:20px!important;color:#E3C677!important}
+    .fx-venue{color:#B3C3BB!important;font-size:15px!important}
+    .fx-ko{grid-template-columns:1fr 1fr!important}
+    .fx-foot{color:#B3C3BB!important}
     .cricket-mesh {
       background-image: radial-gradient(rgba(245, 158, 11, 0.08) 1px, transparent 0);
       background-size: 24px 24px;
@@ -148,7 +179,7 @@
             <span class="bg-amber-500/20 text-amber-400 text-xs px-2 py-0.5 rounded-full font-semibold border border-amber-500/30">S25</span>
           </h1>
         </div>
-        <p id="navTournamentSub" class="text-xs text-slate-400">October 2026 • Riyadh, KSA • League Studio</p>
+        <p id="navTournamentSub" class="text-xs text-slate-400">October 2026 • Riyadh, KSA • Smart Fixture Creator</p>
       </div>
     </div>
 
@@ -1056,7 +1087,7 @@ function getOrCreateSheet(ss, name) {
       }
       const navSub = document.getElementById('navTournamentSub');
       if (navSub) {
-        navSub.textContent = `${RPL_STATE.tournament.tag} • League Studio`;
+        navSub.textContent = `${RPL_STATE.tournament.tag} • Smart Fixture Creator`;
       }
       const pName = document.getElementById('posterTournamentName');
       if (pName) pName.textContent = RPL_STATE.tournament.name.toUpperCase();
@@ -1745,6 +1776,8 @@ function getOrCreateSheet(ss, name) {
       const picker = document.getElementById('activeMatchPicker');
       if (!container || !picker) return;
       picker.innerHTML = '';
+      const posterEl = document.getElementById('cricketBroadcastPoster');
+      if (posterEl) posterEl.classList.toggle('thumb-mode', RPL_STATE.posterMode === 'match' && RPL_STATE.fixtures.length > 0);
 
       if (RPL_STATE.fixtures.length === 0) {
         container.innerHTML = `<div class="py-16 text-center text-slate-500"><p>Generate fixtures to load broadcast card.</p></div>`;
@@ -1771,65 +1804,26 @@ function getOrCreateSheet(ss, name) {
       if (RPL_STATE.posterMode === 'match') {
         const roundTitle = document.getElementById('posterRoundNumber');
         if (roundTitle) roundTitle.textContent = `ROUND ${selectedMatch.round} • ${selectedMatch.date.toUpperCase()}`;
-
+        const T = RPL_STATE.tournament, h = selectedMatch.homeTeam, a = selectedMatch.awayTeam;
+        const glow = c => `box-shadow:0 0 28px 8px ${esc(c)}cc,0 0 70px 22px ${esc(c)}66;border-color:#fff;`;
+        const side = t => `
+          <div class="th-side">
+            <div class="th-plate" style="${glow(t.color)}color:${esc(t.color)};background:radial-gradient(circle,rgba(255,255,255,.28),rgba(255,255,255,.10))">${t.logo ? `<img src="${esc(t.logo)}" alt="">` : esc(t.code)}</div>
+            <div class="th-name">${esc(t.name)}</div>
+          </div>`;
         container.innerHTML = `
-          <div class="my-4">
-            <div class="flex justify-center mb-6">
-              <div class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500/20 via-amber-500/30 to-amber-500/20 px-5 py-1.5 rounded-full border border-amber-500/40 shadow-lg">
-                <i class="ph-fill ph-cricket text-amber-400"></i>
-                <span class="font-display tracking-widest text-amber-300 text-base">MATCH #${selectedMatch.matchNumber}</span>
-                <span class="text-slate-400">•</span>
-                <span class="text-xs font-bold text-white tracking-wider">${RPL_STATE.tournament.format}</span>
-              </div>
+          <div class="th" style="background:radial-gradient(ellipse at 50% 45%,rgba(255,255,255,.14),transparent 60%),linear-gradient(100deg,${esc(h.color)}dd 0%,${esc(h.color)}55 40%,#0A1511 50%,${esc(a.color)}55 60%,${esc(a.color)}dd 100%)">
+            <div class="th-top">
+              <div class="th-brand"><span class="th-mini">${T.logoBase64 ? `<img src="${esc(T.logoBase64)}" alt="">` : 'RPL'}</span>${esc(T.name)}</div>
+              <div class="th-badge">MATCH ${selectedMatch.matchNumber}</div>
             </div>
-
-            <!-- Head-To-Head Big Team Cards -->
-            <div class="grid grid-cols-11 items-center gap-2">
-              <div class="col-span-5 flex flex-col items-center text-center p-4 rounded-2xl bg-gradient-to-b from-slate-900/90 to-[#0A0F1D]/90 border border-slate-800 shadow-xl relative overflow-hidden">
-                <div class="w-24 h-24 md:w-28 md:h-28 rounded-2xl p-1 mb-3 flex items-center justify-center shadow-2xl relative" style="background: radial-gradient(circle, ${selectedMatch.homeTeam.color}33, transparent); border: 2px solid ${selectedMatch.homeTeam.color}88;">
-                  ${selectedMatch.homeTeam.logo ? `<img src="${selectedMatch.homeTeam.logo}" class="w-full h-full object-cover rounded-xl shadow-lg">` : `<div class="font-display text-4xl font-black" style="color:${selectedMatch.homeTeam.color};">${selectedMatch.homeTeam.code}</div>`}
-                </div>
-                <h3 class="font-display text-2xl text-white tracking-wide leading-tight">${selectedMatch.homeTeam.name.toUpperCase()}</h3>
-                <span class="text-xs font-mono font-bold tracking-widest px-2.5 py-0.5 rounded-md mt-1" style="background:${selectedMatch.homeTeam.color}22; color:${selectedMatch.homeTeam.color}; border:1px solid ${selectedMatch.homeTeam.color}44;">
-                  ${selectedMatch.homeTeam.code}
-                </span>
-              </div>
-
-              <div class="col-span-1 flex flex-col items-center justify-center">
-                <div class="w-12 h-12 rounded-full bg-gradient-to-b from-amber-500 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/30 text-black font-display text-2xl font-black">
-                  VS
-                </div>
-              </div>
-
-              <div class="col-span-5 flex flex-col items-center text-center p-4 rounded-2xl bg-gradient-to-b from-slate-900/90 to-[#0A0F1D]/90 border border-slate-800 shadow-xl relative overflow-hidden">
-                <div class="w-24 h-24 md:w-28 md:h-28 rounded-2xl p-1 mb-3 flex items-center justify-center shadow-2xl relative" style="background: radial-gradient(circle, ${selectedMatch.awayTeam.color}33, transparent); border: 2px solid ${selectedMatch.awayTeam.color}88;">
-                  ${selectedMatch.awayTeam.logo ? `<img src="${selectedMatch.awayTeam.logo}" class="w-full h-full object-cover rounded-xl shadow-lg">` : `<div class="font-display text-4xl font-black" style="color:${selectedMatch.awayTeam.color};">${selectedMatch.awayTeam.code}</div>`}
-                </div>
-                <h3 class="font-display text-2xl text-white tracking-wide leading-tight">${selectedMatch.awayTeam.name.toUpperCase()}</h3>
-                <span class="text-xs font-mono font-bold tracking-widest px-2.5 py-0.5 rounded-md mt-1" style="background:${selectedMatch.awayTeam.color}22; color:${selectedMatch.awayTeam.color}; border:1px solid ${selectedMatch.awayTeam.color}44;">
-                  ${selectedMatch.awayTeam.code}
-                </span>
-              </div>
+            <div class="th-main">${side(h)}<div class="th-vs">VS</div>${side(a)}</div>
+            <div class="th-bottom">
+              <div><small>Date</small>${esc(selectedMatch.date)}</div>
+              <div><small>First ball</small><b>${esc(selectedMatch.time)}</b></div>
+              <div><small>Ground</small>${esc(selectedMatch.venue)}</div>
             </div>
-
-            <div class="mt-6 bg-[#0E1526]/80 border border-amber-500/20 rounded-xl p-3.5 flex items-center justify-around text-center backdrop-blur-sm">
-              <div>
-                <span class="text-[10px] uppercase font-mono text-slate-400 block tracking-wider">DATE</span>
-                <span class="font-bold text-xs text-white">${selectedMatch.date}</span>
-              </div>
-              <div class="w-px h-6 bg-slate-800"></div>
-              <div>
-                <span class="text-[10px] uppercase font-mono text-amber-400 block tracking-wider">FIRST BALL</span>
-                <span class="font-bold text-sm text-amber-400">${selectedMatch.time}</span>
-              </div>
-              <div class="w-px h-6 bg-slate-800"></div>
-              <div>
-                <span class="text-[10px] uppercase font-mono text-slate-400 block tracking-wider">GROUND</span>
-                <span class="font-bold text-xs text-white">${selectedMatch.venue}</span>
-              </div>
-            </div>
-          </div>
-        `;
+          </div>`;
       } else if (RPL_STATE.posterMode === 'knockout') {
         const finalObj = RPL_STATE.knockouts.final;
         const roundTitle = document.getElementById('posterRoundNumber');
@@ -2683,16 +2677,18 @@ function getOrCreateSheet(ss, name) {
       const original = btn ? btn.innerHTML : '';
       if (btn) { btn.disabled = true; btn.innerHTML = '<i class="ph ph-spinner-gap animate-spin"></i> Building image'; }
 
-      const crest = t => `<span class="fx-crest" style="border-color:${esc(t.color)}99;background:${esc(t.color)}22;color:${esc(t.color)}">${t.logo ? `<img src="${esc(t.logo)}" alt="">` : esc(t.code)}</span>`;
+      const crest = t => t.logo
+        ? `<span class="fx-plate" style="--c:${esc(t.color)};border-color:#fff;box-shadow:0 0 22px 6px ${esc(t.color)}cc,0 0 54px 14px ${esc(t.color)}66"><img src="${esc(t.logo)}" alt=""></span>`
+        : `<span class="fx-nameonly">${esc(t.name)}</span>`;
       const rounds = RPL_STATE.fixtures.map(r => `
         <div class="fx-round">
           <div class="fx-rhead">Round ${r.roundNumber}<span>${esc(r.date)}</span></div>
           ${r.matches.map(m => `
             <div class="fx-match">
               <div class="fx-when">M${m.matchNumber}<span>${esc(m.time)}</span></div>
-              <div class="fx-team fx-home"><span>${esc(m.homeTeam.name)}</span>${crest(m.homeTeam)}</div>
+              <div class="fx-side">${crest(m.homeTeam)}</div>
               <div class="fx-vs">VS</div>
-              <div class="fx-team">${crest(m.awayTeam)}<span>${esc(m.awayTeam.name)}</span></div>
+              <div class="fx-side">${crest(m.awayTeam)}</div>
               <div class="fx-venue"><span>${esc(m.venue)}</span>${grouped && m.group ? `<span>Pool ${esc(m.group)}</span>` : ''}</div>
             </div>`).join('')}
         </div>`).join('');
