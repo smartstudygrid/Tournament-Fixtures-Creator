@@ -419,7 +419,7 @@
             </span>
             <h2 class="text-2xl md:text-3xl font-display tracking-wide text-white mt-1">League Rules, Matchdays & Format</h2>
             <p class="text-xs md:text-sm text-slate-400 max-w-2xl mt-1">
-              Select between a 2-Group / Pool structure or a Single Round-Robin. Set your weekend cricket schedule (Saturdays or Fridays) and venues.
+              Select between a multi-Pool structure or a Single Round-Robin. Set your weekend cricket schedule (Saturdays or Fridays) and venues.
             </p>
           </div>
 
@@ -444,8 +444,18 @@
             <label class="cursor-pointer flex items-start gap-3 p-3.5 rounded-xl border border-slate-700 bg-[#0B101D] hover:border-amber-500/50 has-[:checked]:border-amber-500 has-[:checked]:bg-amber-500/10 transition">
               <input type="radio" name="leagueStructureRadio" value="groups" checked onchange="handleStructureChange('groups')" class="mt-1 text-amber-500 focus:ring-amber-500">
               <div>
-                <span class="block text-sm font-bold text-white">Split into 2 Pools (Pool A & Pool B)</span>
-                <span class="block text-xs text-slate-400 mt-0.5">Teams play within their assigned pool. Top 2 from each pool advance to playoffs.</span>
+                <span class="block text-sm font-bold text-white">Split into Pools (A, B, C, D…)</span>
+                <span class="block text-xs text-slate-400 mt-0.5">Teams play within their assigned pool.</span>
+                <label class="mt-2 inline-flex items-center gap-2 text-xs font-semibold text-slate-300">
+                  Number of pools:
+                  <select id="cfgPoolCount" onchange="setPoolCount(this.value)" class="bg-[#080D1A] border border-slate-700 rounded-lg px-2.5 py-1.5 text-sm text-white focus:outline-none focus:border-amber-500">
+                    <option value="2">2 pools</option>
+                    <option value="3">3 pools</option>
+                    <option value="4">4 pools</option>
+                    <option value="5">5 pools</option>
+                    <option value="6">6 pools</option>
+                  </select>
+                </label>
               </div>
             </label>
 
@@ -453,7 +463,7 @@
               <input type="radio" name="leagueStructureRadio" value="single" onchange="handleStructureChange('single')" class="mt-1 text-amber-500 focus:ring-amber-500">
               <div>
                 <span class="block text-sm font-bold text-white">Single Unified Round Robin</span>
-                <span class="block text-xs text-slate-400 mt-0.5">All teams in one single table. Everyone plays everyone, top 4 advance to playoffs.</span>
+                <span class="block text-xs text-slate-400 mt-0.5">All teams in one single table. Everyone plays everyone.</span>
               </div>
             </label>
           </div>
@@ -507,6 +517,22 @@
             <input type="text" id="cfgTimeSlots" value="07:30 AM, 01:30 PM, 06:30 PM" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500" placeholder="Comma separated">
           </div>
 
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Legs</label>
+            <label class="flex items-center gap-2 bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-200 cursor-pointer select-none">
+              <input type="checkbox" id="cfgDoubleRR" class="accent-amber-500"> Double round robin (home &amp; away)
+            </label>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Skip Dates (breaks / holidays — no matches these weeks)</label>
+            <div class="flex items-center gap-2">
+              <input type="date" id="cfgBlackoutDate" class="flex-1 bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+              <button type="button" onclick="addBlackoutDate()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 transition flex-none">Add</button>
+            </div>
+            <div id="blackoutChips" class="flex flex-wrap gap-2 mt-2"></div>
+          </div>
+
           <div class="sm:col-span-2">
             <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Sponsors / Partners (optional)</label>
             <input type="text" id="cfgSponsors" value="" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500" placeholder="e.g. Al Rajhi Bank, STC — shown on banner & cards">
@@ -545,7 +571,7 @@
 
         <div class="flex items-center gap-2">
           <button type="button" id="autoSplitBtn" onclick="autoDistributePools()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition flex items-center gap-1.5">
-            <i class="ph ph-arrows-split text-amber-400"></i> Auto Split 50/50
+            <i class="ph ph-arrows-split text-amber-400"></i> Auto Balance Pools
           </button>
           <button type="button" onclick="openAddTeamModal()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 transition flex items-center gap-1.5">
             <i class="ph-bold ph-plus"></i> Add New Team
@@ -579,6 +605,9 @@
           <button type="button" id="fullImageBtn" onclick="downloadFullFixtureImage()" class="flex-none whitespace-nowrap px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 font-bold text-xs border border-slate-700 transition flex items-center gap-2">
             <i class="ph-bold ph-image text-base text-amber-400"></i> Full Fixture Image
           </button>
+          <button type="button" onclick="exportToWhatsApp()" class="flex-none whitespace-nowrap px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 font-bold text-xs border border-slate-700 transition flex items-center gap-2">
+            <i class="ph-bold ph-whatsapp-logo text-base text-emerald-400"></i> WhatsApp Text
+          </button>
           <label class="flex-none flex items-center gap-2 px-3 py-2.5 rounded-xl border border-slate-700 bg-slate-800 text-xs font-semibold text-slate-100 select-none">
             Theme:
             <select id="scheduleThemeSelect" class="bg-transparent text-xs text-white font-semibold focus:outline-none">
@@ -605,7 +634,7 @@
       </section>
 
       <div id="fixturesStaleBanner" class="hidden stale-banner">
-        <span><i class="ph-fill ph-warning"></i> Teams changed since this schedule was built. Regenerating clears any scores you entered.</span>
+        <span><i class="ph-fill ph-warning"></i> Teams changed since this schedule was built. Regenerate to rebuild the schedule.</span>
         <button type="button" onclick="generateFixtures()" class="px-3.5 py-2 rounded-xl bg-amber-500 text-black font-bold text-xs">Regenerate schedule</button>
       </div>
 
@@ -753,7 +782,7 @@
         <li class="flex gap-3"><span class="w-6 h-6 flex-none rounded-full bg-amber-500 text-black text-xs font-bold flex items-center justify-center">3</span><span><b>Continue later:</b> open this page again, click <b>Open</b> and choose that file. Everything comes back as you left it.</span></li>
       </ol>
       <div class="rounded-xl border border-slate-700 bg-slate-900/60 p-3 text-xs text-slate-400 leading-relaxed">
-        Tip: save again after you enter scores or change teams. Each save makes a new file with today's date, so older ones stay as backups.
+        Tip: save again after you change teams or fixtures. Each save makes a new file with today's date, so older ones stay as backups.
       </div>
       <div class="flex justify-end"><button type="button" onclick="closeHelpModal()" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs">Got it</button></div>
     </div>
@@ -824,6 +853,54 @@
     </div>
   </div>
 
+  <!-- MODAL: EDIT MATCH (date / time / venue / swap) -->
+  <div id="matchModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-[#0F1626] border border-slate-700 w-full max-w-md rounded-2xl p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 id="matchModalTitle" class="text-lg font-bold text-white flex items-center gap-2">
+          <i class="ph ph-calendar-blank text-amber-400"></i> Edit Match
+        </h3>
+        <button type="button" onclick="closeMatchEditModal()" class="text-slate-400 hover:text-white p-1 rounded-lg">
+          <i class="ph ph-x text-lg"></i>
+        </button>
+      </div>
+
+      <div class="flex items-center justify-between gap-2 bg-[#080D1A] border border-slate-800 rounded-xl px-3.5 py-2.5">
+        <span id="matchEditHome" class="text-sm font-bold text-white truncate"></span>
+        <button type="button" onclick="swapEditTeams()" title="Swap home & away" class="flex-none p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 transition">
+          <i class="ph-bold ph-arrows-left-right"></i>
+        </button>
+        <span id="matchEditAway" class="text-sm font-bold text-white truncate text-right"></span>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase mb-1.5">Match Date</label>
+          <input type="date" id="matchEditDate" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase mb-1.5">Time</label>
+            <input type="text" id="matchEditTime" list="matchEditTimeList" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500" placeholder="07:30 AM">
+            <datalist id="matchEditTimeList"></datalist>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase mb-1.5">Venue</label>
+            <input type="text" id="matchEditVenue" list="matchEditVenueList" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500" placeholder="Ground">
+            <datalist id="matchEditVenueList"></datalist>
+          </div>
+        </div>
+      </div>
+
+      <input type="hidden" id="matchEditingId" value="">
+
+      <div class="pt-4 border-t border-slate-800 flex items-center justify-end gap-2.5">
+        <button type="button" onclick="closeMatchEditModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold">Cancel</button>
+        <button type="button" onclick="saveMatchEdit()" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs">Save Match</button>
+      </div>
+    </div>
+  </div>
+
 
   <!-- MAIN SCRIPT ENGINE -->
   <script>
@@ -842,7 +919,10 @@
       tournament: {
         name: "Riyadh Premier League Season 25",
         tag: "October 2026 • Riyadh, KSA",
-        structure: "groups", // 'groups' (Pool A/B) or 'single' (Round Robin)
+        structure: "groups", // 'groups' (pools) or 'single' (Round Robin)
+        poolCount: 2, // number of pools when structure is 'groups'
+        doubleRoundRobin: false, // when true, every pairing is played twice (home & away)
+        blackoutDates: [], // 'YYYY-MM-DD' dates with no matches; schedule skips the week
         matchDay: "saturday",
         startDate: "2026-10-03",
         format: "T20 Championship (20 Overs)",
@@ -934,6 +1014,32 @@
       }
     }
 
+    /* ---------- Pools: any count (A..H) ---------- */
+    const POOL_COLORS = ['#F59E0B', '#10B981', '#3B82F6', '#EC4899', '#8B5CF6', '#06B6D4', '#EAB308', '#EF4444'];
+    function poolKeys() {
+      const n = Math.min(8, Math.max(2, RPL_STATE.tournament.poolCount || 2));
+      return Array.from({ length: n }, (_, i) => String.fromCharCode(65 + i));
+    }
+    function poolColor(g) {
+      const i = poolKeys().indexOf(g);
+      return POOL_COLORS[(i < 0 ? 0 : i) % POOL_COLORS.length];
+    }
+    function validPool(g) {
+      const keys = poolKeys();
+      return keys.includes(g) ? g : keys[0];
+    }
+    function setPoolCount(v) {
+      const n = Math.min(6, Math.max(2, parseInt(v, 10) || 2));
+      RPL_STATE.tournament.poolCount = n;
+      const sel = document.getElementById('cfgPoolCount');
+      if (sel) sel.value = String(n);
+      // Redistribute teams that no longer belong to a pool
+      const keys = poolKeys();
+      RPL_STATE.teams.forEach(t => { if (!keys.includes(t.group)) t.group = smallestPool(keys); });
+      onTeamsChanged();
+      showToast(`Tournament now uses ${n} pools (${keys.join(', ')}).`, 'info');
+    }
+
     function handleStructureChange(mode) {
       RPL_STATE.tournament.structure = mode;
       const hiddenInput = document.getElementById('cfgLeagueStructure');
@@ -948,7 +1054,7 @@
         }
       }
       onTeamsChanged();
-      showToast(mode === 'groups' ? 'Switched to 2 Pools format.' : 'Switched to Single Round Robin.', 'info');
+      showToast(mode === 'groups' ? `Switched to ${poolKeys().length}-pool format.` : 'Switched to Single Round Robin.', 'info');
     }
 
     function syncTournamentInputs() {
@@ -961,6 +1067,8 @@
       const venuesInput = document.getElementById('cfgVenues');
       const timeSlotsInput = document.getElementById('cfgTimeSlots');
       const sponsorsInput = document.getElementById('cfgSponsors');
+      const poolCountSel = document.getElementById('cfgPoolCount');
+      const doubleRRInput = document.getElementById('cfgDoubleRR');
 
       if (nameInput) RPL_STATE.tournament.name = nameInput.value.trim() || "Riyadh Premier League";
       if (tagInput) RPL_STATE.tournament.tag = tagInput.value.trim() || "October 2026";
@@ -982,6 +1090,15 @@
       }
 
       if (sponsorsInput) RPL_STATE.tournament.sponsors = sponsorsInput.value.trim();
+      if (poolCountSel) {
+        const n = Math.min(6, Math.max(2, parseInt(poolCountSel.value, 10) || 2));
+        if (n !== RPL_STATE.tournament.poolCount) {
+          RPL_STATE.tournament.poolCount = n;
+          const keys = poolKeys();
+          RPL_STATE.teams.forEach(t => { if (!keys.includes(t.group)) t.group = smallestPool(keys); });
+        }
+      }
+      if (doubleRRInput) RPL_STATE.tournament.doubleRoundRobin = !!doubleRRInput.checked;
 
       const navSub = document.getElementById('navTournamentSub');
       if (navSub) {
@@ -1013,9 +1130,10 @@
         return;
       }
 
-      // 2 Groups: Pool A and Pool B
-      container.className = "grid grid-cols-1 lg:grid-cols-2 gap-6";
-      ['A', 'B'].forEach(groupKey => {
+      // Groups: one column per pool (A, B, C, D…)
+      const keys = poolKeys();
+      container.className = "grid grid-cols-1 gap-6 " + (keys.length > 2 ? "md:grid-cols-2 xl:grid-cols-3" : "lg:grid-cols-2");
+      keys.forEach(groupKey => {
         const groupTeams = RPL_STATE.teams.filter(t => t.group === groupKey);
         const groupCol = document.createElement('div');
         groupCol.className = "bg-[#0B101D] border border-slate-800 rounded-2xl p-5 space-y-4 shadow-xl";
@@ -1023,7 +1141,7 @@
         groupCol.innerHTML = `
           <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
             <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full ${groupKey === 'A' ? 'bg-amber-400' : 'bg-emerald-400'}"></span>
+              <span class="w-3 h-3 rounded-full" style="background:${poolColor(groupKey)}"></span>
               <h3 class="font-display text-xl text-white tracking-wider">POOL ${groupKey} (${groupTeams.length} TEAMS)</h3>
             </div>
             <span class="text-xs text-slate-400">Intra-Pool Round Robin</span>
@@ -1059,8 +1177,8 @@
         </div>
         <div class="flex items-center gap-1">
           ${showGroupToggle ? `
-          <button type="button" onclick="toggleTeamGroup('${team.id}')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[10px] text-amber-300 font-mono" title="Move to alternate pool">
-            Pool ${team.group === 'A' ? 'B ➔' : 'A ➔'}
+          <button type="button" onclick="toggleTeamGroup('${team.id}')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[10px] text-amber-300 font-mono" title="Move to next pool">
+            → Pool ${nextPoolLabel(team.group)}
           </button>
           ` : ''}
           <button type="button" onclick="editTeam('${team.id}')" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-amber-400 transition">
@@ -1074,21 +1192,29 @@
       return card;
     }
 
+    function nextPoolLabel(g) {
+      const keys = poolKeys();
+      const i = keys.indexOf(g);
+      return keys[(i + 1) % keys.length];
+    }
+
     function toggleTeamGroup(teamId) {
       const team = RPL_STATE.teams.find(t => t.id === teamId);
       if (team) {
-        team.group = team.group === 'A' ? 'B' : 'A';
+        team.group = nextPoolLabel(validPool(team.group));
         onTeamsChanged();
         showToast(`Moved ${team.name} to Pool ${team.group}`, 'info');
       }
     }
 
     function autoDistributePools() {
-      RPL_STATE.teams.forEach((team, idx) => {
-        team.group = idx % 2 === 0 ? 'A' : 'B';
+      const keys = poolKeys();
+      const sorted = [...RPL_STATE.teams].sort((a, b) => String(a.name).localeCompare(String(b.name)));
+      sorted.forEach((team, idx) => {
+        team.group = keys[idx % keys.length];
       });
       onTeamsChanged();
-      showToast('Distributed teams 50/50 between Pool A and Pool B', 'success');
+      showToast(`Balanced ${RPL_STATE.teams.length} teams across ${keys.map(k => 'Pool ' + k).join(', ')}`, 'success');
     }
 
     let SHUFFLE_NEXT = false;
@@ -1110,9 +1236,10 @@
       }
 
       const isGrouped = RPL_STATE.tournament.structure === 'groups';
+      const poolList = isGrouped ? poolKeys() : [];
       if (isGrouped) {
-        const thin = ['A','B'].filter(g => RPL_STATE.teams.filter(t => t.group === g).length < 2);
-        if (thin.length) { showToast('Pool ' + thin.join(' and ') + ' needs at least 2 teams.', 'error'); renderRoster(); return; }
+        const thin = poolList.filter(g => RPL_STATE.teams.filter(t => t.group === g).length < 2);
+        if (thin.length) { showToast('Pool ' + thin.join(', Pool ') + ' needs at least 2 teams.', 'error'); renderRoster(); return; }
       }
       let roundCounter = 1;
       let matchCounter = 1;
@@ -1127,17 +1254,22 @@
       } else if (targetDay === 'friday') {
         while (currentDate.getDay() !== 5) currentDate.setDate(currentDate.getDate() + 1);
       }
+      // Skip opening week if it lands on a break
+      currentDate = skipBlackoutWeeks(currentDate);
 
       if (isGrouped) {
-        const groups = window.__shuffle ? shuffled(['A', 'B']) : ['A', 'B'];
+        const groups = window.__shuffle ? shuffled(poolList) : [...poolList];
         const groupRoundsMap = {};
+        const doubleLeg = !!RPL_STATE.tournament.doubleRoundRobin;
 
         groups.forEach(grp => {
           const grpTeams = RPL_STATE.teams.filter(t => t.group === grp);
-          groupRoundsMap[grp] = buildBergerRounds(grpTeams);
+          let legs = buildBergerRounds(grpTeams);
+          if (doubleLeg) legs = legs.concat(mirrorRounds(legs));
+          groupRoundsMap[grp] = legs;
         });
 
-        const maxRounds = Math.max(groupRoundsMap['A'].length, groupRoundsMap['B'].length);
+        const maxRounds = Math.max(...groups.map(g => groupRoundsMap[g].length));
 
         for (let r = 0; r < maxRounds; r++) {
           const roundDate = new Date(currentDate);
@@ -1177,10 +1309,11 @@
             matches: matchesInRound
           });
 
-          currentDate.setDate(currentDate.getDate() + 7);
+          currentDate = advanceWeek(currentDate);
         }
       } else {
-        const pairsRounds = buildBergerRounds(RPL_STATE.teams);
+        let pairsRounds = buildBergerRounds(RPL_STATE.teams);
+        if (RPL_STATE.tournament.doubleRoundRobin) pairsRounds = pairsRounds.concat(mirrorRounds(pairsRounds));
         pairsRounds.forEach((roundPairs, rIdx) => {
           const roundDate = new Date(currentDate);
           const dateFormatted = roundDate.toLocaleDateString('en-GB', {
@@ -1216,7 +1349,7 @@
             matches: matchesInRound
           });
 
-          currentDate.setDate(currentDate.getDate() + 7);
+          currentDate = advanceWeek(currentDate);
         });
       }
 
@@ -1228,7 +1361,80 @@
       setStale(false);
       renderRoster();
       renderFixtures();
+      warnCapacity(roundsList);
       showToast(`${window.__shuffle ? 'Shuffled schedule' : 'Generated schedule'}: ${matchCounter - 1} matches across ${roundsList.length} tournament rounds!`, 'success');
+    }
+
+    /* Second leg: same pairings, home & away swapped */
+    function mirrorRounds(rounds) {
+      return rounds.map(rp => rp.map(p => ({ teamA: p.teamB, teamB: p.teamA })));
+    }
+
+    function blackoutSet() {
+      return new Set(RPL_STATE.tournament.blackoutDates || []);
+    }
+
+    function dateKey(d) {
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+
+    function skipBlackoutWeeks(d) {
+      const skip = blackoutSet();
+      if (!skip.size) return d;
+      let guard = 0;
+      while (skip.has(dateKey(d)) && guard++ < 520) d.setDate(d.getDate() + 7);
+      return d;
+    }
+
+    function advanceWeek(d) {
+      d.setDate(d.getDate() + 7);
+      return skipBlackoutWeeks(d);
+    }
+
+    /* Warn when a single weekend round has more matches than venues × slots */
+    function warnCapacity(roundsList) {
+      if (!roundsList.length) return;
+      const cap = Math.max(1, RPL_STATE.tournament.venues.length) * Math.max(1, RPL_STATE.tournament.timeSlots.length);
+      const peak = Math.max(...roundsList.map(r => r.matches.length));
+      if (peak > cap) {
+        showToast(`Heads up: busiest weekend has ${peak} matches but only ${cap} venue×slot combos — some share a slot. Add venues/slots or reduce pools.`, 'error');
+      }
+    }
+
+    /* ---------- Skip-date chips ---------- */
+    function renderBlackoutChips() {
+      const el = document.getElementById('blackoutChips');
+      if (!el) return;
+      const list = RPL_STATE.tournament.blackoutDates || [];
+      el.innerHTML = list.length
+        ? list.map(d => `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800 border border-slate-700 text-xs text-slate-200 font-semibold">${esc(fmtBlackout(d))}<button type="button" onclick="removeBlackoutDate('${esc(d)}')" class="text-slate-400 hover:text-rose-400"><i class="ph-bold ph-x"></i></button></span>`).join('')
+        : '<span class="text-xs text-slate-500 italic">No skip dates. Schedule runs every week.</span>';
+    }
+
+    function fmtBlackout(iso) {
+      const d = new Date(iso + 'T00:00:00');
+      return isNaN(d) ? iso : d.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+    }
+
+    function addBlackoutDate() {
+      const inp = document.getElementById('cfgBlackoutDate');
+      const v = inp ? inp.value : '';
+      if (!v) { showToast('Pick a date to skip first.', 'error'); return; }
+      const list = RPL_STATE.tournament.blackoutDates || (RPL_STATE.tournament.blackoutDates = []);
+      if (!list.includes(v)) {
+        list.push(v);
+        list.sort();
+        showToast('Skip date added: ' + fmtBlackout(v), 'success');
+      }
+      if (inp) inp.value = '';
+      renderBlackoutChips();
+      setStale(!!RPL_STATE.fixtures.length);
+    }
+
+    function removeBlackoutDate(v) {
+      RPL_STATE.tournament.blackoutDates = (RPL_STATE.tournament.blackoutDates || []).filter(d => d !== v);
+      renderBlackoutChips();
+      setStale(!!RPL_STATE.fixtures.length);
     }
 
     function buildBergerRounds(teamList) {
@@ -1335,11 +1541,7 @@
           const mCard = document.createElement('div');
           const isSelected = RPL_STATE.posterMatchId === m.id;
 
-          mCard.className = `bg-[#080D1A] border ${isSelected ? 'border-amber-500 ring-2 ring-amber-500/20' : 'border-slate-800 hover:border-slate-700'} rounded-xl p-3.5 flex flex-col justify-between gap-3 transition cursor-pointer hover:shadow-lg`;
-          mCard.onclick = () => {
-            RPL_STATE.posterMatchId = m.id;
-            switchTab('studioTab');
-          };
+          mCard.className = `bg-[#080D1A] border ${isSelected ? 'border-amber-500 ring-2 ring-amber-500/20' : 'border-slate-800 hover:border-slate-700'} rounded-xl p-3.5 flex flex-col justify-between gap-3 transition hover:shadow-lg`;
 
           mCard.innerHTML = `
             <div class="flex items-center justify-between text-[11px] text-slate-400 pb-2 border-b border-slate-800/50">
@@ -1373,7 +1575,10 @@
               <span class="truncate flex items-center gap-1">
                 <i class="ph-fill ph-map-pin text-slate-500"></i> ${m.venue}
               </span>
-              <span class="text-[10px] text-slate-500 font-semibold">Tap card for studio image</span>
+              <span class="flex items-center gap-1.5 flex-none ml-2">
+                <button type="button" onclick="openMatchEditModal('${m.id}')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] font-bold border border-slate-700 transition flex items-center gap-1"><i class="ph-bold ph-pencil-simple"></i> Edit</button>
+                <button type="button" onclick="sendToStudio('${m.id}')" class="px-2.5 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-black text-[10px] font-bold transition flex items-center gap-1"><i class="ph-bold ph-image"></i> Card</button>
+              </span>
             </div>
           `;
 
@@ -1382,6 +1587,74 @@
 
         container.appendChild(roundCard);
       });
+    }
+
+    function sendToStudio(matchId) {
+      RPL_STATE.posterMatchId = matchId;
+      renderFixtures();
+      switchTab('studioTab');
+    }
+
+    /* ---------- Per-match quick edit ---------- */
+    function findMatch(id) {
+      for (const r of RPL_STATE.fixtures) {
+        const m = r.matches.find(x => x.id === id);
+        if (m) return m;
+      }
+      return null;
+    }
+
+    function openMatchEditModal(id) {
+      const m = findMatch(id);
+      if (!m) return;
+      syncTournamentInputs();
+      document.getElementById('matchEditingId').value = id;
+      document.getElementById('matchModalTitle').innerHTML = `<i class="ph ph-calendar-blank text-amber-400"></i> Edit Match #${m.matchNumber}${m.group ? ' • Pool ' + esc(m.group) : ''}`;
+      document.getElementById('matchEditHome').textContent = m.homeTeam.name;
+      document.getElementById('matchEditAway').textContent = m.awayTeam.name;
+      document.getElementById('matchEditDate').value = m.rawDate || '';
+      document.getElementById('matchEditTime').value = m.time || '';
+      document.getElementById('matchEditVenue').value = m.venue || '';
+      document.getElementById('matchEditTimeList').innerHTML = RPL_STATE.tournament.timeSlots.map(s => `<option value="${esc(s)}">`).join('');
+      document.getElementById('matchEditVenueList').innerHTML = RPL_STATE.tournament.venues.map(s => `<option value="${esc(s)}">`).join('');
+      const modal = document.getElementById('matchModal');
+      if (modal) { modal.classList.remove('hidden'); modal.classList.add('flex'); }
+    }
+
+    function closeMatchEditModal() {
+      const modal = document.getElementById('matchModal');
+      if (modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); }
+    }
+
+    function swapEditTeams() {
+      const id = document.getElementById('matchEditingId').value;
+      const m = findMatch(id);
+      if (!m) return;
+      const t = m.homeTeam; m.homeTeam = m.awayTeam; m.awayTeam = t;
+      document.getElementById('matchEditHome').textContent = m.homeTeam.name;
+      document.getElementById('matchEditAway').textContent = m.awayTeam.name;
+      renderFixtures();
+      showToast(`Match #${m.matchNumber}: home & away swapped.`, 'info');
+    }
+
+    function saveMatchEdit() {
+      const id = document.getElementById('matchEditingId').value;
+      const m = findMatch(id);
+      if (!m) return;
+      const dateVal = document.getElementById('matchEditDate').value;
+      const timeVal = document.getElementById('matchEditTime').value.trim();
+      const venueVal = document.getElementById('matchEditVenue').value.trim();
+      if (dateVal) {
+        const d = new Date(dateVal + 'T00:00:00');
+        m.rawDate = dateVal;
+        m.date = isNaN(d) ? m.date : d.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+      }
+      if (timeVal) m.time = timeVal;
+      if (venueVal) m.venue = venueVal;
+      closeMatchEditModal();
+      renderFixtures();
+      renderPoster();
+      showToast(`Match #${m.matchNumber} updated.`, 'success');
     }
 
     function switchPosterMode(mode) {
@@ -1588,10 +1861,11 @@
       const teams = RPL_STATE.teams || [];
       const grouped = T.structure === 'groups';
       const n = teams.length;
-      const totalMatches = grouped
-        ? teams.filter(t => t.group === 'A').length * (teams.filter(t => t.group === 'A').length - 1) / 2
-          + teams.filter(t => t.group === 'B').length * (teams.filter(t => t.group === 'B').length - 1) / 2
+      const poolSizes = grouped ? poolKeys().map(k => teams.filter(t => t.group === k).length) : [];
+      let totalMatches = grouped
+        ? poolSizes.reduce((s, c) => s + c * (c - 1) / 2, 0)
         : n * (n - 1) / 2;
+      if (T.doubleRoundRobin) totalMatches *= 2;
       const dayLabel = T.matchDay === 'both' ? 'Fridays & Saturdays' : (T.matchDay === 'friday' ? 'Every Friday' : 'Every Saturday');
       const titleHtml = (() => {
         const m = String(T.name).match(/^(.*)\s+(Season\s+\d+.*)$/i);
@@ -1676,7 +1950,7 @@
       document.getElementById('modalEditingTeamId').value = '';
       document.getElementById('modalTeamName').value = '';
       document.getElementById('modalTeamCode').value = '';
-      document.getElementById('modalTeamGroup').value = smallerPool();
+      buildPoolOptions(smallestPool());
       document.getElementById('modalTeamColor').value = '#F59E0B';
       tempTeamLogoBase64 = null;
       document.getElementById('modalLogoPreviewImg').classList.add('hidden');
@@ -1704,7 +1978,7 @@
       document.getElementById('modalEditingTeamId').value = team.id;
       document.getElementById('modalTeamName').value = team.name;
       document.getElementById('modalTeamCode').value = team.code;
-      document.getElementById('modalTeamGroup').value = team.group || 'A';
+      buildPoolOptions(team.group || 'A');
       document.getElementById('modalTeamColor').value = team.color;
       tempTeamLogoBase64 = team.logo;
 
@@ -1728,7 +2002,7 @@
     function saveTeamFromModal() {
       const name = document.getElementById('modalTeamName').value.trim();
       let code = document.getElementById('modalTeamCode').value.trim().toUpperCase();
-      const group = document.getElementById('modalTeamGroup').value;
+      const group = validPool(document.getElementById('modalTeamGroup').value);
       const color = document.getElementById('modalTeamColor').value;
       const editId = document.getElementById('modalEditingTeamId').value;
 
@@ -1811,6 +2085,9 @@
     }
 
     function loadSamplePreset(presetKey) {
+      RPL_STATE.tournament.poolCount = 2;
+      const pcSel = document.getElementById('cfgPoolCount');
+      if (pcSel) pcSel.value = '2';
       if (presetKey === 'rpl8_groups') {
         handleStructureChange('groups');
         const r1 = document.querySelector('input[name="leagueStructureRadio"][value="groups"]');
@@ -1837,28 +2114,44 @@
         showToast('Generate fixtures first to copy WhatsApp schedule!', 'error');
         return;
       }
-      let text = `🏏 *${RPL_STATE.tournament.name.toUpperCase()}* 🏏\n`;
-      text += `📅 _${RPL_STATE.tournament.tag}_\n`;
-      text += `⚔️ Format: ${RPL_STATE.tournament.format}\n\n`;
+      syncTournamentInputs();
+      const T = RPL_STATE.tournament;
+      const grouped = T.structure === 'groups';
+      const legs = T.doubleRoundRobin ? ' (Home & Away)' : '';
+      const hash = '#' + T.name.replace(/[^A-Za-z0-9]+/g, '');
+      let text = `🏏 *${T.name.toUpperCase()}* 🏏\n`;
+      text += `📅 ${T.tag}\n`;
+      text += `⚔️ ${T.format}${legs}\n`;
+      text += `📍 ${T.venues.join(' | ')}\n\n`;
       text += `📋 *OFFICIAL FIXTURES*\n\n`;
 
       RPL_STATE.fixtures.forEach(r => {
-        text += `🔹 *ROUND ${r.roundNumber} (${r.date})*\n`;
+        text += `🔹 *ROUND ${r.roundNumber} — ${r.date}*\n`;
         r.matches.forEach(m => {
-          text += `  • *M#${m.matchNumber}:* ${m.homeTeam.name} (${m.homeTeam.code}) 🆚 ${m.awayTeam.name} (${m.awayTeam.code})\n`;
+          const pool = grouped && m.group ? ` [Pool ${m.group}]` : '';
+          text += `  • *M#${m.matchNumber}${pool}:* ${m.homeTeam.name} 🆚 ${m.awayTeam.name}\n`;
           text += `    ⏰ ${m.time} | 📍 ${m.venue}\n`;
         });
         text += `\n`;
       });
-      text += `🏆 Riyadh Premier League Season 25 #RPL25`;
+      text += `🏆 ${T.name} ${hash}`;
 
+      const done = () => showToast('WhatsApp schedule copied — paste it into any chat!', 'success');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(() => legacyCopy(text, done));
+      } else {
+        legacyCopy(text, done);
+      }
+    }
+
+    function legacyCopy(text, done) {
       const dummy = document.createElement('textarea');
       dummy.value = text;
       document.body.appendChild(dummy);
       dummy.select();
-      document.execCommand('copy');
+      try { document.execCommand('copy'); } catch (e) {}
       document.body.removeChild(dummy);
-      showToast('WhatsApp schedule copied to clipboard!', 'success');
+      done();
     }
 
     function showToast(message, type = 'info') {
@@ -1888,15 +2181,32 @@
 
     function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
-    function smallerPool() {
-      const a = RPL_STATE.teams.filter(t => t.group === 'A').length;
-      const b = RPL_STATE.teams.filter(t => t.group === 'B').length;
-      return a <= b ? 'A' : 'B';
+    function smallestPool(keys) {
+      const ks = keys || poolKeys();
+      let best = ks[0], bestN = Infinity;
+      ks.forEach(k => {
+        const n = RPL_STATE.teams.filter(t => t.group === k).length;
+        if (n < bestN) { bestN = n; best = k; }
+      });
+      return best;
+    }
+    function smallerPool() { return smallestPool(); }
+
+    function buildPoolOptions(selected) {
+      const sel = document.getElementById('modalTeamGroup');
+      if (!sel) return;
+      const keys = poolKeys();
+      sel.innerHTML = keys.map(k => `<option value="${k}">Pool ${k}</option>`).join('');
+      sel.value = keys.includes(selected) ? selected : smallestPool(keys);
     }
 
     function syncModalPoolField() {
       const f = document.getElementById('modalPoolField');
       if (f) f.classList.toggle('hidden', RPL_STATE.tournament.structure !== 'groups');
+      if (RPL_STATE.tournament.structure === 'groups') {
+        const sel = document.getElementById('modalTeamGroup');
+        buildPoolOptions(sel ? sel.value : undefined);
+      }
     }
 
     function setStale(on) {
@@ -1939,18 +2249,22 @@
       let html, matches, maxRounds, warns = [];
 
       if (grouped) {
-        const A = RPL_STATE.teams.filter(t => t.group === 'A'), B = RPL_STATE.teams.filter(t => t.group === 'B');
-        html = col('Pool A', A) + col('Pool B', B);
-        matches = pairs(A.length) + pairs(B.length);
-        maxRounds = Math.max(rounds(A.length), rounds(B.length));
-        [['A', A], ['B', B]].forEach(([g, l]) => { if (l.length < 2) warns.push(`Pool ${g} has ${l.length} team${l.length === 1 ? '' : 's'}. Each pool needs at least 2 to generate fixtures.`); });
+        const keys = poolKeys();
+        const lists = keys.map(k => [k, RPL_STATE.teams.filter(t => t.group === k)]);
+        html = lists.map(([g, l]) => col('Pool ' + g, l)).join('');
+        matches = lists.reduce((s, [, l]) => s + pairs(l.length), 0);
+        if (RPL_STATE.tournament.doubleRoundRobin) matches *= 2;
+        maxRounds = Math.max(...lists.map(([, l]) => rounds(l.length)));
+        lists.forEach(([g, l]) => { if (l.length < 2) warns.push(`Pool ${g} has ${l.length} team${l.length === 1 ? '' : 's'}. Each pool needs at least 2 to generate fixtures.`); });
       } else {
         const T = RPL_STATE.teams;
         html = col('All teams', T);
-        matches = pairs(T.length); maxRounds = rounds(T.length);
+        matches = pairs(T.length);
+        if (RPL_STATE.tournament.doubleRoundRobin) matches *= 2;
+        maxRounds = rounds(T.length) * (RPL_STATE.tournament.doubleRoundRobin ? 2 : 1);
         if (T.length < 2) warns.push('Add at least 2 teams to generate fixtures.');
       }
-      el.className = grouped ? 'grid gap-6 md:grid-cols-2' : 'grid gap-6';
+      el.className = grouped ? ('grid gap-6 ' + (poolKeys().length > 2 ? 'md:grid-cols-2 xl:grid-cols-3' : 'md:grid-cols-2')) : 'grid gap-6';
       el.innerHTML = html;
       const s = document.getElementById('rosterSummary');
       if (s) s.textContent = `${RPL_STATE.teams.length} teams, ${matches} league matches over ${maxRounds} rounds`;
@@ -2004,7 +2318,16 @@
     function applyProject(d) {
       if (!d || !d.tournament || !Array.isArray(d.teams)) throw new Error('this is not an RPL project file.');
       Object.assign(RPL_STATE.tournament, d.tournament);
+      // Backward compatibility: derive pool count & new fields for older saves
+      if (!RPL_STATE.tournament.poolCount) {
+        const seen = [...new Set((d.teams || []).map(t => t.group).filter(Boolean))];
+        RPL_STATE.tournament.poolCount = Math.min(6, Math.max(2, seen.length || 2));
+      }
+      RPL_STATE.tournament.poolCount = Math.min(6, Math.max(2, RPL_STATE.tournament.poolCount || 2));
+      RPL_STATE.tournament.doubleRoundRobin = !!RPL_STATE.tournament.doubleRoundRobin;
+      if (!Array.isArray(RPL_STATE.tournament.blackoutDates)) RPL_STATE.tournament.blackoutDates = [];
       RPL_STATE.teams = d.teams;
+      RPL_STATE.teams.forEach(t => { if (RPL_STATE.tournament.structure === 'groups' && !poolKeys().includes(t.group)) t.group = smallestPool(poolKeys()); });
       RPL_STATE.fixtures = Array.isArray(d.fixtures) ? d.fixtures : [];
       if (d.knockouts) RPL_STATE.knockouts = d.knockouts;
       RPL_STATE.posterMatchId = d.posterMatchId || null;
@@ -2019,6 +2342,10 @@
       set('cfgMatchFormat', t.format); set('cfgPlayoffFormat', t.playoffFormat);
       set('cfgVenues', (t.venues || []).join(', ')); set('cfgTimeSlots', (t.timeSlots || []).join(', '));
       set('cfgSponsors', t.sponsors || '');
+      set('cfgPoolCount', String(t.poolCount || 2));
+      const dbl = document.getElementById('cfgDoubleRR');
+      if (dbl) dbl.checked = !!t.doubleRoundRobin;
+      renderBlackoutChips();
       set('cfgLeagueStructure', t.structure);
       const radio = document.querySelector(`input[name="leagueStructureRadio"][value="${t.structure}"]`);
       if (radio) radio.checked = true;
@@ -2057,7 +2384,7 @@
         </div>`).join('');
 
 
-      const chips = [T.format, grouped ? 'Two pools' : 'Single round robin', T.matchDay === 'both' ? 'Friday and Saturday' : (T.matchDay === 'friday' ? 'Fridays' : 'Saturdays'), `${RPL_STATE.teams.length} teams`]
+      const chips = [T.format, grouped ? `${poolKeys().length} pools` : 'Single round robin', T.doubleRoundRobin ? 'Home & away' : null, T.matchDay === 'both' ? 'Friday and Saturday' : (T.matchDay === 'friday' ? 'Fridays' : 'Saturdays'), `${RPL_STATE.teams.length} teams`]
         .filter(Boolean).map(c => `<span>${esc(c)}</span>`).join('');
 
       const host = document.createElement('div');
@@ -2102,7 +2429,7 @@
 
     function openHelpModal() { const m = document.getElementById('helpModal'); m.classList.remove('hidden'); m.classList.add('flex'); }
     function closeHelpModal() { const m = document.getElementById('helpModal'); m.classList.add('hidden'); m.classList.remove('flex'); }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeHelpModal(); } });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeHelpModal(); closeMatchEditModal(); closeTeamModal(); } });
 
     /* App logo: finds applogo.* in the same folder, whatever the image type */
     function handleAppLogoUpload(event) {
@@ -2179,6 +2506,7 @@
       initTheme();
       initAppLogo();
       loadSamplePreset('rpl8_groups');
+      renderBlackoutChips();
       refreshStepBar();
     });
   </script>
