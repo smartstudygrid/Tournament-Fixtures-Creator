@@ -78,7 +78,7 @@
     .roster-chip{display:flex;align-items:center;gap:.65rem;padding:.55rem .7rem;border:1px solid var(--line);border-left:3px solid var(--c);border-radius:10px;background:#0A1511;font-size:.82rem;font-weight:600;min-width:0}
     .roster-chip span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
     .roster-dot{width:34px;height:34px;flex:none;border-radius:8px;display:grid;place-items:center;overflow:hidden;font:700 .72rem Manrope,sans-serif;color:var(--c);background:color-mix(in srgb,var(--c) 16%,transparent)}
-    .roster-dot img{width:100%;height:100%;object-fit:cover}
+    .roster-dot img{width:100%;height:100%;object-fit:contain;padding:2px}
     .roster-empty{font-size:.8rem;color:var(--mute);padding:.5rem 0}
     .roster-warn{display:flex;gap:.5rem;align-items:center;padding:.6rem .8rem;border-radius:10px;font-size:.8rem;background:rgba(190,60,50,.12);border:1px solid rgba(190,60,50,.4);color:#F0B4AD}
     .stale-banner{align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:.8rem 1rem;border-radius:12px;background:rgba(200,164,86,.1);border:1px solid rgba(200,164,86,.45);font-size:.85rem;color:var(--brass-hi)}
@@ -130,29 +130,45 @@
     #cricketBroadcastPoster.thumb-mode{width:800px!important;max-width:none!important;height:450px!important;padding:0!important;flex:none;background:#0A1511!important}
     #cricketBroadcastPoster.thumb-mode>div:not(#posterDynamicContent){display:none!important}
     #cricketBroadcastPoster.thumb-mode #posterDynamicContent{position:absolute!important;inset:0;padding:0!important}
-    .th{position:relative;width:800px;height:450px;overflow:hidden;font-family:Manrope,sans-serif;color:#fff}
-    .th-top{position:absolute;top:14px;left:22px;right:22px;height:48px;display:flex;justify-content:space-between;align-items:center;gap:12px}
-    .th-brand{display:flex;align-items:center;gap:10px;min-width:0;flex:1;font:800 15px/1 Manrope,sans-serif;letter-spacing:.04em;text-transform:uppercase;text-shadow:0 2px 0 rgba(0,0,0,.6)}
-    .th-title{display:inline-flex;align-items:center;line-height:1.3;padding-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .th-mini{width:40px;height:40px;flex:none;border-radius:50%;border:2px solid #E3C677;background:#10241E;display:flex;align-items:center;justify-content:center;overflow:hidden;font:700 14px/1 Fraunces,serif;color:#E3C677}
-    .th-mini img{width:100%;height:100%;object-fit:contain;padding:3px}
-    .th-badge{display:block;flex:none;height:44px;line-height:44px;padding:0;white-space:nowrap;color:#F1D88A;font:800 22px Manrope,sans-serif;text-align:right}
-    .th-badge span{display:inline-block;line-height:22px;vertical-align:middle}
-    .th-main{position:absolute;top:72px;left:0;right:0;height:290px;display:flex;align-items:center;justify-content:space-around}
-    .th-side{width:290px;display:flex;flex-direction:column;align-items:center}
-    .th-plate{width:210px;height:210px;border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden;background:rgba(255,255,255,.16);border:4px solid #fff;font:800 64px Manrope,sans-serif}
-    .th-plate img{width:100%;height:100%;object-fit:contain;padding:18px}
-    .th-name{margin-top:18px;font:800 28px/1.05 Manrope,sans-serif;text-transform:uppercase;text-align:center;text-shadow:0 3px 0 rgba(0,0,0,.65)}
-    .th-vs{font:700 100px/1 Fraunces,serif;color:#F1D88A;text-shadow:0 6px 0 #6B531A,0 0 34px rgba(241,216,138,.65)}
-    .th-bottom{position:absolute;left:0;right:0;bottom:0;height:88px;background:rgba(5,12,10,.88);border-top:3px solid #C8A456;display:flex;align-items:center;justify-content:center;gap:24px;padding:10px 24px 14px;font:800 22px/1.35 Manrope,sans-serif;text-align:center}
-    .th-cell{flex:1 1 0;min-width:0;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .th-bottom b{color:#F1D88A}
-    /* Export clone: html2canvas mangles text-shadow/tight metrics, so strip them for the PNG only (preview untouched) */
+    .th{position:relative;width:800px;height:450px;overflow:hidden;font-family:Manrope,sans-serif;color:#fff;background:#050810;isolation:isolate}
+    .th-beam{position:absolute;top:-120px;width:420px;height:720px;transform:rotate(18deg);opacity:.42;pointer-events:none}
+    .th-beam-l{left:-150px;background:linear-gradient(180deg,rgba(255,255,255,.24),transparent 72%)}
+    .th-beam-r{right:-150px;transform:rotate(-18deg);background:linear-gradient(180deg,rgba(255,255,255,.18),transparent 72%)}
+    .th-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:100% 26px;opacity:.55;pointer-events:none}
+    .th-vignette{position:absolute;inset:0;background:radial-gradient(125% 90% at 50% 42%,transparent 42%,rgba(0,0,0,.62) 100%);pointer-events:none}
+    .th-top{position:absolute;top:22px;left:28px;right:28px;height:58px;display:flex;align-items:center;justify-content:space-between;gap:16px;z-index:2}
+    .th-brand{display:flex;align-items:center;gap:12px;min-width:0}
+    .th-mini{width:44px;height:44px;flex:none;border-radius:12px;border:1px solid rgba(232,185,60,.75);background:#0B1220;display:flex;align-items:center;justify-content:center;overflow:hidden;font:700 15px/1 Fraunces,serif;color:#F1D88A}
+    .th-mini img{width:100%;height:100%;object-fit:contain;padding:4px}
+    .th-brandtext{min-width:0;line-height:1.05}
+    .th-brandtext b{display:block;font:700 18px/1 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:430px}
+    .th-brandtext small{display:block;margin-top:3px;font:600 10px/1 Manrope,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#B9C6D8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:430px}
+    .th-badge{flex:none;display:flex;align-items:baseline;gap:7px;padding:9px 14px;border-radius:10px;background:linear-gradient(180deg,#F7DC8B,#E0AE33);color:#1A1405;box-shadow:0 8px 20px -8px rgba(0,0,0,.8)}
+    .th-badge small{font:800 9px/1 Manrope,sans-serif;letter-spacing:.16em}
+    .th-badge b{font:800 24px/1 'Barlow Condensed',sans-serif}
+    .th-sub{position:absolute;top:88px;left:28px;right:28px;display:flex;align-items:center;justify-content:space-between;z-index:2;font:700 10px/1 Manrope,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#C9D4E4}
+    .th-sub span{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+    .th-sub i{width:26px;height:1px;background:#C8A456;display:inline-block}
+    .th-center{position:absolute;top:110px;left:0;right:0;height:250px;display:flex;align-items:center;justify-content:center;gap:34px;z-index:2}
+    .th-side{width:270px;display:flex;flex-direction:column;align-items:center;min-width:0}
+    .th-plate{width:176px;height:176px;border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden;background:rgba(255,255,255,.14);border:3px solid rgba(255,255,255,.94);font:800 52px 'Barlow Condensed',sans-serif}
+    .th-plate img{width:100%;height:100%;object-fit:contain;padding:14px}
+    .th-name{margin-top:14px;width:100%;font:700 30px/1 'Barlow Condensed',sans-serif;text-transform:uppercase;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .th-code{margin-top:5px;font:700 10px/1 Manrope,sans-serif;letter-spacing:.18em;color:#D6BE7C}
+    .th-vs{position:relative;flex:none;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#FBEBB9,#D9A62E 70%);color:#161006;font:800 26px/1 'Barlow Condensed',sans-serif;box-shadow:0 0 0 6px rgba(232,185,60,.14),0 0 34px rgba(232,185,60,.35)}
+    .th-bottom{position:absolute;left:0;right:0;bottom:0;height:74px;display:flex;align-items:center;background:rgba(4,8,14,.93);border-top:2px solid #C8A456;z-index:2}
+    .th-cell{flex:1 1 0;min-width:0;padding:0 18px;text-align:center;border-right:1px solid rgba(255,255,255,.10)}
+    .th-cell:last-child{border-right:none}
+    .th-cell small{display:block;font:700 8px/1 Manrope,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#93A3B8;margin-bottom:5px}
+    .th-cell span,.th-cell b{display:block;font:700 16px/1.15 Manrope,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .th-cell b{color:#F5D67B}
+    /* Export clone: html2canvas mangles text-shadow / tight metrics, so strip them for the PNG only */
     .th-export,.th-export *{text-shadow:none!important;letter-spacing:0!important}
-    .th-export .th-top{height:56px}
-    .th-export .th-brand{overflow:visible!important}
-    .th-export .th-title{line-height:1.5!important;padding:2px 0 8px;overflow:visible!important}
-    .th-export .th-cell{overflow:visible!important}
+    .th-export .th-name{line-height:1.22!important}
+    .th-export .th-brandtext b{line-height:1.2!important}
+    .th-export .th-brandtext small{line-height:1.2!important}
+    .th-export .th-name,.th-export .th-brandtext b,.th-export .th-brandtext small,.th-export .th-cell span,.th-export .th-cell b{overflow:visible!important;text-overflow:clip!important}
+    .th-export .th-sub span{overflow:visible!important}
     .tb-export,.tb-export *{text-shadow:none!important}
     /* Tournament banner export sheet (2560x1440, high-end international look) */
     .tb-sheet{box-sizing:border-box;position:relative;width:2560px;height:1440px;display:flex;flex-direction:column;align-items:center;padding:96px 120px 80px;background:radial-gradient(1200px 600px at 50% -10%,rgba(227,198,119,.22),transparent 60%),radial-gradient(1000px 700px at 90% 110%,rgba(16,185,129,.16),transparent 60%),linear-gradient(165deg,#0B1026 0%,#1B1440 38%,#3A2A6A 68%,#0B1026 100%);color:#fff;font-family:Manrope,sans-serif;border:8px solid #C8A456;text-align:center}
@@ -173,7 +189,7 @@
     .tb-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;width:100%}
     .tb-team{display:flex;align-items:center;gap:22px;padding:24px 26px;border:2px solid rgba(200,164,86,.45);border-radius:22px;background:rgba(255,255,255,.055);text-align:left}
     .tb-crest{width:118px;height:118px;flex:none;border-radius:20px;display:flex;align-items:center;justify-content:center;overflow:hidden;font:800 34px Manrope,sans-serif;border:3px solid}
-    .tb-crest img{width:100%;height:100%;object-fit:cover}
+    .tb-crest img{width:100%;height:100%;object-fit:contain;padding:8px}
     .tb-tname{font:800 33px/1.15 Manrope,sans-serif;text-transform:uppercase}
     .tb-tcode{margin-top:6px;font:700 24px Manrope,sans-serif;letter-spacing:.18em;color:#B3C3BB}
     .tb-foot{margin-top:auto;padding-top:34px;font:500 30px Manrope,sans-serif;color:#B3C3BB}
@@ -184,21 +200,27 @@
     .fx-round{border-color:#33574B!important;background:rgba(255,255,255,.06)!important}
     .fx-rhead{font-size:32px!important;padding:16px 24px!important}
     .fx-rhead span{font-size:20px!important}
-    .fx-match{grid-template-columns:96px 1fr 50px 1fr!important;column-gap:10px!important;border-top-color:#2D4F43!important;padding:18px 20px 14px!important}
-    .fx-when{font-size:16px!important}
-    .fx-when span{font-size:20px!important}
+    .fx-match{grid-template-columns:104px 1fr 48px 1fr!important;column-gap:10px!important;border-top-color:#2D4F43!important;padding:15px 18px 12px!important}
+    .fx-when{font-size:16px!important;white-space:nowrap}
+    .fx-when span{font-size:18px!important;white-space:nowrap}
+    .fx-team{display:block!important;min-width:0;font:700 18px/1.22 Manrope,sans-serif!important;color:#F1ECDF;white-space:normal;overflow:visible;word-break:break-word;padding:2px 0}
+    .fx-team.fx-home{text-align:right}
+    .fx-team.fx-away{text-align:left}
     .fx-side{display:flex;align-items:center;justify-content:center;min-height:96px;min-width:0}
     .fx-plate{width:92px;height:92px;border-radius:50%;overflow:hidden;display:flex;flex:none;border:3px solid #fff}
     .fx-plate img{width:100%;height:100%;object-fit:cover!important;padding:0!important}
     .fx-nameonly{font:800 25px/1.12 Manrope,sans-serif;text-align:center;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.5)}
-    .fx-vs{font-size:24px!important;color:#E3C677!important}
-    .fx-venue{color:#B3C3BB!important;font-size:18px!important}
+    .fx-vs{font-size:22px!important;color:#E3C677!important}
+    .fx-venue{color:#B3C3BB!important;font-size:15px!important;line-height:1.3;white-space:normal;overflow:visible}
     .fx-h2{font-size:38px!important}
     .fx-kocard h4{font-size:26px!important}
     .fx-kocard p{font-size:19px!important}
     .fx-kocard small{font-size:16px!important}
     .fx-foot{color:#B3C3BB!important;font-size:19px!important}
-    .fx-logo img,.poster-crest img,.th-plate img,.th-mini img{object-fit:cover!important;padding:0!important}
+    .fx-logo img,.poster-crest img{object-fit:contain!important;padding:10px!important}
+    .th-plate img{object-fit:contain!important;padding:14px!important}
+    .th-mini img{object-fit:contain!important;padding:4px!important}
+    .tb-logo img,.wa-logo img,.pc-logo img{object-fit:contain!important;padding:8px!important}
     /* ================= PRO THEME (international broadcast look) ================= */
     :root{--pro-gold:#E8B93C;--pro-gold-hi:#F5D67B;--pro-gold-dk:#9A7418;--pro-ink:#060B18;--pro-panel:#0C1526;--pro-line:rgba(232,185,60,.18)}
     body{background:radial-gradient(1000px 480px at 12% -6%,rgba(232,185,60,.09),transparent 60%),radial-gradient(900px 520px at 88% -4%,rgba(16,185,129,.08),transparent 60%),repeating-linear-gradient(90deg,rgba(255,255,255,.016) 0 90px,transparent 90px 180px),linear-gradient(180deg,#081020 0%,#060B18 100%)!important}
@@ -236,28 +258,27 @@
     /* Step footer bar */
     .stepbar{position:sticky;bottom:12px;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-radius:16px;background:rgba(8,14,28,.92);border:1px solid var(--pro-line);box-shadow:0 24px 48px -20px rgba(0,0,0,.85);backdrop-filter:blur(10px)}
     /* Match-card style variants (all export-safe: no text-shadow) */
-    .th-arena{background:radial-gradient(700px 320px at 50% 0%,rgba(232,185,60,.16),transparent 60%),linear-gradient(180deg,#0A0A10 0%,#161C2A 55%,#0A0A10 100%)!important;box-shadow:inset 0 0 0 3px #0A0A10,inset 0 0 0 5px rgba(200,164,86,.8)!important}
-    .th-arena .th-plate{background:rgba(232,185,60,.08)!important}
-    .th-arena .th-vs{color:#F5D67B!important}
-    .th-arena .th-bottom{background:#000!important}
-    .th-neon{background:linear-gradient(120deg,#1B0B33 0%,#0B1B3A 55%,#081226 100%)!important}
-    .th-neon .th-plate{border-color:#22D3EE!important;background:rgba(34,211,238,.1)!important}
-    .th-neon .th-vs{color:#F0ABFC!important}
-    .th-neon .th-bottom{background:rgba(10,6,26,.94)!important;border-top-color:#22D3EE!important}
-    .th-neon .th-badge{color:#F0ABFC!important}
-    .th-neon .th-mini{border-color:#22D3EE!important;color:#A5F3FC!important}
+    .th-arena .th-plate{background:rgba(232,185,60,.10);border-color:#E8B93C}
+    .th-arena .th-vs{background:radial-gradient(circle at 35% 30%,#FFF3C4,#C8931F 70%);color:#161006}
+    .th-arena .th-badge{background:linear-gradient(180deg,#FBEBB9,#C8931F)}
+    .th-arena .th-bottom{background:rgba(0,0,0,.94)}
+    .th-neon .th-plate{border-color:#22D3EE;background:rgba(34,211,238,.10)}
+    .th-neon .th-vs{background:radial-gradient(circle at 35% 30%,#F0ABFC,#7C3AED 70%);color:#fff;box-shadow:0 0 0 6px rgba(240,171,252,.14),0 0 34px rgba(124,58,237,.45)}
+    .th-neon .th-bottom{background:rgba(8,4,22,.94);border-top-color:#22D3EE}
+    .th-neon .th-badge{background:linear-gradient(180deg,#67E8F9,#0891B2);color:#04121A}
+    .th-neon .th-sub,.th-neon .th-code{color:#A5F3FC}
     /* WhatsApp portrait card (1080x1350) */
     .wa-sheet{box-sizing:border-box;position:relative;width:1080px;height:1350px;display:flex;flex-direction:column;align-items:center;padding:70px 70px 56px;background:radial-gradient(700px 420px at 50% -8%,rgba(232,185,60,.2),transparent 60%),linear-gradient(180deg,#0B1026 0%,#1B1440 55%,#0B1026 100%);color:#fff;font-family:Manrope,sans-serif;border:8px solid #C8A456;text-align:center}
     .wa-eyebrow{font:700 32px Manrope,sans-serif;letter-spacing:.4em;text-transform:uppercase;color:#E3C677}
     .wa-head{display:flex;align-items:center;justify-content:center;gap:28px;margin-top:28px;max-width:100%}
     .wa-logo{width:150px;height:150px;flex:none;border-radius:50%;border:5px solid #E3C677;background:#10241E;display:flex;align-items:center;justify-content:center;overflow:hidden;font:700 40px/1 Fraunces,serif;color:#E3C677}
-    .wa-logo img{width:100%;height:100%;object-fit:cover}
+    .wa-logo img{width:100%;height:100%;object-fit:contain;padding:8px}
     .wa-title{font:800 54px/1.2 Manrope,sans-serif;letter-spacing:.02em;text-transform:uppercase}
     .wa-match{margin-top:24px;font:800 44px/1 Manrope,sans-serif;color:#F1D88A}
     .wa-vsrow{display:flex;align-items:center;justify-content:center;gap:32px;margin-top:44px;width:100%}
     .wa-team{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:20px}
     .wa-crest{width:300px;height:300px;border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden;background:rgba(255,255,255,.12);border:7px solid #fff;font:800 84px Manrope,sans-serif}
-    .wa-crest img{width:100%;height:100%;object-fit:cover}
+    .wa-crest img{width:100%;height:100%;object-fit:contain;padding:16px}
     .wa-name{font:800 50px/1.12 Manrope,sans-serif;text-transform:uppercase}
     .wa-vs{font:700 80px/1 Fraunces,serif;color:#F1D88A}
     .wa-info{margin-top:48px;width:100%;background:rgba(5,12,10,.85);border:2px solid rgba(200,164,86,.5);border-radius:24px;padding:32px 36px;display:flex;flex-direction:column;gap:18px}
@@ -276,6 +297,7 @@
     .fx-sheet.fx-light .fx-match{border-top-color:#E7DFC8!important}
     .fx-sheet.fx-light .fx-when{color:#7A5F1E!important}
     .fx-sheet.fx-light .fx-when span{color:#221D10!important}
+    .fx-sheet.fx-light .fx-team{color:#221D10!important}
     .fx-sheet.fx-light .fx-nameonly{color:#221D10!important;text-shadow:none!important}
     .fx-sheet.fx-light .fx-vs{color:#7A5F1E!important}
     .fx-sheet.fx-light .fx-venue{color:#6B7268!important}
@@ -301,6 +323,52 @@
     .tb-sheet.tb-wide .tb-tname{font-size:19px}
     .tb-sheet.tb-wide .tb-tcode{font-size:14px}
     .tb-sheet.tb-wide .tb-foot{padding-top:20px;font-size:22px}
+    /* ---------- New setup controls (segmented / day picker) ---------- */
+    .seg{display:inline-flex;padding:3px;border-radius:10px;background:#080F1E;border:1px solid rgba(148,178,255,.14);gap:2px}
+    .seg button{padding:7px 12px;border-radius:8px;font:700 11px Manrope,sans-serif;color:#8FA3C7;background:transparent;border:none;cursor:pointer;transition:.15s;white-space:nowrap}
+    .seg button:hover{color:#fff}
+    .seg button.active{background:linear-gradient(180deg,#F5D67B,#E8B93C);color:#1A1405}
+    .day-btn{padding:8px 0;border-radius:9px;border:1px solid rgba(148,178,255,.16);background:#080F1E;color:#8FA3C7;font:700 11px Manrope,sans-serif;cursor:pointer;transition:.15s}
+    .day-btn:hover{color:#fff;border-color:rgba(232,185,60,.5)}
+    .day-btn.active{background:rgba(232,185,60,.16);border-color:#E8B93C;color:#F5D67B}
+    .preset-chip{padding:5px 9px;border-radius:999px;border:1px solid rgba(148,178,255,.16);background:transparent;color:#8FA3C7;font:700 10px Manrope,sans-serif;cursor:pointer;transition:.15s}
+    .preset-chip:hover{color:#fff;border-color:rgba(232,185,60,.5)}
+    .stale-banner{background:rgba(239,68,68,.10)!important;border-color:rgba(239,68,68,.5)!important;color:#FCA5A5!important}
+    .stale-banner i{color:#F87171}
+    /* ---------- Pool draw card (export sheet) ---------- */
+    .pc-sheet{box-sizing:border-box;width:1600px;padding:60px 60px 48px;position:relative;color:#F1ECDF;font-family:Manrope,sans-serif;background:radial-gradient(900px 480px at 50% -10%,rgba(232,185,60,.20),transparent 62%),linear-gradient(165deg,#0B1226 0%,#0A1424 45%,#050810 100%);border:4px solid #C8A456}
+    .pc-sheet *{box-sizing:border-box}
+    .pc-top{display:flex;align-items:center;gap:26px;padding-bottom:24px;border-bottom:1px solid rgba(200,164,86,.4)}
+    .pc-logo{width:92px;height:92px;flex:none;border-radius:50%;border:3px solid #E3C677;background:#0B1A16;display:flex;align-items:center;justify-content:center;overflow:hidden;font:700 28px/1 Fraunces,serif;color:#E3C677}
+    .pc-logo img{width:100%;height:100%;object-fit:contain;padding:6px}
+    .pc-heading{min-width:0}
+    .pc-eyebrow{font:700 13px Manrope,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:#E3C677}
+    .pc-title{font:800 50px/1.05 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.04em;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .pc-tag{margin-top:5px;font:600 15px Manrope,sans-serif;color:#B3C3BB;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .pc-pools{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:30px}
+    .pc-pool{border:1px solid rgba(200,164,86,.4);border-radius:16px;background:rgba(255,255,255,.035);overflow:hidden}
+    .pc-phead{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:linear-gradient(90deg,rgba(200,164,86,.24),rgba(200,164,86,.05));border-bottom:1px solid rgba(200,164,86,.35)}
+    .pc-pname{font:800 25px 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.08em}
+    .pc-pcount{font:700 11px Manrope,sans-serif;letter-spacing:.16em;color:#D6DEE8;text-transform:uppercase}
+    .pc-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;padding:14px}
+    .pc-team{display:flex;align-items:center;gap:11px;padding:9px 11px;border:1px solid rgba(255,255,255,.08);border-radius:11px;background:rgba(255,255,255,.03);min-width:0}
+    .pc-crest{width:44px;height:44px;flex:none;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:rgba(255,255,255,.08);font:800 12px Manrope,sans-serif}
+    .pc-crest img{width:100%;height:100%;object-fit:contain;padding:4px}
+    .pc-tinfo{min-width:0}
+    .pc-name{display:block;font:700 14px/1.2 Manrope,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#F1ECDF}
+    .pc-code{display:block;font:600 9px Manrope,sans-serif;letter-spacing:.14em;color:#A7B7AF;margin-top:3px}
+    #poolCardPreview{position:relative;max-height:none}
+    .pc-sheet.pc-single .pc-pools{grid-template-columns:1fr}
+    .pc-sheet.pc-single .pc-grid{grid-template-columns:repeat(3,1fr);gap:15px}
+    .pc-sheet.pc-single .pc-team{padding:12px 13px}
+    .pc-sheet.pc-single .pc-name{font-size:16px}
+    .pc-foot{margin-top:26px;padding-top:16px;border-top:1px solid rgba(200,164,86,.3);display:flex;justify-content:space-between;font:500 13px Manrope,sans-serif;color:#A7B7AF}
+    .pc-foot b{color:#E3C677}
+    /* html2canvas clips glyphs inside overflow:hidden text; relax it for the PNG only */
+    .pc-export,.pc-export *{text-shadow:none!important}
+    .pc-export .pc-title,.pc-export .pc-tag,.pc-export .pc-name{overflow:visible!important;text-overflow:clip!important;white-space:normal!important}
+    .pc-export .pc-title{line-height:1.16!important}
+    .pc-export .pc-name{line-height:1.3!important}
     /* ---------- Light mode (toggle) ---------- */
     html.light{--ink:#F4F1E8;--panel:#FFFFFF;--panel2:#EFEAD9;--line:#DCD2B8;--ivory:#14120C;--mute:#4C534E;--brass:#9A7A2E;--brass-hi:#6E5518}
     html.light body{background:repeating-linear-gradient(90deg,rgba(0,0,0,.025) 0 90px,transparent 90px 180px),radial-gradient(1100px 520px at 85% -8%,rgba(154,122,46,.14),transparent),var(--ink)!important;color:var(--ivory)}
@@ -328,11 +396,28 @@
     html.light input::placeholder{color:#767C76}
     html.light .roster-chip{background:#FFFFFF!important}
     html.light .roster-title{color:var(--ivory)}
+    html.light .seg{background:#E9E2CE;border-color:#DCD2B8}
+    html.light .seg button{color:#4C534E}
+    html.light .seg button.active{background:linear-gradient(180deg,#8A6C1E,#6E5518);color:#FFF8E6}
+    html.light .day-btn{background:#FFFFFF;color:#2E3431;border-color:#DCD2B8}
+    html.light .day-btn.active{background:#6E5518;color:#FFF8E6;border-color:#6E5518}
+    html.light .preset-chip{color:#4C534E;border-color:#DCD2B8}
+    html.light .preset-chip:hover{color:#14120C;border-color:#9A7A2E}
+    html.light .stale-banner{background:rgba(239,68,68,.08)!important;border-color:rgba(239,68,68,.38)!important;color:#8E1B1B!important}
+    html.light .stale-banner i{color:#B91C1C}
+    html.light #posterPreviewSection,html.light #poolCardSection{background:linear-gradient(180deg,#FFFFFF,#F8F3E5)!important;border-color:var(--line)!important}
+    html.light #studioTab .text-white,html.light #studioTab .text-slate-100{color:#14120C!important}
+    html.light #studioTab .text-slate-300{color:#2E3431!important}
+    html.light .ctl{background:#F1ECE0!important;border-color:#DCD2B8!important}
+    html.light .ctl span{color:#4C534E!important}
+    html.light .ctl select{color:#14120C!important}
+    html.light .gen-panel{background:linear-gradient(90deg,rgba(154,122,46,.13),#FFFFFF 42%,rgba(16,185,129,.10))!important;border-color:#DCD2B8!important}
     /* Keep broadcast/export graphics dark in both modes */
     html.light #cricketBroadcastPoster{background:linear-gradient(180deg,#0E1F1A,#07100D)!important;color:#F1ECDF!important;border-color:rgba(200,164,86,.65)!important}
     html.light #cricketBroadcastPoster .text-white{color:#fff!important}
     html.light #cricketBroadcastPoster .text-slate-400{color:#93A39B!important}
     html.light .fx-host .fx-sheet{background:linear-gradient(180deg,#16403A 0%,#0F2D27 40%,#0B221D 100%)!important;color:#F1ECDF!important}
+    html.light .fx-host .fx-sheet.fx-light{background:#F7F3E6!important;color:#221D10!important}
     html.light .cricket-mesh {
       background-image: radial-gradient(rgba(122, 95, 30, 0.10) 1px, transparent 0);
       background-size: 24px 24px;
@@ -422,7 +507,7 @@
             </span>
             <h2 class="text-2xl md:text-3xl font-display tracking-wide text-white mt-1">League Rules, Matchdays & Format</h2>
             <p class="text-xs md:text-sm text-slate-400 max-w-2xl mt-1">
-              Select between a multi-Pool structure or a Single Round-Robin. Set your weekend cricket schedule (Saturdays or Fridays) and venues.
+              Build a league schedule with pools, crossover fixtures and any match-day pattern. Set venues, time slots and skip dates once and the draw handles the rest.
             </p>
           </div>
 
@@ -441,14 +526,20 @@
         </div>
 
         <!-- Format Selector Highlight Box -->
-        <div class="mb-6 p-4 rounded-xl bg-[#080D1A] border border-amber-500/30">
-          <label class="block text-xs font-semibold text-amber-400 uppercase tracking-wider mb-2">Tournament League Structure</label>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="mb-6 rounded-2xl bg-[#080D1A] border border-amber-500/30 overflow-hidden">
+          <div class="px-4 py-3.5 border-b border-slate-800/80 flex items-start justify-between gap-3 flex-wrap">
+            <div>
+              <label class="block text-xs font-semibold text-amber-400 uppercase tracking-wider">League Structure</label>
+              <p class="text-xs text-slate-400 mt-1">Pools keep teams in groups; crossover adds fixtures between pools.</p>
+            </div>
+            <div id="cfgEstimate" class="text-xs font-semibold text-slate-200 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 whitespace-nowrap">—</div>
+          </div>
+          <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-3">
             <label class="cursor-pointer flex items-start gap-3 p-3.5 rounded-xl border border-slate-700 bg-[#0B101D] hover:border-amber-500/50 has-[:checked]:border-amber-500 has-[:checked]:bg-amber-500/10 transition">
               <input type="radio" name="leagueStructureRadio" value="groups" checked onchange="handleStructureChange('groups')" class="mt-1 text-amber-500 focus:ring-amber-500">
               <div>
                 <span class="block text-sm font-bold text-white">Split into Pools (A, B, C, D…)</span>
-                <span class="block text-xs text-slate-400 mt-0.5">Teams play within their assigned pool.</span>
+                <span class="block text-xs text-slate-400 mt-0.5">Teams play within their pool, across pools, or both.</span>
                 <label class="mt-2 inline-flex items-center gap-2 text-xs font-semibold text-slate-300">
                   Number of pools:
                   <select id="cfgPoolCount" onchange="setPoolCount(this.value)" class="bg-[#080D1A] border border-slate-700 rounded-lg px-2.5 py-1.5 text-sm text-white focus:outline-none focus:border-amber-500">
@@ -470,6 +561,19 @@
               </div>
             </label>
           </div>
+          <div id="poolScopeBox" class="px-4 pb-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#0B101D] border border-slate-700 rounded-xl p-3">
+              <div>
+                <span class="block text-xs font-semibold text-slate-200">Match scope</span>
+                <span class="block text-[11px] text-slate-400 mt-0.5">Choose whether teams play inside their pool, across pools, or both.</span>
+              </div>
+              <div class="seg" id="matchScopeSeg">
+                <button type="button" data-scope="pool" onclick="setMatchScope('pool')">Within pools</button>
+                <button type="button" data-scope="cross" onclick="setMatchScope('cross')">Cross-pool</button>
+                <button type="button" data-scope="both" onclick="setMatchScope('both')">Both</button>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Form Inputs Grid -->
@@ -487,22 +591,25 @@
           <!-- Hidden select synced with radio for compatibility -->
           <input type="hidden" id="cfgLeagueStructure" value="groups">
 
-          <!-- Matchday selector (Friday / Saturday only) -->
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Matchday (Once A Week)</label>
-            <div class="relative">
-              <select id="cfgMatchDay" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 appearance-none">
-                <option value="saturday" selected>Saturday Only (RPL Standard)</option>
-                <option value="friday">Friday Only (Weekend Slot)</option>
-                <option value="both">Both Friday & Saturday</option>
-              </select>
-              <i class="ph ph-caret-down absolute right-3.5 top-3.5 text-slate-400 pointer-events-none"></i>
+          <!-- Match days: every day or specific days -->
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Match Days</label>
+            <div class="rounded-xl bg-[#080D1A] border border-slate-700 p-3 space-y-3">
+              <div class="flex flex-wrap gap-1.5">
+                <button type="button" class="preset-chip" onclick="setDayPreset('daily')">Every day</button>
+                <button type="button" class="preset-chip" onclick="setDayPreset('weekend')">Weekends</button>
+                <button type="button" class="preset-chip" onclick="setDayPreset('fri_sat')">Fri + Sat</button>
+                <button type="button" class="preset-chip" onclick="setDayPreset('sat')">Sat only</button>
+                <button type="button" class="preset-chip" onclick="setDayPreset('fri')">Fri only</button>
+              </div>
+              <div id="dayToggleRow" class="grid grid-cols-7 gap-1.5"></div>
+              <p class="text-[11px] text-slate-400 leading-relaxed">Rounds run on these days in order, then cycle to the next week. Use Skip Dates below for breaks.</p>
             </div>
           </div>
 
           <div>
             <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Opening Match Date</label>
-            <input type="date" id="cfgStartDate" value="2026-10-03" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+            <input type="date" id="cfgStartDate" value="2026-10-03" onchange="markScheduleStale()" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
           </div>
 
           <div>
@@ -523,12 +630,12 @@
           <div>
             <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Legs</label>
             <label class="flex items-center gap-2 bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-slate-200 cursor-pointer select-none">
-              <input type="checkbox" id="cfgDoubleRR" class="accent-amber-500"> Double round robin (home &amp; away)
+              <input type="checkbox" id="cfgDoubleRR" onchange="toggleDoubleRR(this.checked)" class="accent-amber-500"> Double round robin (home &amp; away)
             </label>
           </div>
 
           <div class="sm:col-span-2">
-            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Skip Dates (breaks / holidays — no matches these weeks)</label>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">Skip Dates (breaks / holidays — no matches on these dates)</label>
             <div class="flex items-center gap-2">
               <input type="date" id="cfgBlackoutDate" class="flex-1 bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
               <button type="button" onclick="addBlackoutDate()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 transition flex-none">Add</button>
@@ -572,7 +679,10 @@
           <p class="text-xs text-slate-400 mt-0.5">Manage teams, assign jersey colors, upload crests, and configure pools.</p>
         </div>
 
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 flex-wrap">
+          <button type="button" onclick="openPoolCardsInStudio()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition flex items-center gap-1.5">
+            <i class="ph ph-users-three text-emerald-400"></i> Pool Cards
+          </button>
           <button type="button" id="autoSplitBtn" onclick="autoDistributePools()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition flex items-center gap-1.5">
             <i class="ph ph-arrows-split text-amber-400"></i> Auto Balance Pools
           </button>
@@ -590,7 +700,7 @@
 
     <!-- TAB 3: LEAGUE FIXTURES -->
     <div id="fixturesTab" class="tab-content hidden space-y-6">
-      <div class="bg-gradient-to-r from-amber-500/10 via-slate-900 to-emerald-500/10 border border-amber-500/30 rounded-2xl p-5 md:p-6 flex flex-col gap-4 shadow-xl">
+      <div class="gen-panel bg-gradient-to-r from-amber-500/10 via-slate-900 to-emerald-500/10 border border-amber-500/30 rounded-2xl p-5 md:p-6 flex flex-col gap-4 shadow-xl">
         <div>
           <h3 class="text-xl font-display text-white tracking-wide">Generate Weekend Schedule</h3>
           <p class="text-xs text-slate-300 mt-1">Builds every pairing from the teams above, then assigns dates, grounds and time slots from your setup.</p>
@@ -636,9 +746,15 @@
         <div id="rosterWarnings" class="mt-4 space-y-2"></div>
       </section>
 
-      <div id="fixturesStaleBanner" class="hidden stale-banner">
-        <span><i class="ph-fill ph-warning"></i> Teams changed since this schedule was built. Regenerate to rebuild the schedule.</span>
-        <button type="button" onclick="generateFixtures()" class="px-3.5 py-2 rounded-xl bg-amber-500 text-black font-bold text-xs">Regenerate schedule</button>
+      <div id="fixturesStaleBanner" class="hidden stale-banner" role="status">
+        <span class="flex items-start gap-2.5">
+          <i class="ph-fill ph-warning mt-0.5"></i>
+          <span>
+            <b class="block text-sm">Schedule out of date</b>
+            <span class="block text-xs opacity-90">Teams or match settings changed. Rebuild before downloading the fixture image or match graphics.</span>
+          </span>
+        </span>
+        <button type="button" onclick="generateFixtures()" class="px-3.5 py-2 rounded-xl bg-amber-500 text-black font-bold text-xs flex-none">Rebuild schedule</button>
       </div>
 
       <!-- Round Filter -->
@@ -648,7 +764,7 @@
           <h3 class="text-lg font-bold text-white">Scheduled League Matches</h3>
         </div>
         <div class="bg-slate-900 border border-slate-800 rounded-xl p-1 flex text-xs overflow-x-auto max-w-full">
-          <button type="button" id="viewAllBtn" onclick="filterRounds('all')" class="px-3 py-1.5 rounded-lg bg-amber-500 text-black font-bold">All Matches</button>
+          <button type="button" id="viewAllBtn" onclick="filterRounds('all')" class="px-3 py-1.5 rounded-lg bg-amber-500 text-black font-bold whitespace-nowrap flex-none">All Matches</button>
           <div id="roundFilterContainer" class="flex gap-1 ml-1"></div>
         </div>
       </div>
@@ -672,41 +788,56 @@
             <p class="text-xs md:text-sm text-slate-400 mt-1">Pick a match below, choose a style, and download YouTube thumbnails, WhatsApp cards, the full schedule sheet or the tournament banner.</p>
           </div>
 
-          <!-- Controls & Export Button -->
-          <div class="flex flex-wrap items-center gap-3">
-            <div class="flex items-center gap-2 bg-[#121929] px-3 py-1.5 rounded-xl border border-slate-700">
-              <span class="text-xs text-slate-400">Type:</span>
-              <select id="posterTypeSelect" onchange="switchPosterMode(this.value)" class="bg-transparent text-xs text-white font-semibold focus:outline-none">
-                <option value="match">Matchday Clash (1 Match)</option>
-                <option value="schedule">Round Fixture Sheet</option>
-              </select>
+          <!-- Controls & Export Buttons -->
+          <div class="w-full lg:w-auto space-y-2.5">
+            <div class="flex flex-wrap items-center gap-2.5">
+              <div class="ctl flex items-center gap-2 bg-[#121929] px-3 py-1.5 rounded-xl border border-slate-700">
+                <span class="text-xs text-slate-400">Type:</span>
+                <select id="posterTypeSelect" onchange="switchPosterMode(this.value)" class="bg-transparent text-xs text-white font-semibold focus:outline-none">
+                  <option value="match">Matchday Clash (1 Match)</option>
+                  <option value="schedule">Round Fixture Sheet</option>
+                </select>
+              </div>
+
+              <div class="ctl flex items-center gap-2 bg-[#121929] px-3 py-1.5 rounded-xl border border-slate-700">
+                <span class="text-xs text-slate-400">Style:</span>
+                <select id="posterVariantSelect" onchange="setPosterVariant(this.value)" class="bg-transparent text-xs text-white font-semibold focus:outline-none">
+                  <option value="clash">World Feed</option>
+                  <option value="arena">Floodlight</option>
+                  <option value="neon">Prime Night</option>
+                </select>
+              </div>
+
+              <button type="button" onclick="downloadPosterImage()" id="downloadPosterBtn" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-black font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20 flex items-center gap-2 transition cursor-pointer">
+                <i class="ph-bold ph-download-simple text-sm"></i> YouTube Thumb
+              </button>
+              <button type="button" onclick="downloadWhatsAppCard()" id="downloadWhatsAppBtn" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-black font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20 flex items-center gap-2 transition cursor-pointer">
+                <i class="ph-bold ph-whatsapp-logo text-sm"></i> WhatsApp Card
+              </button>
             </div>
 
-            <div class="flex items-center gap-2 bg-[#121929] px-3 py-1.5 rounded-xl border border-slate-700">
-              <span class="text-xs text-slate-400">Style:</span>
-              <select id="posterVariantSelect" onchange="setPosterVariant(this.value)" class="bg-transparent text-xs text-white font-semibold focus:outline-none">
-                <option value="clash">Bold Clash</option>
-                <option value="arena">Dark Arena</option>
-                <option value="neon">Neon Night</option>
-              </select>
-            </div>
+            <div class="flex flex-wrap items-center gap-2.5">
+              <div class="ctl flex items-center gap-2 bg-[#121929] px-3 py-1.5 rounded-xl border border-slate-700">
+                <span class="text-xs text-slate-400">Banner:</span>
+                <select id="bannerSizeSelect" class="bg-transparent text-xs text-white font-semibold focus:outline-none">
+                  <option value="standard">2560 × 1440</option>
+                  <option value="wide">2560 × 640 (wide)</option>
+                </select>
+              </div>
+              <button type="button" onclick="downloadTournamentBanner()" id="downloadBannerBtn" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 flex items-center gap-2 transition cursor-pointer">
+                <i class="ph-bold ph-flag-banner text-sm"></i> Banner PNG
+              </button>
 
-            <button type="button" onclick="downloadPosterImage()" id="downloadPosterBtn" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-black font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20 flex items-center gap-2 transition cursor-pointer">
-              <i class="ph-bold ph-download-simple text-sm"></i> YouTube Thumb
-            </button>
-            <button type="button" onclick="downloadWhatsAppCard()" id="downloadWhatsAppBtn" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-black font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20 flex items-center gap-2 transition cursor-pointer">
-              <i class="ph-bold ph-whatsapp-logo text-sm"></i> WhatsApp Card
-            </button>
-            <div class="flex items-center gap-2 bg-[#121929] px-3 py-1.5 rounded-xl border border-slate-700">
-              <span class="text-xs text-slate-400">Banner:</span>
-              <select id="bannerSizeSelect" class="bg-transparent text-xs text-white font-semibold focus:outline-none">
-                <option value="standard">2560 × 1440</option>
-                <option value="wide">2560 × 640 (wide)</option>
-              </select>
+              <div class="ctl flex items-center gap-2 bg-[#121929] px-3 py-1.5 rounded-xl border border-slate-700">
+                <span class="text-xs text-slate-400">Pools:</span>
+                <select id="poolCardScope" onchange="renderPoolCardPreview()" class="bg-transparent text-xs text-white font-semibold focus:outline-none">
+                  <option value="all">All pools</option>
+                </select>
+              </div>
+              <button type="button" onclick="downloadPoolCard()" id="downloadPoolCardBtn" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 font-extrabold text-xs uppercase tracking-wider border border-slate-600 flex items-center gap-2 transition cursor-pointer">
+                <i class="ph-bold ph-users-three text-sm text-amber-400"></i> Pool Card PNG
+              </button>
             </div>
-            <button type="button" onclick="downloadTournamentBanner()" id="downloadBannerBtn" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-amber-500/20 flex items-center gap-2 transition cursor-pointer">
-              <i class="ph-bold ph-flag-banner text-sm"></i> Banner PNG
-            </button>
           </div>
         </div>
 
@@ -754,6 +885,20 @@
 
         <!-- Quick Selector for Active Poster Match -->
         <div id="activeMatchPicker" class="mt-6 flex flex-wrap items-center justify-center gap-2"></div>
+      </section>
+
+      <!-- Pool draw card preview -->
+      <section id="poolCardSection" class="hidden bg-[#0A0E18] border border-slate-700 rounded-3xl p-5 md:p-7 shadow-2xl">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-slate-800">
+          <div>
+            <h3 class="font-display text-2xl text-white tracking-wide">Pool Draw Card</h3>
+            <p class="text-xs text-slate-400 mt-1">All teams sorted by pool — clean, readable and ready for WhatsApp or social.</p>
+          </div>
+          <button type="button" onclick="downloadPoolCard()" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs uppercase tracking-wider flex items-center gap-2">
+            <i class="ph-bold ph-download-simple text-sm"></i> Download Pool Card
+          </button>
+        </div>
+        <div id="poolCardPreview" class="mt-5 rounded-2xl border border-slate-800 bg-[#05080F] overflow-hidden"></div>
       </section>
     </div>
 
@@ -926,7 +1071,9 @@
         poolCount: 2, // number of pools when structure is 'groups'
         doubleRoundRobin: false, // when true, every pairing is played twice (home & away)
         blackoutDates: [], // 'YYYY-MM-DD' dates with no matches; schedule skips the week
-        matchDay: "saturday",
+        matchDays: ['sat'], // any combination of mon..sun
+        matchScope: 'pool', // 'pool' | 'cross' | 'both'
+        matchDay: "saturday", // legacy field for old save files
         startDate: "2026-10-03",
         format: "T20 Championship (20 Overs)",
         venues: ["RCA Ground 1", "RCA Ground 2", "Diriyah Cricket Arena"],
@@ -937,6 +1084,7 @@
       },
       teams: JSON.parse(JSON.stringify(DEFAULT_PRESET_TEAMS)),
       fixtures: [],
+      scheduleSig: null,
       activeFilter: 'all',
       posterMatchId: null,
       posterMode: 'match',
@@ -1003,7 +1151,11 @@
 
       if (tabId === 'teamsTab') renderTeams();
       if (tabId === 'fixturesTab') { renderRoster(); syncFixtureTeams(); renderFixtures(); }
-      if (tabId === 'studioTab') renderPoster();
+      if (tabId === 'studioTab') {
+        renderPoster();
+        renderPoolCardScopeOptions();
+        renderPoolCardPreview();
+      }
     }
 
     function saveConfigAndProceed() {
@@ -1040,33 +1192,26 @@
       const keys = poolKeys();
       RPL_STATE.teams.forEach(t => { if (!keys.includes(t.group)) t.group = smallestPool(keys); });
       onTeamsChanged();
+      renderSetupEstimate();
+      renderPoolCardScopeOptions();
+      setStale(!!RPL_STATE.fixtures.length);
       showToast(`Tournament now uses ${n} pools (${keys.join(', ')}).`, 'info');
     }
 
     function handleStructureChange(mode) {
       RPL_STATE.tournament.structure = mode;
-      const hiddenInput = document.getElementById('cfgLeagueStructure');
-      if (hiddenInput) hiddenInput.value = mode;
-
-      const autoBtn = document.getElementById('autoSplitBtn');
-      if (autoBtn) {
-        if (mode === 'single') {
-          autoBtn.classList.add('hidden');
-        } else {
-          autoBtn.classList.remove('hidden');
-        }
-      }
+      updateStructureUI();
       onTeamsChanged();
+      renderSetupEstimate();
+      setStale(!!RPL_STATE.fixtures.length);
       showToast(mode === 'groups' ? `Switched to ${poolKeys().length}-pool format.` : 'Switched to Single Round Robin.', 'info');
     }
 
     function syncTournamentInputs() {
       const nameInput = document.getElementById('cfgTournamentName');
       const tagInput = document.getElementById('cfgTournamentTag');
-      const matchDaySelect = document.getElementById('cfgMatchDay');
       const startDateInput = document.getElementById('cfgStartDate');
       const formatInput = document.getElementById('cfgMatchFormat');
-      const playoffSelect = document.getElementById('cfgPlayoffFormat');
       const venuesInput = document.getElementById('cfgVenues');
       const timeSlotsInput = document.getElementById('cfgTimeSlots');
       const sponsorsInput = document.getElementById('cfgSponsors');
@@ -1075,10 +1220,8 @@
 
       if (nameInput) RPL_STATE.tournament.name = nameInput.value.trim() || "Riyadh Premier League";
       if (tagInput) RPL_STATE.tournament.tag = tagInput.value.trim() || "October 2026";
-      if (matchDaySelect) RPL_STATE.tournament.matchDay = matchDaySelect.value;
       if (startDateInput) RPL_STATE.tournament.startDate = startDateInput.value || "2026-10-03";
       if (formatInput) RPL_STATE.tournament.format = formatInput.value.trim();
-      if (playoffSelect) RPL_STATE.tournament.playoffFormat = playoffSelect.value;
 
       if (venuesInput) {
         const raw = venuesInput.value;
@@ -1171,18 +1314,18 @@
         <div class="absolute left-0 top-0 bottom-0 w-1" style="background-color: ${team.color};"></div>
         <div class="flex items-center gap-3 pl-1.5 min-w-0">
           <div class="w-10 h-10 rounded-lg flex-shrink-0 flex items-center justify-center font-bold text-xs uppercase overflow-hidden" style="background: linear-gradient(135deg, ${team.color}22, ${team.color}55); border: 1px solid ${team.color}44;">
-            ${team.logo ? `<img src="${team.logo}" class="w-full h-full object-cover">` : `<span style="color:${team.color};">${team.code}</span>`}
+            ${team.logo ? `<img src="${team.logo}" class="w-full h-full object-contain p-0.5">` : `<span style="color:${team.color};">${team.code}</span>`}
           </div>
           <div class="min-w-0">
             <h4 class="text-xs md:text-sm font-bold text-white truncate">${team.name}</h4>
-            <span class="text-[10px] text-slate-400 font-mono">Code: ${team.code} ${showGroupToggle ? `• Pool ${team.group || 'A'}` : ''}</span>
+            <span class="text-[10px] text-slate-400 font-mono">Code: ${team.code}</span>
           </div>
         </div>
         <div class="flex items-center gap-1">
           ${showGroupToggle ? `
-          <button type="button" onclick="toggleTeamGroup('${team.id}')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[10px] text-amber-300 font-mono" title="Move to next pool">
-            → Pool ${nextPoolLabel(team.group)}
-          </button>
+          <select onchange="setTeamPool('${team.id}', this.value)" title="Assign this team to a pool" class="w-[64px] bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg px-1 py-1 text-[10px] text-amber-300 font-mono focus:outline-none focus:border-amber-500">
+            ${poolKeys().map(k => `<option value="${k}" ${k === team.group ? 'selected' : ''}>Pool ${k}</option>`).join('')}
+          </select>
           ` : ''}
           <button type="button" onclick="editTeam('${team.id}')" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-amber-400 transition">
             <i class="ph ph-pencil-simple"></i>
@@ -1195,19 +1338,12 @@
       return card;
     }
 
-    function nextPoolLabel(g) {
-      const keys = poolKeys();
-      const i = keys.indexOf(g);
-      return keys[(i + 1) % keys.length];
-    }
-
-    function toggleTeamGroup(teamId) {
+    function setTeamPool(teamId, group) {
       const team = RPL_STATE.teams.find(t => t.id === teamId);
-      if (team) {
-        team.group = nextPoolLabel(validPool(team.group));
-        onTeamsChanged();
-        showToast(`Moved ${team.name} to Pool ${team.group}`, 'info');
-      }
+      if (!team) return;
+      team.group = validPool(group);
+      onTeamsChanged();
+      showToast(`${team.name} assigned to Pool ${team.group}.`, 'info');
     }
 
     function autoDistributePools() {
@@ -1228,6 +1364,247 @@
       return a;
     }
 
+    /* ---------- Match days ---------- */
+    const DAY_KEYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+    const DAY_SHORT = { mon: 'Mon', tue: 'Tue', wed: 'Wed', thu: 'Thu', fri: 'Fri', sat: 'Sat', sun: 'Sun' };
+    const DAY_LONG = { mon: 'Monday', tue: 'Tuesday', wed: 'Wednesday', thu: 'Thursday', fri: 'Friday', sat: 'Saturday', sun: 'Sunday' };
+
+    function matchDayKeys() {
+      const raw = RPL_STATE.tournament.matchDays;
+      const list = Array.isArray(raw) ? raw.filter(k => DAY_KEYS.includes(k)) : [];
+      return list.length ? DAY_KEYS.filter(k => list.includes(k)) : ['sat'];
+    }
+
+    function matchDaysLabel() {
+      const days = matchDayKeys();
+      if (days.length === 7) return 'Every day';
+      if (days.length === 1) return DAY_LONG[days[0]] + 's';
+      if (days.length === 2) return `${DAY_SHORT[days[0]]} & ${DAY_SHORT[days[1]]}`;
+      return days.slice(0, -1).map(k => DAY_SHORT[k]).join(', ') + ' & ' + DAY_SHORT[days[days.length - 1]];
+    }
+
+    function matchScopeLabel() {
+      const s = RPL_STATE.tournament.matchScope || 'pool';
+      return s === 'cross' ? 'Cross-pool' : s === 'both' ? 'Pools + crossover' : 'Within pools';
+    }
+
+    function isMatchDay(d) {
+      return matchDayKeys().includes(DAY_KEYS[(d.getDay() + 6) % 7]);
+    }
+
+    function nextMatchDay(d) {
+      const nd = new Date(d);
+      let guard = 0;
+      do { nd.setDate(nd.getDate() + 1); } while (!isMatchDay(nd) && guard++ < 20);
+      return nd;
+    }
+
+    function alignToMatchDay(d) {
+      const nd = new Date(d);
+      let guard = 0;
+      while (!isMatchDay(nd) && guard++ < 20) nd.setDate(nd.getDate() + 1);
+      while (blackoutSet().has(dateKey(nd)) && guard++ < 600) {
+        nd.setDate(nd.getDate() + 1);
+        while (!isMatchDay(nd) && guard++ < 20) nd.setDate(nd.getDate() + 1);
+      }
+      return nd;
+    }
+
+    function nextRoundDate(d) {
+      let nd = nextMatchDay(d);
+      let guard = 0;
+      while (blackoutSet().has(dateKey(nd)) && guard++ < 600) nd = nextMatchDay(nd);
+      return nd;
+    }
+
+    function setDayPreset(preset) {
+      const map = {
+        daily: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
+        weekend: ['sat', 'sun'],
+        fri_sat: ['fri', 'sat'],
+        sat: ['sat'],
+        fri: ['fri']
+      };
+      if (!map[preset]) return;
+      RPL_STATE.tournament.matchDays = [...map[preset]];
+      renderDayChips();
+      renderSetupEstimate();
+      setStale(!!RPL_STATE.fixtures.length);
+    }
+
+    function toggleMatchDay(key) {
+      if (!DAY_KEYS.includes(key)) return;
+      let days = matchDayKeys();
+      if (days.includes(key)) {
+        if (days.length === 1) { showToast('Keep at least one match day selected.', 'error'); return; }
+        days = days.filter(k => k !== key);
+      } else {
+        days.push(key);
+      }
+      RPL_STATE.tournament.matchDays = DAY_KEYS.filter(k => days.includes(k));
+      renderDayChips();
+      renderSetupEstimate();
+      setStale(!!RPL_STATE.fixtures.length);
+    }
+
+    function renderDayChips() {
+      const row = document.getElementById('dayToggleRow');
+      if (!row) return;
+      const active = matchDayKeys();
+      row.innerHTML = DAY_KEYS.map(k => `<button type="button" class="day-btn ${active.includes(k) ? 'active' : ''}" onclick="toggleMatchDay('${k}')" aria-pressed="${active.includes(k)}">${DAY_SHORT[k]}</button>`).join('');
+      document.querySelectorAll('.preset-chip').forEach(b => b.classList.remove('active'));
+    }
+
+    /* ---------- Match scope ---------- */
+    function markScheduleStale() {
+      const d = document.getElementById('cfgStartDate');
+      if (d) RPL_STATE.tournament.startDate = d.value || RPL_STATE.tournament.startDate;
+      if (RPL_STATE.fixtures.length) setStale(true);
+    }
+
+    function toggleDoubleRR(on) {
+      RPL_STATE.tournament.doubleRoundRobin = !!on;
+      renderSetupEstimate();
+      markScheduleStale();
+    }
+
+    function setMatchScope(scope) {
+      if (!['pool', 'cross', 'both'].includes(scope)) return;
+      RPL_STATE.tournament.matchScope = scope;
+      applyScopeUI();
+      renderSetupEstimate();
+      setStale(!!RPL_STATE.fixtures.length);
+    }
+
+    function applyScopeUI() {
+      const scope = RPL_STATE.tournament.matchScope || 'pool';
+      document.querySelectorAll('#matchScopeSeg button').forEach(b => b.classList.toggle('active', b.dataset.scope === scope));
+      const box = document.getElementById('poolScopeBox');
+      if (box) box.classList.toggle('hidden', RPL_STATE.tournament.structure !== 'groups');
+    }
+
+    function updateStructureUI() {
+      const grouped = RPL_STATE.tournament.structure === 'groups';
+      const box = document.getElementById('poolScopeBox');
+      if (box) box.classList.toggle('hidden', !grouped);
+      const autoBtn = document.getElementById('autoSplitBtn');
+      if (autoBtn) autoBtn.classList.toggle('hidden', !grouped);
+      const hiddenInput = document.getElementById('cfgLeagueStructure');
+      if (hiddenInput) hiddenInput.value = RPL_STATE.tournament.structure;
+      document.querySelectorAll('input[name="leagueStructureRadio"]').forEach(r => { r.checked = r.value === RPL_STATE.tournament.structure; });
+      applyScopeUI();
+    }
+
+    /* ---------- Expected draw size + live estimate ---------- */
+    function expectedMatchCounts() {
+      const T = RPL_STATE.tournament;
+      const teams = RPL_STATE.teams;
+      const pairs = n => n * (n - 1) / 2;
+      const berger = n => n < 2 ? 0 : (n % 2 ? n : n - 1);
+      let matches = 0, rounds = 0;
+      if (T.structure !== 'groups') {
+        matches = pairs(teams.length);
+        rounds = berger(teams.length);
+      } else {
+        const keys = poolKeys();
+        const sizes = keys.map(k => teams.filter(t => t.group === k).length);
+        const scope = T.matchScope || 'pool';
+        if (scope === 'pool' || scope === 'both') {
+          matches += sizes.reduce((s, n) => s + pairs(n), 0);
+          rounds += Math.max(0, ...sizes.map(berger));
+        }
+        if (scope === 'cross' || scope === 'both') {
+          for (let i = 0; i < keys.length; i++) {
+            for (let j = i + 1; j < keys.length; j++) {
+              matches += sizes[i] * sizes[j];
+              rounds += Math.max(sizes[i], sizes[j]);
+            }
+          }
+        }
+      }
+      const legs = T.doubleRoundRobin ? 2 : 1;
+      return { matches: matches * legs, rounds: rounds * legs };
+    }
+
+    function renderSetupEstimate() {
+      const el = document.getElementById('cfgEstimate');
+      if (!el) return;
+      const { matches, rounds } = expectedMatchCounts();
+      el.textContent = matches ? `${matches} matches · ${rounds} rounds` : 'Add teams to size the draw';
+      el.title = `${matchDaysLabel()} · ${matchScopeLabel()}`;
+      const sel = document.getElementById('cfgPoolCount');
+      if (sel) sel.value = String(Math.min(6, Math.max(2, RPL_STATE.tournament.poolCount || 2)));
+    }
+
+    /* ---------- Schedule signature + coverage checks ---------- */
+    function scheduleSignature() {
+      const T = RPL_STATE.tournament;
+      return JSON.stringify({
+        teams: RPL_STATE.teams.map(t => [t.id, t.group]),
+        pools: T.poolCount,
+        structure: T.structure,
+        scope: T.matchScope || 'pool',
+        days: matchDayKeys(),
+        double: !!T.doubleRoundRobin,
+        start: T.startDate,
+        blackouts: T.blackoutDates || []
+      });
+    }
+
+    function scheduleIsStale() {
+      return !!RPL_STATE.fixtures.length && !!RPL_STATE.scheduleSig && RPL_STATE.scheduleSig !== scheduleSignature();
+    }
+
+    function guardScheduleFresh() {
+      if (!RPL_STATE.fixtures.length) { showToast('Generate the schedule first.', 'error'); return false; }
+      if (scheduleIsStale()) { showToast('Schedule is out of date — click Rebuild before downloading.', 'error'); setStale(true); return false; }
+      return true;
+    }
+
+    function coverageIssues() {
+      if (!RPL_STATE.fixtures.length) return [];
+      const T = RPL_STATE.tournament;
+      const grouped = T.structure === 'groups';
+      const counts = {};
+      RPL_STATE.fixtures.forEach(r => r.matches.forEach(m => {
+        counts[m.homeTeam.id] = (counts[m.homeTeam.id] || 0) + 1;
+        counts[m.awayTeam.id] = (counts[m.awayTeam.id] || 0) + 1;
+      }));
+      const legs = T.doubleRoundRobin ? 2 : 1;
+      const total = RPL_STATE.teams.length;
+      return RPL_STATE.teams.map(t => {
+        let expected;
+        if (!grouped) expected = total - 1;
+        else {
+          const poolSize = RPL_STATE.teams.filter(x => x.group === t.group).length;
+          const scope = T.matchScope || 'pool';
+          if (scope === 'pool') expected = poolSize - 1;
+          else if (scope === 'cross') expected = total - poolSize;
+          else expected = total - 1;
+        }
+        expected *= legs;
+        const actual = counts[t.id] || 0;
+        return actual === expected ? null : { name: t.name, actual, expected };
+      }).filter(Boolean);
+    }
+
+    /* ---------- Full crossover between two pools ---------- */
+    function crossRounds(listA, listB) {
+      const L = Math.max(listA.length, listB.length);
+      if (!L) return [];
+      const rounds = [];
+      for (let r = 0; r < L; r++) {
+        const rp = [];
+        for (let i = 0; i < L; i++) {
+          const a = listA[(i + r) % L];
+          const b = listB[i];
+          if (a && b) rp.push({ teamA: a, teamB: b });
+        }
+        if (rp.length) rounds.push(rp);
+      }
+      return rounds;
+    }
+
     function generateFixtures() {
       const tg = document.getElementById('shuffleToggle');
       window.__shuffle = SHUFFLE_NEXT || !!(tg && tg.checked);
@@ -1238,126 +1615,96 @@
         return;
       }
 
-      const isGrouped = RPL_STATE.tournament.structure === 'groups';
+      const T = RPL_STATE.tournament;
+      const isGrouped = T.structure === 'groups';
+      const scope = isGrouped ? (T.matchScope || 'pool') : 'pool';
       const poolList = isGrouped ? poolKeys() : [];
+
       if (isGrouped) {
         const thin = poolList.filter(g => RPL_STATE.teams.filter(t => t.group === g).length < 2);
         if (thin.length) { showToast('Pool ' + thin.join(', Pool ') + ' needs at least 2 teams.', 'error'); renderRoster(); return; }
       }
-      let roundCounter = 1;
-      let matchCounter = 1;
-      const roundsList = [];
 
-      let currentDate = new Date(RPL_STATE.tournament.startDate);
-      const targetDay = RPL_STATE.tournament.matchDay;
-
-      // Adjust starting day
-      if (targetDay === 'saturday') {
-        while (currentDate.getDay() !== 6) currentDate.setDate(currentDate.getDate() + 1);
-      } else if (targetDay === 'friday') {
-        while (currentDate.getDay() !== 5) currentDate.setDate(currentDate.getDate() + 1);
-      }
-      // Skip opening week if it lands on a break
-      currentDate = skipBlackoutWeeks(currentDate);
+      const sourceRounds = [];
 
       if (isGrouped) {
-        const groups = window.__shuffle ? shuffled(poolList) : [...poolList];
-        const groupRoundsMap = {};
-        const doubleLeg = !!RPL_STATE.tournament.doubleRoundRobin;
+        const byPool = {};
+        poolList.forEach(k => { byPool[k] = RPL_STATE.teams.filter(t => t.group === k); });
 
-        groups.forEach(grp => {
-          const grpTeams = RPL_STATE.teams.filter(t => t.group === grp);
-          let legs = buildBergerRounds(grpTeams);
-          if (doubleLeg) legs = legs.concat(mirrorRounds(legs));
-          groupRoundsMap[grp] = legs;
-        });
-
-        const maxRounds = Math.max(...groups.map(g => groupRoundsMap[g].length));
-
-        for (let r = 0; r < maxRounds; r++) {
-          const roundDate = new Date(currentDate);
-          const dateFormatted = roundDate.toLocaleDateString('en-GB', {
-            weekday: 'short', day: '2-digit', month: 'short', year: 'numeric'
-          });
-
-          const matchesInRound = [];
-          groups.forEach(grp => {
-            const grpMatches = groupRoundsMap[grp][r] || [];
-            grpMatches.forEach((pair) => {
-              const venue = RPL_STATE.tournament.venues[(matchesInRound.length) % RPL_STATE.tournament.venues.length];
-              const slot = RPL_STATE.tournament.timeSlots[(matchesInRound.length) % RPL_STATE.tournament.timeSlots.length];
-
-              matchesInRound.push({
-                id: 'm_' + matchCounter,
-                matchNumber: matchCounter++,
-                round: r + 1,
-                group: grp,
-                date: dateFormatted,
-                rawDate: roundDate.toISOString().split('T')[0],
-                time: slot,
-                venue: venue,
-                homeTeam: pair.teamA,
-                awayTeam: pair.teamB,
-                scoreA: '',
-                scoreB: '',
-                winner: null,
-                summary: ''
-              });
+        // Within-pool legs, aligned by round index so a team never plays twice per round.
+        if (scope === 'pool' || scope === 'both') {
+          const legs = {};
+          const maxRounds = Math.max(...poolList.map(k => { legs[k] = buildBergerRounds(byPool[k]); return legs[k].length; }));
+          for (let r = 0; r < maxRounds; r++) {
+            const roundPairs = [];
+            poolList.forEach(k => {
+              (legs[k][r] || []).forEach(p => roundPairs.push({ teamA: p.teamA, teamB: p.teamB, group: k }));
             });
-          });
+            if (roundPairs.length) sourceRounds.push(roundPairs);
+          }
+        }
 
-          roundsList.push({
-            roundNumber: r + 1,
-            date: dateFormatted,
-            matches: matchesInRound
-          });
-
-          currentDate = advanceWeek(currentDate);
+        // Full crossover: every team plays every team in every other pool once.
+        if (scope === 'cross' || scope === 'both') {
+          const blocks = [];
+          for (let i = 0; i < poolList.length; i++) {
+            for (let j = i + 1; j < poolList.length; j++) {
+              crossRounds(byPool[poolList[i]], byPool[poolList[j]]).forEach(rp => {
+                blocks.push(rp.map(p => ({ teamA: p.teamA, teamB: p.teamB, group: null })));
+              });
+            }
+          }
+          (window.__shuffle ? shuffled(blocks) : blocks).forEach(rp => { if (rp.length) sourceRounds.push(rp); });
         }
       } else {
-        let pairsRounds = buildBergerRounds(RPL_STATE.teams);
-        if (RPL_STATE.tournament.doubleRoundRobin) pairsRounds = pairsRounds.concat(mirrorRounds(pairsRounds));
-        pairsRounds.forEach((roundPairs, rIdx) => {
-          const roundDate = new Date(currentDate);
-          const dateFormatted = roundDate.toLocaleDateString('en-GB', {
-            weekday: 'short', day: '2-digit', month: 'short', year: 'numeric'
-          });
-
-          const matchesInRound = [];
-          roundPairs.forEach((pair, pIdx) => {
-            const venue = RPL_STATE.tournament.venues[pIdx % RPL_STATE.tournament.venues.length];
-            const slot = RPL_STATE.tournament.timeSlots[pIdx % RPL_STATE.tournament.timeSlots.length];
-
-            matchesInRound.push({
-              id: 'm_' + matchCounter,
-              matchNumber: matchCounter++,
-              round: rIdx + 1,
-              group: null,
-              date: dateFormatted,
-              rawDate: roundDate.toISOString().split('T')[0],
-              time: slot,
-              venue: venue,
-              homeTeam: pair.teamA,
-              awayTeam: pair.teamB,
-              scoreA: '',
-              scoreB: '',
-              winner: null,
-              summary: ''
-            });
-          });
-
-          roundsList.push({
-            roundNumber: rIdx + 1,
-            date: dateFormatted,
-            matches: matchesInRound
-          });
-
-          currentDate = advanceWeek(currentDate);
+        buildBergerRounds(RPL_STATE.teams).forEach(rp => {
+          sourceRounds.push(rp.map(p => ({ teamA: p.teamA, teamB: p.teamB, group: null })));
         });
       }
 
+      let finalRounds = sourceRounds.filter(rp => rp.length);
+      if (window.__shuffle) {
+        finalRounds = finalRounds.map(rp => shuffled(rp).map(p => {
+          const swap = Math.random() < 0.5;
+          return { teamA: swap ? p.teamB : p.teamA, teamB: swap ? p.teamA : p.teamB, group: p.group };
+        }));
+      }
+      if (T.doubleRoundRobin) finalRounds = finalRounds.concat(mirrorRounds(finalRounds));
+
+      let currentDate = alignToMatchDay(new Date((T.startDate || '2026-10-03') + 'T00:00:00'));
+      let matchCounter = 1;
+      const roundsList = finalRounds.map((pairs, rIdx) => {
+        const dateFormatted = currentDate.toLocaleDateString('en-GB', {
+          weekday: 'short', day: '2-digit', month: 'short', year: 'numeric'
+        });
+        const rawDate = dateKey(currentDate);
+        const matches = pairs.map((pair, pIdx) => {
+          const venue = T.venues[pIdx % T.venues.length];
+          const slot = T.timeSlots[pIdx % T.timeSlots.length];
+          return {
+            id: 'm_' + matchCounter,
+            matchNumber: matchCounter++,
+            round: rIdx + 1,
+            group: pair.group || null,
+            date: dateFormatted,
+            rawDate: rawDate,
+            time: slot,
+            venue: venue,
+            homeTeam: pair.teamA,
+            awayTeam: pair.teamB,
+            scoreA: '',
+            scoreB: '',
+            winner: null,
+            summary: ''
+          };
+        });
+        currentDate = nextRoundDate(currentDate);
+        return { roundNumber: rIdx + 1, date: dateFormatted, rawDate: rawDate, matches: matches };
+      });
+
       RPL_STATE.fixtures = roundsList;
-      if (roundsList.length > 0 && roundsList[0].matches.length > 0) {
+      RPL_STATE.scheduleSig = scheduleSignature();
+      if (roundsList.length && roundsList[0].matches.length) {
         RPL_STATE.posterMatchId = roundsList[0].matches[0].id;
       }
 
@@ -1365,12 +1712,19 @@
       renderRoster();
       renderFixtures();
       warnCapacity(roundsList);
-      showToast(`${window.__shuffle ? 'Shuffled schedule' : 'Generated schedule'}: ${matchCounter - 1} matches across ${roundsList.length} tournament rounds!`, 'success');
+
+      const issues = coverageIssues();
+      if (issues.length) {
+        console.warn('Schedule coverage mismatch:', issues);
+        showToast(`Built ${matchCounter - 1} matches, but ${issues.length} team${issues.length === 1 ? '' : 's'} have the wrong match count. Check pools.`, 'error');
+      } else {
+        showToast(`${window.__shuffle ? 'Shuffled schedule' : 'Generated schedule'}: ${matchCounter - 1} matches across ${roundsList.length} rounds · ${matchDaysLabel()}.`, 'success');
+      }
     }
 
     /* Second leg: same pairings, home & away swapped */
     function mirrorRounds(rounds) {
-      return rounds.map(rp => rp.map(p => ({ teamA: p.teamB, teamB: p.teamA })));
+      return rounds.map(rp => rp.map(p => ({ ...p, teamA: p.teamB, teamB: p.teamA })));
     }
 
     function blackoutSet() {
@@ -1382,16 +1736,16 @@
     }
 
     function skipBlackoutWeeks(d) {
-      const skip = blackoutSet();
-      if (!skip.size) return d;
+      if (!blackoutSet().size) return d;
       let guard = 0;
-      while (skip.has(dateKey(d)) && guard++ < 520) d.setDate(d.getDate() + 7);
+      while (blackoutSet().has(dateKey(d)) && guard++ < 600) d = nextMatchDay(d);
       return d;
     }
 
     function advanceWeek(d) {
-      d.setDate(d.getDate() + 7);
-      return skipBlackoutWeeks(d);
+      const nd = new Date(d);
+      nd.setDate(nd.getDate() + 7);
+      return skipBlackoutWeeks(nd);
     }
 
     /* Warn when a single weekend round has more matches than venues × slots */
@@ -1411,7 +1765,7 @@
       const list = RPL_STATE.tournament.blackoutDates || [];
       el.innerHTML = list.length
         ? list.map(d => `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800 border border-slate-700 text-xs text-slate-200 font-semibold">${esc(fmtBlackout(d))}<button type="button" onclick="removeBlackoutDate('${esc(d)}')" class="text-slate-400 hover:text-rose-400"><i class="ph-bold ph-x"></i></button></span>`).join('')
-        : '<span class="text-xs text-slate-500 italic">No skip dates. Schedule runs every week.</span>';
+        : '<span class="text-xs text-slate-500 italic">No skip dates. The schedule runs on every selected match day.</span>';
     }
 
     function fmtBlackout(iso) {
@@ -1497,20 +1851,21 @@
             <p class="text-xs text-slate-500 mt-1">Configure your rules and click "Generate Schedule Now".</p>
           </div>
         `;
+        setStale(false);
         return;
       }
 
       const allBtn = document.getElementById('viewAllBtn');
       if (allBtn) {
         allBtn.className = RPL_STATE.activeFilter === 'all' 
-          ? "px-3 py-1.5 rounded-lg bg-amber-500 text-black font-bold" 
-          : "px-3 py-1.5 rounded-lg text-slate-400 hover:text-white";
+          ? "px-3 py-1.5 rounded-lg bg-amber-500 text-black font-bold whitespace-nowrap" 
+          : "px-3 py-1.5 rounded-lg text-slate-400 hover:text-white whitespace-nowrap";
       }
 
       RPL_STATE.fixtures.forEach(r => {
         const btn = document.createElement('button');
         const isActive = RPL_STATE.activeFilter === String(r.roundNumber);
-        btn.className = `px-3 py-1.5 rounded-lg font-bold ${isActive ? 'bg-amber-500 text-black' : 'text-slate-400 hover:text-white'}`;
+        btn.className = `px-3 py-1.5 rounded-lg font-bold whitespace-nowrap flex-none ${isActive ? 'bg-amber-500 text-black' : 'text-slate-400 hover:text-white'}`;
         btn.textContent = `R${r.roundNumber}`;
         btn.onclick = () => filterRounds(String(r.roundNumber));
         filterContainer.appendChild(btn);
@@ -1523,16 +1878,19 @@
       displayRounds.forEach(roundObj => {
         const roundCard = document.createElement('div');
         roundCard.className = "bg-[#0B101C] border border-slate-800/90 rounded-2xl p-4 md:p-6 shadow-xl space-y-4";
-        
+        const groupedNow = RPL_STATE.tournament.structure === 'groups';
+        const breakdown = groupedNow
+          ? poolKeys().map(k => [k, roundObj.matches.filter(m => m.group === k).length]).filter(([, n]) => n).map(([k, n]) => `Pool ${k}: ${n}`).join(' · ')
+          : '';
         roundCard.innerHTML = `
-          <div class="flex items-center justify-between border-b border-slate-800/70 pb-3">
-            <div class="flex items-center gap-3">
+          <div class="flex items-center justify-between gap-3 border-b border-slate-800/70 pb-3 flex-wrap">
+            <div class="flex items-center gap-3 flex-wrap">
               <span class="font-display text-lg text-amber-400 tracking-wider">ROUND ${roundObj.roundNumber}</span>
               <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700 flex items-center gap-1.5">
                 <i class="ph ph-calendar text-amber-400"></i> ${roundObj.date}
               </span>
             </div>
-            <span class="text-xs text-slate-400">${roundObj.matches.length} Matches Scheduled</span>
+            <span class="text-xs text-slate-400">${roundObj.matches.length} match${roundObj.matches.length === 1 ? '' : 'es'}${breakdown ? ` · ${breakdown}` : ''}</span>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 matchGrid"></div>
@@ -1590,10 +1948,15 @@
 
         container.appendChild(roundCard);
       });
+
+      setStale(scheduleIsStale());
     }
 
     function sendToStudio(matchId) {
       RPL_STATE.posterMatchId = matchId;
+      RPL_STATE.posterMode = 'match';
+      const typeSel = document.getElementById('posterTypeSelect');
+      if (typeSel) typeSel.value = 'match';
       renderFixtures();
       switchTab('studioTab');
     }
@@ -1706,23 +2069,38 @@
         const roundTitle = document.getElementById('posterRoundNumber');
         if (roundTitle) roundTitle.textContent = `ROUND ${selectedMatch.round} • ${selectedMatch.date.toUpperCase()}`;
         const T = RPL_STATE.tournament, h = selectedMatch.homeTeam, a = selectedMatch.awayTeam;
-        const glow = c => `box-shadow:0 0 28px 8px ${esc(c)}cc,0 0 70px 22px ${esc(c)}66;border-color:#fff;`;
+        const variant = RPL_STATE.posterVariant || 'clash';
+        const base = variant === 'neon' ? '#0A0620' : variant === 'arena' ? '#05070C' : '#071022';
+        const c1 = variant === 'neon' ? '#7C3AED' : h.color;
+        const c2 = variant === 'neon' ? '#0891B2' : a.color;
+        const alpha = variant === 'arena' ? '44' : '58';
+        const bg = `radial-gradient(620px 340px at 12% 34%, ${esc(c1)}${alpha}, transparent 65%),radial-gradient(620px 340px at 88% 34%, ${esc(c2)}${alpha}, transparent 65%),radial-gradient(900px 420px at 50% -18%, rgba(255,255,255,.10), transparent 62%),linear-gradient(165deg, ${base} 0%, #0B1224 58%, #04060C 100%)`;
         const side = t => `
           <div class="th-side">
-            <div class="th-plate" style="${glow(t.color)}color:${esc(t.color)};background:radial-gradient(circle,rgba(255,255,255,.28),rgba(255,255,255,.10))">${t.logo ? `<img src="${esc(t.logo)}" alt="">` : esc(t.code)}</div>
+            <div class="th-plate" style="box-shadow:0 0 0 6px ${esc(t.color)}2e,0 0 40px ${esc(t.color)}55">${t.logo ? `<img src="${esc(t.logo)}" alt="">` : esc(t.code)}</div>
             <div class="th-name">${esc(t.name)}</div>
+            <div class="th-code">${esc(t.code)}</div>
           </div>`;
+        const metaLeft = `${selectedMatch.group ? `POOL ${esc(selectedMatch.group)} · ` : ''}ROUND ${selectedMatch.round}`;
         container.innerHTML = `
-          <div class="th th-${RPL_STATE.posterVariant || 'clash'}" style="background:radial-gradient(ellipse at 50% 45%,rgba(255,255,255,.14),transparent 60%),linear-gradient(100deg,${esc(h.color)}dd 0%,${esc(h.color)}55 40%,#0A1511 50%,${esc(a.color)}55 60%,${esc(a.color)}dd 100%)">
+          <div class="th th-${variant}" style="background:${bg}">
+            <div class="th-beam th-beam-l"></div>
+            <div class="th-beam th-beam-r"></div>
+            <div class="th-grid"></div>
+            <div class="th-vignette"></div>
             <div class="th-top">
-              <div class="th-brand"><span class="th-mini">${T.logoBase64 ? `<img src="${esc(T.logoBase64)}" alt="">` : 'RPL'}</span><span class="th-title">${esc(T.name)}</span></div>
-              <div class="th-badge"><span>MATCH ${selectedMatch.matchNumber}</span></div>
+              <div class="th-brand">
+                <span class="th-mini">${T.logoBase64 ? `<img src="${esc(T.logoBase64)}" alt="">` : 'RPL'}</span>
+                <span class="th-brandtext"><b>${esc(T.name)}</b><small>${esc(T.tag)}</small></span>
+              </div>
+              <div class="th-badge"><small>MATCH</small><b>${selectedMatch.matchNumber}</b></div>
             </div>
-            <div class="th-main">${side(h)}<div class="th-vs">VS</div>${side(a)}</div>
+            <div class="th-sub"><span><i></i>${metaLeft}</span><span>MATCHDAY</span></div>
+            <div class="th-center">${side(h)}<div class="th-vs">VS</div>${side(a)}</div>
             <div class="th-bottom">
-              <div class="th-cell"><span>${esc(selectedMatch.date)}</span></div>
-              <div class="th-cell"><b>${esc(selectedMatch.time)}</b></div>
-              <div class="th-cell"><span>${esc(selectedMatch.venue)}</span></div>
+              <div class="th-cell"><small>Date</small><span>${esc(selectedMatch.date)}</span></div>
+              <div class="th-cell"><small>First ball</small><b>${esc(selectedMatch.time)}</b></div>
+              <div class="th-cell"><small>Venue</small><span>${esc(selectedMatch.venue)}</span></div>
             </div>
           </div>`;
       } else {
@@ -1751,6 +2129,11 @@
     }
 
     async function downloadPosterImage() {
+      if (!guardScheduleFresh()) return;
+      if (RPL_STATE.posterMode !== 'match') {
+        showToast('Switch Type to "Matchday Clash" to export the YouTube thumbnail.', 'error');
+        return;
+      }
       const srcCard = document.querySelector('#posterDynamicContent .th');
       const btn = document.getElementById('downloadPosterBtn');
       if (!srcCard) { showToast('Generate the schedule first.', 'error'); return; }
@@ -1761,8 +2144,7 @@
       }
 
       // Preview is browser-rendered; html2canvas re-renders text and mangles
-      // text-shadow / tight line-heights (smeared header, clipped footer).
-      // Capture a cleaned offscreen clone instead; preview keeps its styling.
+      // text-shadow / tight line-heights. Capture a cleaned offscreen clone instead.
       const host = document.createElement('div');
       host.className = 'fx-host';
       host.setAttribute('aria-hidden', 'true');
@@ -1777,7 +2159,7 @@
         await new Promise(r => setTimeout(r, 300));
         const canvas = await html2canvas(clone, {
           scale: 1.6,
-          backgroundColor: '#0A1511',
+          backgroundColor: '#050810',
           useCORS: true,
           logging: false,
           width: 800,
@@ -1785,10 +2167,10 @@
           windowWidth: 1200
         });
         const link = document.createElement('a');
-        link.download = `RPL_Season25_Thumb_${Date.now()}.png`;
+        link.download = `${(RPL_STATE.tournament.name || 'League').replace(/[^\w\-]+/g, '_')}_Thumb_${Date.now()}.png`;
         link.href = canvas.toDataURL('image/png');
         link.click();
-        showToast('YouTube thumbnail downloaded (1280x720)!', 'success');
+        showToast('YouTube thumbnail downloaded (1280×720)!', 'success');
       } catch (err) {
         console.error(err);
         showToast('Export failed. Try again.', 'error');
@@ -1803,7 +2185,7 @@
 
     /* ---------- WhatsApp portrait card (1080x1350) ---------- */
     async function downloadWhatsAppCard() {
-      if (!RPL_STATE.fixtures.length) { showToast('Generate the schedule first.', 'error'); return; }
+      if (!guardScheduleFresh()) return;
       syncTournamentInputs();
       const btn = document.getElementById('downloadWhatsAppBtn');
       const original = btn ? btn.innerHTML : '';
@@ -1812,6 +2194,7 @@
       RPL_STATE.fixtures.forEach(r => all.push(...r.matches));
       const m = all.find(x => x.id === RPL_STATE.posterMatchId) || all[0];
       const T = RPL_STATE.tournament;
+      const hash = '#' + (T.name || 'League').replace(/[^A-Za-z0-9]+/g, '');
       const side = t => `
         <div class="wa-team">
           <div class="wa-crest" style="border-color:${esc(t.color)};color:${esc(t.color)}">${t.logo ? `<img src="${esc(t.logo)}" alt="">` : esc(t.code)}</div>
@@ -1826,14 +2209,14 @@
             <div class="wa-logo">${T.logoBase64 ? `<img src="${esc(T.logoBase64)}" alt="">` : 'RPL'}</div>
             <div class="wa-title">${esc(T.name)}</div>
           </div>
-          <div class="wa-match">MATCH ${m.matchNumber} &nbsp;•&nbsp; ROUND ${m.round}</div>
+          <div class="wa-match">MATCH ${m.matchNumber} &nbsp;•&nbsp; ROUND ${m.round}${m.group ? ` &nbsp;•&nbsp; POOL ${esc(m.group)}` : ''}</div>
           <div class="wa-vsrow">${side(m.homeTeam)}<div class="wa-vs">VS</div>${side(m.awayTeam)}</div>
           <div class="wa-info">
             <div class="wa-row"><small>Date</small><span>${esc(m.date)}</span></div>
             <div class="wa-row"><small>Time</small><b>${esc(m.time)}</b></div>
             <div class="wa-row"><small>Venue</small><span>${esc(m.venue)}</span></div>
           </div>
-          <div class="wa-foot">${esc(T.tag)}${T.sponsors ? `<br><b>Sponsored by:</b> ${esc(T.sponsors)}` : ''}<br><b>#RPL25</b></div>
+          <div class="wa-foot">${esc(T.tag)}${T.sponsors ? `<br><b>Sponsored by:</b> ${esc(T.sponsors)}` : ''}<br><b>${esc(hash)}</b></div>
         </div>`;
       document.body.appendChild(host);
       try {
@@ -1863,13 +2246,9 @@
       const T = RPL_STATE.tournament;
       const teams = RPL_STATE.teams || [];
       const grouped = T.structure === 'groups';
-      const n = teams.length;
-      const poolSizes = grouped ? poolKeys().map(k => teams.filter(t => t.group === k).length) : [];
-      let totalMatches = grouped
-        ? poolSizes.reduce((s, c) => s + c * (c - 1) / 2, 0)
-        : n * (n - 1) / 2;
-      if (T.doubleRoundRobin) totalMatches *= 2;
-      const dayLabel = T.matchDay === 'both' ? 'Fridays & Saturdays' : (T.matchDay === 'friday' ? 'Every Friday' : 'Every Saturday');
+      const totalMatches = expectedMatchCounts().matches;
+      const dayLabel = matchDaysLabel();
+      const hash = '#' + (T.name || 'League').replace(/[^A-Za-z0-9]+/g, '');
       const titleHtml = (() => {
         const m = String(T.name).match(/^(.*)\s+(Season\s+\d+.*)$/i);
         return m ? `${esc(m[1].trim())}<br>${esc(m[2].trim())}` : esc(T.name);
@@ -1894,11 +2273,11 @@
             <div class="tb-logo">${T.logoBase64 ? `<img src="${esc(T.logoBase64)}" alt="">` : 'RPL'}</div>
             <div class="tb-title">${titleHtml}</div>
           </div>
-          <div class="tb-meta">${esc(T.tag)}</div>
+          <div class="tb-meta">${esc(T.tag)} &nbsp;•&nbsp; ${totalMatches} matches &nbsp;•&nbsp; ${esc(dayLabel)}</div>
           <div class="tb-rule"><i></i><b></b><i></i></div>
           <div class="tb-teams-label">Participating Teams</div>
           <div class="tb-grid">${teamCards}</div>
-          <div class="tb-foot"><b>Venues:</b> ${esc(T.venues.join('  •  '))}${T.sponsors ? ` &nbsp;&nbsp; <b>Sponsors:</b> ${esc(T.sponsors)}` : ''} &nbsp;&nbsp; <b>#RPL25</b></div>
+          <div class="tb-foot"><b>Venues:</b> ${esc(T.venues.join('  •  '))}${T.sponsors ? ` &nbsp;&nbsp; <b>Sponsors:</b> ${esc(T.sponsors)}` : ''} &nbsp;&nbsp; <b>${esc(hash)}</b></div>
         </div>`;
       document.body.appendChild(host);
       try {
@@ -1914,6 +2293,124 @@
       } catch (err) {
         console.error(err);
         showToast('Banner export failed. Try again.', 'error');
+      } finally {
+        host.remove();
+        if (btn) { btn.disabled = false; btn.innerHTML = original; }
+      }
+    }
+
+    /* ---------- Pool draw card (all pools or a single pool) ---------- */
+    function renderPoolCardScopeOptions() {
+      const sel = document.getElementById('poolCardScope');
+      if (!sel) return;
+      const cur = sel.value || 'all';
+      sel.innerHTML = '<option value="all">All pools</option>' +
+        poolKeys().map(k => `<option value="${k}">Pool ${k}</option>`).join('');
+      sel.value = [...sel.options].some(o => o.value === cur) ? cur : 'all';
+    }
+
+    function buildPoolCardSheet(scope) {
+      const T = RPL_STATE.tournament;
+      const keys = poolKeys();
+      const chosen = scope && scope !== 'all' ? [scope] : keys;
+      const poolBlocks = chosen.map(k => {
+        const list = RPL_STATE.teams.filter(t => t.group === k);
+        const tiles = list.map(t => `
+          <div class="pc-team" style="border-left:4px solid ${esc(t.color)}">
+            <span class="pc-crest" style="color:${esc(t.color)};background:${esc(t.color)}22;border:1px solid ${esc(t.color)}55">${t.logo ? `<img src="${esc(t.logo)}" alt="">` : esc(t.code)}</span>
+            <span class="pc-tinfo"><span class="pc-name">${esc(t.name)}</span><span class="pc-code">${esc(t.code)}</span></span>
+          </div>`).join('');
+        return `<div class="pc-pool">
+          <div class="pc-phead"><span class="pc-pname">Pool ${k}</span><span class="pc-pcount">${list.length} team${list.length === 1 ? '' : 's'}</span></div>
+          <div class="pc-grid">${tiles || '<div class="pc-team"><span class="pc-name" style="color:#93A3B8">No teams assigned</span></div>'}</div>
+        </div>`;
+      }).join('');
+
+      const div = document.createElement('div');
+      div.className = 'pc-sheet' + (chosen.length === 1 ? ' pc-single' : '');
+      const shownTeams = chosen.length === 1
+        ? RPL_STATE.teams.filter(t => t.group === chosen[0]).length
+        : RPL_STATE.teams.length;
+      div.innerHTML = `
+        <div class="pc-top">
+          <div class="pc-logo">${T.logoBase64 ? `<img src="${esc(T.logoBase64)}" alt="">` : 'RPL'}</div>
+          <div class="pc-heading">
+            <div class="pc-eyebrow">${chosen.length === 1 ? 'Pool Draw' : 'Official Pool Draw'}</div>
+            <div class="pc-title">${esc(T.name)}</div>
+            <div class="pc-tag">${esc(T.tag)}${shownTeams ? ` • ${shownTeams} teams` : ''}</div>
+          </div>
+        </div>
+        <div class="pc-pools">${poolBlocks}</div>
+        <div class="pc-foot"><span><b>${chosen.length === 1 ? 'Pool ' + esc(chosen[0]) : chosen.length + ' pools'}</b> · ${shownTeams} teams</span><span>${esc(matchDaysLabel())}${T.doubleRoundRobin ? ' · Home &amp; away' : ''}</span></div>`;
+      return div;
+    }
+
+    function renderPoolCardPreview() {
+      const wrap = document.getElementById('poolCardSection');
+      const host = document.getElementById('poolCardPreview');
+      if (!wrap || !host) return;
+      if (RPL_STATE.tournament.structure !== 'groups' || !RPL_STATE.teams.length) {
+        wrap.classList.add('hidden');
+        host.innerHTML = '';
+        return;
+      }
+      wrap.classList.remove('hidden');
+      const sel = document.getElementById('poolCardScope');
+      const sheet = buildPoolCardSheet(sel ? sel.value : 'all');
+      host.innerHTML = '';
+      host.appendChild(sheet);
+      requestAnimationFrame(() => {
+        const w = host.clientWidth || 900;
+        const scale = Math.min(1, w / 1600);
+        sheet.style.transformOrigin = 'top left';
+        sheet.style.transform = `scale(${scale})`;
+        host.style.height = Math.ceil(sheet.offsetHeight * scale) + 'px';
+      });
+    }
+
+    function openPoolCardsInStudio() {
+      if (RPL_STATE.tournament.structure !== 'groups') { showToast('Pool cards are available for pool-based tournaments.', 'info'); return; }
+      if (!RPL_STATE.teams.length) { showToast('Add teams first.', 'error'); return; }
+      switchTab('studioTab');
+      renderPoolCardScopeOptions();
+      setTimeout(() => {
+        renderPoolCardPreview();
+        const sec = document.getElementById('poolCardSection');
+        if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 120);
+    }
+
+    async function downloadPoolCard() {
+      if (RPL_STATE.tournament.structure !== 'groups') { showToast('Pool cards are available for pool-based tournaments.', 'info'); return; }
+      if (!RPL_STATE.teams.length) { showToast('Add teams first.', 'error'); return; }
+      syncTournamentInputs();
+      const btn = document.getElementById('downloadPoolCardBtn');
+      const original = btn ? btn.innerHTML : '';
+      if (btn) { btn.disabled = true; btn.innerHTML = '<i class="ph ph-spinner-gap animate-spin"></i> Building card'; }
+      const sel = document.getElementById('poolCardScope');
+      const sheet = buildPoolCardSheet(sel ? sel.value : 'all');
+      sheet.classList.add('pc-export');
+      const host = document.createElement('div');
+      host.className = 'fx-host';
+      host.appendChild(sheet);
+      document.body.appendChild(host);
+      try {
+        if (document.fonts && document.fonts.ready) await document.fonts.ready;
+        await new Promise(r => setTimeout(r, 200));
+        const scale = Math.max(1, Math.min(2, 14000 / sheet.offsetHeight));
+        const canvas = await html2canvas(sheet, {
+          scale, backgroundColor: '#050810', useCORS: true, logging: false,
+          width: 1600, windowWidth: 1700
+        });
+        const a = document.createElement('a');
+        const scopeName = sel && sel.value !== 'all' ? `_Pool_${sel.value}` : '_All_Pools';
+        a.download = `${(RPL_STATE.tournament.name || 'League').replace(/[^\w\-]+/g, '_')}${scopeName}.png`;
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+        showToast('Pool draw card downloaded.', 'success');
+      } catch (err) {
+        console.error(err);
+        showToast('Pool card export failed. Try again.', 'error');
       } finally {
         host.remove();
         if (btn) { btn.disabled = false; btn.innerHTML = original; }
@@ -2087,36 +2584,28 @@
       showToast('Reset tournament crest.', 'info');
     }
 
-    function loadSamplePreset(presetKey) {
+    function loadSamplePreset(presetKey, autoGenerate = true, notify = true) {
       RPL_STATE.tournament.poolCount = 2;
       const pcSel = document.getElementById('cfgPoolCount');
       if (pcSel) pcSel.value = '2';
-      if (presetKey === 'rpl8_groups') {
-        handleStructureChange('groups');
-        const r1 = document.querySelector('input[name="leagueStructureRadio"][value="groups"]');
-        if (r1) r1.checked = true;
-        RPL_STATE.teams = JSON.parse(JSON.stringify(DEFAULT_PRESET_TEAMS));
-      } else if (presetKey === 'rpl8_single') {
-        handleStructureChange('single');
-        const r2 = document.querySelector('input[name="leagueStructureRadio"][value="single"]');
-        if (r2) r2.checked = true;
-        RPL_STATE.teams = JSON.parse(JSON.stringify(DEFAULT_PRESET_TEAMS));
+      RPL_STATE.tournament.structure = presetKey === 'rpl8_single' ? 'single' : 'groups';
+      RPL_STATE.teams = presetKey === 'rpl6'
+        ? JSON.parse(JSON.stringify(DEFAULT_PRESET_TEAMS.slice(0, 6)))
+        : JSON.parse(JSON.stringify(DEFAULT_PRESET_TEAMS));
+      updateStructureUI();
+      onTeamsChanged();
+      if (autoGenerate) {
+        generateFixtures();
       } else {
-        handleStructureChange('groups');
-        const r3 = document.querySelector('input[name="leagueStructureRadio"][value="groups"]');
-        if (r3) r3.checked = true;
-        RPL_STATE.teams = JSON.parse(JSON.stringify(DEFAULT_PRESET_TEAMS.slice(0, 6)));
+        RPL_STATE.fixtures = [];
+        RPL_STATE.scheduleSig = null;
+        renderFixtures();
+        if (notify) showToast(`Sample teams loaded (${RPL_STATE.teams.length}). Build the schedule when you are ready.`, 'info');
       }
-      renderTeams();
-      generateFixtures();
-      showToast(`Loaded preset (${RPL_STATE.teams.length} teams)!`, 'success');
     }
 
     function exportToWhatsApp() {
-      if (RPL_STATE.fixtures.length === 0) {
-        showToast('Generate fixtures first to copy WhatsApp schedule!', 'error');
-        return;
-      }
+      if (!guardScheduleFresh()) return;
       syncTournamentInputs();
       const T = RPL_STATE.tournament;
       const grouped = T.structure === 'groups';
@@ -2125,6 +2614,7 @@
       let text = `🏏 *${T.name.toUpperCase()}* 🏏\n`;
       text += `📅 ${T.tag}\n`;
       text += `⚔️ ${T.format}${legs}\n`;
+      text += `🗓️ ${matchDaysLabel()}${grouped ? ` · ${matchScopeLabel()}` : ''}\n`;
       text += `📍 ${T.venues.join(' | ')}\n\n`;
       text += `📋 *OFFICIAL FIXTURES*\n\n`;
 
@@ -2217,12 +2707,23 @@
       if (!b) return;
       b.classList.toggle('hidden', !on);
       b.classList.toggle('flex', on);
+      const dl = document.getElementById('fullImageBtn');
+      if (dl) {
+        dl.disabled = !!on;
+        dl.classList.toggle('opacity-50', !!on);
+        dl.classList.toggle('cursor-not-allowed', !!on);
+        dl.title = on ? 'Rebuild the schedule before downloading' : '';
+      }
     }
 
     function onTeamsChanged() {
       renderTeams();
       syncFixtureTeams();
       renderRoster();
+      renderSetupEstimate();
+      renderPoolCardScopeOptions();
+      const studioOpen = !document.getElementById('studioTab')?.classList.contains('hidden');
+      if (studioOpen) renderPoolCardPreview();
     }
 
     function syncFixtureTeams() {
@@ -2233,11 +2734,12 @@
       let stale = false;
       RPL_STATE.fixtures.forEach(r => r.matches.forEach(m => {
         const h = byId[m.homeTeam.id], a = byId[m.awayTeam.id];
-        if (!h || !a || (grouped && (h.group !== m.group || a.group !== m.group))) { stale = true; return; }
+        if (!h || !a || (grouped && m.group && (h.group !== m.group || a.group !== m.group))) { stale = true; return; }
         m.homeTeam = h; m.awayTeam = a;
         used.add(h.id); used.add(a.id);
       }));
       if (RPL_STATE.teams.some(t => !used.has(t.id))) stale = true;
+      if (!stale) stale = scheduleIsStale();
       setStale(stale);
     }
 
@@ -2247,30 +2749,27 @@
       const grouped = RPL_STATE.tournament.structure === 'groups';
       const chip = t => `<div class="roster-chip" style="--c:${esc(t.color)}"><span class="roster-dot">${t.logo ? `<img src="${esc(t.logo)}" alt="">` : esc(t.code)}</span><span>${esc(t.name)}</span></div>`;
       const col = (title, list) => `<div><div class="roster-title">${title}<b>${list.length} ${list.length === 1 ? 'team' : 'teams'}</b></div><div class="roster-list">${list.length ? list.map(chip).join('') : '<p class="roster-empty">No teams yet. Add some under Franchises &amp; Pools.</p>'}</div></div>`;
-      const pairs = n => n * (n - 1) / 2;
-      const rounds = n => n < 2 ? 0 : (n % 2 ? n : n - 1);
-      let html, matches, maxRounds, warns = [];
+      let html, warns = [];
 
       if (grouped) {
         const keys = poolKeys();
         const lists = keys.map(k => [k, RPL_STATE.teams.filter(t => t.group === k)]);
         html = lists.map(([g, l]) => col('Pool ' + g, l)).join('');
-        matches = lists.reduce((s, [, l]) => s + pairs(l.length), 0);
-        if (RPL_STATE.tournament.doubleRoundRobin) matches *= 2;
-        maxRounds = Math.max(...lists.map(([, l]) => rounds(l.length)));
         lists.forEach(([g, l]) => { if (l.length < 2) warns.push(`Pool ${g} has ${l.length} team${l.length === 1 ? '' : 's'}. Each pool needs at least 2 to generate fixtures.`); });
       } else {
         const T = RPL_STATE.teams;
         html = col('All teams', T);
-        matches = pairs(T.length);
-        if (RPL_STATE.tournament.doubleRoundRobin) matches *= 2;
-        maxRounds = rounds(T.length) * (RPL_STATE.tournament.doubleRoundRobin ? 2 : 1);
         if (T.length < 2) warns.push('Add at least 2 teams to generate fixtures.');
       }
+
+      const expected = expectedMatchCounts();
+      const issues = coverageIssues();
+      if (issues.length) warns.push(`Built schedule is missing matches for ${issues.length} team${issues.length === 1 ? '' : 's'} (${issues.slice(0, 3).map(x => x.name).join(', ')}${issues.length > 3 ? '…' : ''}). Rebuild the schedule.`);
+
       el.className = grouped ? ('grid gap-6 ' + (poolKeys().length > 2 ? 'md:grid-cols-2 xl:grid-cols-3' : 'md:grid-cols-2')) : 'grid gap-6';
       el.innerHTML = html;
       const s = document.getElementById('rosterSummary');
-      if (s) s.textContent = `${RPL_STATE.teams.length} teams, ${matches} league matches over ${maxRounds} rounds`;
+      if (s) s.textContent = `${RPL_STATE.teams.length} teams · ${expected.matches} league matches · ${expected.rounds} rounds · ${matchScopeLabel()}`;
       const w = document.getElementById('rosterWarnings');
       if (w) w.innerHTML = warns.map(x => `<div class="roster-warn"><i class="ph-fill ph-warning-circle"></i>${x}</div>`).join('');
     }
@@ -2329,9 +2828,27 @@
       RPL_STATE.tournament.poolCount = Math.min(6, Math.max(2, RPL_STATE.tournament.poolCount || 2));
       RPL_STATE.tournament.doubleRoundRobin = !!RPL_STATE.tournament.doubleRoundRobin;
       if (!Array.isArray(RPL_STATE.tournament.blackoutDates)) RPL_STATE.tournament.blackoutDates = [];
+
+      // Match days: accept new arrays, otherwise translate the old single-day value.
+      const legacyDay = RPL_STATE.tournament.matchDay;
+      const rawDays = Array.isArray(RPL_STATE.tournament.matchDays)
+        ? RPL_STATE.tournament.matchDays.filter(k => DAY_KEYS.includes(k))
+        : [];
+      RPL_STATE.tournament.matchDays = rawDays.length ? rawDays
+        : legacyDay === 'friday' ? ['fri']
+        : legacyDay === 'both' ? ['fri', 'sat']
+        : ['sat'];
+      RPL_STATE.tournament.matchScope = ['pool', 'cross', 'both'].includes(RPL_STATE.tournament.matchScope)
+        ? RPL_STATE.tournament.matchScope : 'pool';
+
       RPL_STATE.teams = d.teams;
-      RPL_STATE.teams.forEach(t => { if (RPL_STATE.tournament.structure === 'groups' && !poolKeys().includes(t.group)) t.group = smallestPool(poolKeys()); });
+      RPL_STATE.teams.forEach(t => {
+        t.group = validPool(t.group);
+        if (!t.color) t.color = poolColor(t.group);
+        if (!t.code) t.code = String(t.name || 'TEAM').slice(0, 3).toUpperCase();
+      });
       RPL_STATE.fixtures = Array.isArray(d.fixtures) ? d.fixtures : [];
+      RPL_STATE.scheduleSig = RPL_STATE.fixtures.length ? scheduleSignature() : null;
       if (d.knockouts) RPL_STATE.knockouts = d.knockouts;
       RPL_STATE.posterMatchId = d.posterMatchId || null;
       RPL_STATE.posterMode = d.posterMode || 'match';
@@ -2341,53 +2858,51 @@
       const t = RPL_STATE.tournament;
       const set = (id, v) => { const e = document.getElementById(id); if (e) e.value = v; };
       set('cfgTournamentName', t.name); set('cfgTournamentTag', t.tag);
-      set('cfgMatchDay', t.matchDay); set('cfgStartDate', t.startDate);
-      set('cfgMatchFormat', t.format); set('cfgPlayoffFormat', t.playoffFormat);
+      set('cfgStartDate', t.startDate);
+      set('cfgMatchFormat', t.format);
       set('cfgVenues', (t.venues || []).join(', ')); set('cfgTimeSlots', (t.timeSlots || []).join(', '));
       set('cfgSponsors', t.sponsors || '');
       set('cfgPoolCount', String(t.poolCount || 2));
       const dbl = document.getElementById('cfgDoubleRR');
       if (dbl) dbl.checked = !!t.doubleRoundRobin;
       renderBlackoutChips();
-      set('cfgLeagueStructure', t.structure);
-      const radio = document.querySelector(`input[name="leagueStructureRadio"][value="${t.structure}"]`);
-      if (radio) radio.checked = true;
-      const auto = document.getElementById('autoSplitBtn');
-      if (auto) auto.classList.toggle('hidden', t.structure === 'single');
+      renderDayChips();
+      updateStructureUI();
+      renderPoolCardScopeOptions();
+      renderSetupEstimate();
 
       syncTournamentInputs();
       applyTournamentLogo(t.logoBase64);
       onTeamsChanged();
       renderFixtures();
+      setStale(false);
+      const studioOpen = !document.getElementById('studioTab')?.classList.contains('hidden');
+      if (studioOpen) renderPoolCardPreview();
     }
 
     /* ---------- Complete fixture sheet as one PNG ---------- */
     async function downloadFullFixtureImage() {
-      if (!RPL_STATE.fixtures.length) { showToast('Generate the schedule first.', 'error'); return; }
+      if (!guardScheduleFresh()) return;
       syncTournamentInputs();
       const T = RPL_STATE.tournament, grouped = T.structure === 'groups';
       const btn = document.getElementById('fullImageBtn');
       const original = btn ? btn.innerHTML : '';
       if (btn) { btn.disabled = true; btn.innerHTML = '<i class="ph ph-spinner-gap animate-spin"></i> Building image'; }
 
-      const crest = t => t.logo
-        ? `<span class="fx-plate" style="--c:${esc(t.color)};border-color:#fff;box-shadow:0 0 22px 6px ${esc(t.color)}cc,0 0 54px 14px ${esc(t.color)}66"><img src="${esc(t.logo)}" alt=""></span>`
-        : `<span class="fx-nameonly">${esc(t.name)}</span>`;
       const rounds = RPL_STATE.fixtures.map(r => `
         <div class="fx-round">
           <div class="fx-rhead">Round ${r.roundNumber}<span>${esc(r.date)}</span></div>
           ${r.matches.map(m => `
             <div class="fx-match">
               <div class="fx-when">M${m.matchNumber}<span>${esc(m.time)}</span></div>
-              <div class="fx-side">${crest(m.homeTeam)}</div>
+              <div class="fx-team fx-home">${esc(m.homeTeam.name)}</div>
               <div class="fx-vs">VS</div>
-              <div class="fx-side">${crest(m.awayTeam)}</div>
-              <div class="fx-venue"><span>${esc(m.venue)}</span>${grouped && m.group ? `<span>Pool ${esc(m.group)}</span>` : ''}</div>
+              <div class="fx-team fx-away">${esc(m.awayTeam.name)}</div>
+              <div class="fx-venue"><span>${esc(m.venue)}</span>${m.group ? `<span>Pool ${esc(m.group)}</span>` : ''}</div>
             </div>`).join('')}
         </div>`).join('');
 
-
-      const chips = [T.format, grouped ? `${poolKeys().length} pools` : 'Single round robin', T.doubleRoundRobin ? 'Home & away' : null, T.matchDay === 'both' ? 'Friday and Saturday' : (T.matchDay === 'friday' ? 'Fridays' : 'Saturdays'), `${RPL_STATE.teams.length} teams`]
+      const chips = [T.format, grouped ? `${poolKeys().length} pools` : 'Single round robin', T.doubleRoundRobin ? 'Home & away' : null, matchDaysLabel(), grouped ? matchScopeLabel() : null, `${RPL_STATE.teams.length} teams`]
         .filter(Boolean).map(c => `<span>${esc(c)}</span>`).join('');
 
       const host = document.createElement('div');
@@ -2426,6 +2941,7 @@
       } finally {
         host.remove();
         if (btn) { btn.disabled = false; btn.innerHTML = original; }
+        setStale(scheduleIsStale());
       }
     }
 
@@ -2508,7 +3024,11 @@
     window.addEventListener('DOMContentLoaded', () => {
       initTheme();
       initAppLogo();
-      loadSamplePreset('rpl8_groups');
+      loadSamplePreset('rpl8_groups', false, false);
+      renderDayChips();
+      updateStructureUI();
+      renderSetupEstimate();
+      renderPoolCardScopeOptions();
       renderBlackoutChips();
       refreshStepBar();
     });
