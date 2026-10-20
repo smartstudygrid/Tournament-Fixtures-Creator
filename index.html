@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Fixture Creator</title>
-  <link rel="icon" href="applogo.jpg">
+  <title>SquareCut Fixtures Creator</title>
+  <link rel="icon" id="scFavicon" type="image/jpeg" href="data:,">
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -426,6 +426,103 @@
       background-image: radial-gradient(rgba(245, 158, 11, 0.08) 1px, transparent 0);
       background-size: 24px 24px;
     }
+
+    /* ================= SQUARECUT UI REFRESH ================= */
+    :root{--sc-green:#3FAE35;--sc-green-hi:#5ED152;--sc-red:#D1202F;--sc-navy:#1B2A5E}
+    body{background:
+      radial-gradient(rgba(255,255,255,.045) 1px,transparent 0) 0 0/26px 26px,
+      radial-gradient(900px 520px at 6% -8%,rgba(63,174,53,.14),transparent 62%),
+      radial-gradient(900px 560px at 96% -6%,rgba(232,185,60,.10),transparent 60%),
+      radial-gradient(800px 520px at 50% 115%,rgba(27,42,94,.50),transparent 65%),
+      linear-gradient(180deg,#07142A 0%,#06101F 55%,#050B16 100%)!important}
+    ::selection{background:#E8B93C;color:#1A1405}
+
+    /* Header + brand lockup */
+    body>header{background:linear-gradient(180deg,rgba(9,20,42,.96),rgba(6,13,28,.92))!important;border-bottom:1px solid rgba(255,255,255,.06)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+    body>header::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,var(--sc-green),#E8B93C 55%,var(--sc-red));opacity:.9;pointer-events:none}
+    .sc-logo{width:48px;height:48px;flex:none;border-radius:14px;overflow:hidden;background:#0B1A2E;box-shadow:0 0 0 1px rgba(255,255,255,.16),0 10px 24px -8px rgba(63,174,53,.55)}
+    .sc-logo img{width:100%;height:100%;object-fit:cover;display:block}
+    #navTournamentTitle.sc-brand{font-size:1.3rem!important;line-height:1.1;font-weight:700;letter-spacing:.05em!important;white-space:nowrap}
+    .sc-brand .sc-cut{color:var(--sc-green-hi)}
+    .sc-brand .sc-fx{color:var(--pro-gold-hi);font-weight:600;letter-spacing:.07em}
+    .sc-nav-sub{max-width:46vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+    @media(max-width:640px){#navTournamentTitle.sc-brand{font-size:1.02rem!important}.sc-brand .sc-fx{display:none}.sc-logo{width:42px;height:42px;border-radius:12px}}
+
+    /* Step navigator */
+    .stepper-bar{background:linear-gradient(180deg,rgba(10,18,36,.92),rgba(7,13,26,.92))!important}
+    .tab-btn{border-radius:14px!important;transition:background .15s,color .15s}
+    .tab-btn .step-lbl{font-size:12px;font-weight:700;letter-spacing:.01em}
+    .tab-btn:hover{background:rgba(255,255,255,.04)!important}
+    .tab-btn.active{background:rgba(232,185,60,.08)!important}
+    .tab-btn.done .step-num{font-size:0}
+    .tab-btn.done .step-num::after{content:"\2713";font-size:14px;font-weight:800}
+
+    /* Hero card */
+    .sc-hero{position:relative;display:flex;align-items:center;gap:28px;padding:26px 30px;border-radius:22px;overflow:hidden;color:#F1ECDF;
+      background:radial-gradient(520px 260px at 0% 0%,rgba(63,174,53,.28),transparent 62%),radial-gradient(520px 300px at 100% 100%,rgba(209,32,47,.16),transparent 60%),linear-gradient(135deg,#0E2142 0%,#0B2A3A 55%,#0A1B33 100%);
+      border:1px solid rgba(232,185,60,.28);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 30px 60px -34px rgba(0,0,0,.9)}
+    .sc-hero::before{content:"";position:absolute;right:-90px;top:-90px;width:340px;height:340px;border-radius:50%;border:1px solid rgba(255,255,255,.07);box-shadow:0 0 0 40px rgba(255,255,255,.02),0 0 0 80px rgba(255,255,255,.015);pointer-events:none}
+    .sc-hero-logo{position:relative;flex:none;width:112px;height:112px;border-radius:28px;overflow:hidden;box-shadow:0 0 0 2px rgba(232,185,60,.55),0 0 0 8px rgba(232,185,60,.10),0 22px 44px -14px rgba(63,174,53,.55)}
+    .sc-hero-logo img{width:100%;height:100%;object-fit:cover;display:block}
+    .sc-hero-text{position:relative;min-width:0}
+    .sc-hero-title{margin:10px 0 0;font:800 clamp(1.5rem,3.2vw,2.3rem)/1.1 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.05em;color:#fff}
+    .sc-hero-title span{color:var(--pro-gold-hi)}
+    .sc-hero-copy{margin:8px 0 0;max-width:46rem;font:500 .875rem/1.55 Manrope,sans-serif;color:#B8C6D8}
+    .sc-hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+    .sc-hero-chips span{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);font:700 11px Manrope,sans-serif;letter-spacing:.04em;color:#E7EEF7}
+    .sc-hero-chips i{color:var(--sc-green-hi);font-size:14px}
+    @media(max-width:640px){.sc-hero{flex-direction:column;align-items:flex-start;gap:16px;padding:22px}.sc-hero-logo{width:84px;height:84px;border-radius:22px}}
+
+    /* Cards, inputs, buttons */
+    .rounded-2xl{border-radius:18px!important}
+    input[type="text"],input[type="date"],input[type="email"],input[type="url"],select,textarea{transition:border-color .15s,box-shadow .15s}
+    input[type="text"]:hover,input[type="date"]:hover,select:hover{border-color:rgba(232,185,60,.38)!important}
+    input:focus,select:focus,textarea:focus{outline:none;border-color:var(--pro-gold)!important;box-shadow:0 0 0 3px rgba(232,185,60,.2)!important}
+    button{transition:transform .12s,filter .15s,background .15s,border-color .15s,box-shadow .15s}
+    button.bg-amber-500:not(.tab-btn){box-shadow:0 12px 26px -12px rgba(232,185,60,.7),inset 0 1px 0 rgba(255,255,255,.4)!important}
+    button.bg-amber-500:not(.tab-btn):hover{transform:translateY(-1px)}
+    button.bg-amber-500:not(.tab-btn):active{transform:translateY(0)}
+    button.bg-slate-800:hover,label.bg-slate-800:hover{border-color:rgba(232,185,60,.45)!important}
+    .tab-content{animation:scFade .32s ease both}
+    @keyframes scFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    @media(prefers-reduced-motion:reduce){.tab-content{animation:none}button{transition:none}}
+
+    /* Footer */
+    .sc-footer{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;padding:22px 16px 28px;margin-top:8px;border-top:1px solid rgba(255,255,255,.06);font:600 12px Manrope,sans-serif;color:var(--mute)}
+    .sc-footer img{width:24px;height:24px;border-radius:7px;object-fit:cover;box-shadow:0 0 0 1px rgba(255,255,255,.15)}
+    .sc-footer b{color:#F1ECDF;font-weight:800}
+    .sc-footer i{width:4px;height:4px;border-radius:50%;background:var(--pro-gold)}
+
+    /* Light mode */
+    html.light body>header{background:rgba(255,255,255,.95)!important;border-bottom-color:var(--line)!important}
+    html.light .stepper-bar{background:#EFEAD9!important}
+    html.light .tab-btn:hover{background:rgba(0,0,0,.04)!important}
+    html.light .tab-btn.active{background:rgba(154,122,46,.12)!important}
+    html.light .sc-brand .sc-cut{color:#2F8F28}
+    html.light .sc-brand .sc-fx{color:#6E5518}
+    html.light .sc-logo{box-shadow:0 0 0 1px rgba(0,0,0,.12),0 10px 22px -10px rgba(47,143,40,.5)}
+    html.light .sc-footer b{color:#14120C}
+    html.light .sc-footer{border-top-color:var(--line)}
+    html.light button.bg-slate-800:hover,html.light label.bg-slate-800:hover{border-color:#9A7A2E!important}
+
+    /* ---- Match graphic: logos sit fully inside the circle; "MATCH #" is plain styled text ---- */
+    .th-plate{position:relative}
+    .th-plate img,.th .th-plate img{width:68%!important;height:68%!important;max-width:68%;max-height:68%;padding:0!important;object-fit:contain!important;display:block;flex:none;margin:auto}
+    .th-mini img{width:82%!important;height:82%!important;padding:0!important;object-fit:contain!important;display:block;margin:auto}
+    /* ---- Image Studio: logos fill their circle / rounded shape edge to edge ---- */
+    .th-plate img,.th .th-plate img,.th-mini img,.th .th-mini img,
+    .wa-crest img,.wa-logo img,.tb-logo img,.tb-crest img,
+    .pc-crest img,.pc-logo img,.fx-logo img,.fx-crest img,.fx-plate img,.poster-crest img{
+      width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;
+      padding:0!important;margin:0!important;object-fit:cover!important;object-position:center;display:block;flex:none;border-radius:inherit}
+    .th .th-badge,.th-arena .th-badge,.th-neon .th-badge{background:none!important;box-shadow:none!important;border:none!important;padding:0!important;border-radius:0!important;display:flex;align-items:baseline;gap:10px;color:#F5D67B!important}
+    .th .th-badge small{font:700 15px/1 'Barlow Condensed',sans-serif!important;letter-spacing:.32em;text-transform:uppercase;color:#C9D4E4!important}
+    .th .th-badge b{font:800 46px/1 'Barlow Condensed',sans-serif!important;color:#F5D67B!important;letter-spacing:.02em}
+    .th .th-badge b::before{content:"#";font-size:.62em;font-weight:700;margin-right:3px;opacity:.85;vertical-align:.32em}
+    .th-neon .th-badge b{color:#67E8F9!important}
+    .th-neon .th-badge small{color:#A5F3FC!important}
+    .th-export .th-badge small{letter-spacing:.2em!important}
+    .th-export .th-badge b{line-height:1.15!important}
   </style>
 </head>
 
@@ -433,17 +530,15 @@
 
   <!-- Top Global Header -->
   <header class="sticky top-0 z-40 bg-[#0B101D]/90 backdrop-blur-md border-b border-slate-800/80 px-4 lg:px-8 py-3 flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <input type="file" id="appLogoFile" accept="image/*" class="hidden" onchange="handleAppLogoUpload(event)">
-      <div id="headerTournamentLogoWrapper" role="button" tabindex="0" title="Click to choose your app logo (or place an applogo image file next to this HTML file)" onclick="document.getElementById('appLogoFile').click()" onkeydown="if(event.key==='Enter')this.click()" class="cursor-pointer w-11 h-11 rounded-xl shadow-lg shadow-black/30 flex items-center justify-center overflow-hidden flex-none bg-gradient-to-br from-amber-500 to-emerald-700">
-        <img id="headerAppLogo" alt="Smart Fixtures Creator" class="w-full h-full object-cover hidden" />
-        <span id="headerLogoFallback" class="font-display text-lg text-black font-extrabold">SF</span>
+    <div class="flex items-center gap-3 min-w-0">
+      <div class="sc-logo" title="SquareCut">
+        <img id="headerAppLogo" data-sc-logo alt="SquareCut logo" src="data:image/jpeg;base64,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" />
       </div>
-      <div>
+      <div class="min-w-0">
         <div class="flex items-center gap-2">
-          <h1 id="navTournamentTitle" class="font-bold text-base md:text-lg tracking-tight text-white flex items-center gap-2">Smart Fixture Creator <span class="pro-badge">PRO</span></h1>
+          <h1 id="navTournamentTitle" class="font-bold text-base md:text-lg tracking-tight text-white flex items-center gap-2 sc-brand">Square<span class="sc-cut">Cut</span>&nbsp;<span class="sc-fx">Fixtures Creator</span> <span class="pro-badge">PRO</span></h1>
         </div>
-        <p id="navTournamentSub" class="text-xs text-slate-400">Riyadh Premier League Season 25 • October 2026 • Riyadh, KSA</p>
+        <p id="navTournamentSub" class="text-xs text-slate-400 sc-nav-sub">Riyadh Premier League Season 25 • October 2026 • Riyadh, KSA</p>
       </div>
     </div>
 
@@ -499,6 +594,20 @@
     
     <!-- TAB 1: TOURNAMENT SETUP & CONFIG -->
     <div id="configTab" class="tab-content space-y-6">
+      <section class="sc-hero">
+        <div class="sc-hero-logo"><img data-sc-logo alt="SquareCut logo"></div>
+        <div class="sc-hero-text">
+          <span class="eyebrow"><i class="ph-fill ph-trophy"></i> Tournament toolkit</span>
+          <h2 class="sc-hero-title">Build the draw. <span>Share the schedule.</span></h2>
+          <p class="sc-hero-copy">Set up pools, venues and time slots once, generate the full schedule, then export fixture graphics ready to share.</p>
+          <div class="sc-hero-chips">
+            <span><i class="ph-bold ph-users-three"></i> Pools &amp; crossovers</span>
+            <span><i class="ph-bold ph-map-pin"></i> Venues &amp; time slots</span>
+            <span><i class="ph-bold ph-image"></i> HD image export</span>
+            <span><i class="ph-bold ph-whatsapp-logo"></i> WhatsApp share</span>
+          </div>
+        </div>
+      </section>
       <section class="bg-[#0F1626] border border-slate-800/80 rounded-2xl p-5 md:p-7 shadow-2xl relative overflow-hidden">
         <div class="flex flex-col lg:flex-row gap-4 lg:items-center justify-between border-b border-slate-800/60 pb-5 mb-6">
           <div>
@@ -914,6 +1023,13 @@
     </div>
 
   </main>
+
+  <footer class="sc-footer">
+    <img data-sc-logo alt="">
+    <span><b>SquareCut</b> Fixtures Creator</span>
+    <i></i>
+    <span>Designed &amp; built by Aman</span>
+  </footer>
 
   <!-- MODAL: HELP -->
   <div id="helpModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4" onclick="if(event.target===this)closeHelpModal()">
@@ -2950,75 +3066,14 @@
     function closeHelpModal() { const m = document.getElementById('helpModal'); m.classList.add('hidden'); m.classList.remove('flex'); }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeHelpModal(); closeMatchEditModal(); closeTeamModal(); } });
 
-    /* App logo: finds applogo.* in the same folder, whatever the image type */
-    function handleAppLogoUpload(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        const probe = new Image();
-        probe.onload = () => {
-          const size = 256, c = document.createElement('canvas');
-          c.width = c.height = size;
-          const side = Math.min(probe.width, probe.height);
-          c.getContext('2d').drawImage(probe, (probe.width - side) / 2, (probe.height - side) / 2, side, side, 0, 0, size, size);
-          const data = c.toDataURL('image/png');
-          const img = document.getElementById('headerAppLogo'), fb = document.getElementById('headerLogoFallback');
-          img.onerror = null; img.src = data; img.classList.remove('hidden');
-          if (fb) fb.classList.add('hidden');
-          const ic = document.querySelector('link[rel="icon"]'); if (ic) ic.href = data;
-          try { localStorage.setItem('sfc_app_logo', data); showToast('App logo updated and remembered in this browser.', 'success'); }
-          catch (e) { showToast('Logo updated for this session only.', 'info'); }
-        };
-        probe.onerror = () => showToast('That file is not a readable image.', 'error');
-        probe.src = reader.result;
-      };
-      reader.readAsDataURL(file);
-      event.target.value = '';
-    }
-
-    function showAppLogo(src) {
-      const img = document.getElementById('headerAppLogo');
-      const fb = document.getElementById('headerLogoFallback');
-      if (!img) return;
-      img.onerror = null;
-      img.src = src;
-      img.classList.remove('hidden');
-      if (fb) fb.classList.add('hidden');
-      const ic = document.querySelector('link[rel="icon"]');
-      if (ic) ic.href = src;
-    }
-
-    function showAppLogoFallback() {
-      const img = document.getElementById('headerAppLogo');
-      const fb = document.getElementById('headerLogoFallback');
-      if (img) { img.onerror = null; img.removeAttribute('src'); img.classList.add('hidden'); }
-      if (fb) fb.classList.remove('hidden');
-    }
-
+    /* App logo: SquareCut logo is embedded in this file (header, hero, footer, favicon) */
     function initAppLogo() {
-      const img = document.getElementById('headerAppLogo');
-      if (!img) return;
-      // Try sibling files first: plain "applogo" (no extension) + common extensions.
-      // This covers a file named exactly "applogo" as well as applogo.png / .jpg etc.
-      const candidates = ['applogo.jpg', 'applogo', 'applogo.png', 'applogo.jpeg', 'applogo.webp', 'applogo.svg', 'applogo.gif', 'applogo.avif', 'applogo.jfif', 'applogo.bmp', 'applogo.ico'];
-      let i = 0;
-      const probeNext = () => {
-        if (i >= candidates.length) {
-          // No sibling file found: fall back to a previously uploaded logo, else SF placeholder.
-          let saved = null;
-          try { saved = localStorage.getItem('sfc_app_logo'); } catch (e) {}
-          if (saved) showAppLogo(saved);
-          else showAppLogoFallback();
-          return;
-        }
-        const src = candidates[i++];
-        const probe = new Image();
-        probe.onload = () => showAppLogo(src);
-        probe.onerror = probeNext;
-        probe.src = src;
-      };
-      probeNext();
+      const main = document.getElementById('headerAppLogo');
+      if (!main) return;
+      const src = main.getAttribute('src');
+      document.querySelectorAll('[data-sc-logo]').forEach(i => { if (i.getAttribute('src') !== src) i.setAttribute('src', src); });
+      const ic = document.getElementById('scFavicon'); if (ic) ic.href = src;
+      try { localStorage.removeItem('sfc_app_logo'); } catch (e) {}
     }
 
     window.addEventListener('DOMContentLoaded', () => {
