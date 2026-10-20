@@ -538,7 +538,7 @@
         <div class="flex items-center gap-2">
           <h1 id="navTournamentTitle" class="font-bold text-base md:text-lg tracking-tight text-white flex items-center gap-2 sc-brand">Square<span class="sc-cut">Cut</span>&nbsp;<span class="sc-fx">Fixtures Creator</span> <span class="pro-badge">PRO</span></h1>
         </div>
-        <p id="navTournamentSub" class="text-xs text-slate-400 sc-nav-sub">Riyadh Premier League Season 25 • October 2026 • Riyadh, KSA</p>
+        <p id="navTournamentSub" class="text-xs text-slate-400 sc-nav-sub">Created by Amanullah Khan</p>
       </div>
     </div>
 
@@ -1364,7 +1364,7 @@
 
       const navSub = document.getElementById('navTournamentSub');
       if (navSub) {
-        navSub.textContent = `${RPL_STATE.tournament.name} • ${RPL_STATE.tournament.tag}`;
+        navSub.textContent = 'Created by Amanullah Khan';
       }
       const pName = document.getElementById('posterTournamentName');
       if (pName) pName.textContent = RPL_STATE.tournament.name.toUpperCase();
