@@ -448,6 +448,44 @@
     .sc-nav-sub{max-width:46vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
     @media(max-width:640px){#navTournamentTitle.sc-brand{font-size:1.02rem!important}.sc-brand .sc-fx{display:none}.sc-logo{width:42px;height:42px;border-radius:12px}}
 
+    /* ---- Help / saving popup ---- */
+    #helpModal.flex .hm-dialog{animation:hmIn .28s cubic-bezier(.2,.8,.2,1)}
+    @keyframes hmIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+    @media(prefers-reduced-motion:reduce){#helpModal.flex .hm-dialog{animation:none}}
+    .hm-head{display:flex;align-items:center;gap:14px;padding:20px 20px 16px;border-bottom:1px solid rgba(148,163,184,.16)}
+    .hm-badge{width:46px;height:46px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;color:#1A1405;background:linear-gradient(180deg,#F7DC8B,#E0AE33);box-shadow:0 8px 20px -8px rgba(224,174,51,.7)}
+    .hm-body{padding:16px 20px 4px;display:flex;flex-direction:column;gap:16px}
+    .hm-warn{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.38);font-size:13px;line-height:1.5;color:#FCE9C2}
+    .hm-warn i{flex:none;font-size:22px;color:#F59E0B;margin-top:1px}
+    .hm-warn b{color:#FFD98A}
+    .hm-steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;position:relative}
+    .hm-step{display:flex;gap:14px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:rgba(148,163,184,.07);border:1px solid rgba(148,163,184,.16)}
+    .hm-num{width:30px;height:30px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#1A1405;background:linear-gradient(180deg,#F7DC8B,#E0AE33)}
+    .hm-step h4{font-size:14px;font-weight:700;color:#fff;margin:0 0 3px}
+    .hm-step p{font-size:13px;line-height:1.55;color:#CBD5E1;margin:0}
+    .hm-chip{display:inline-flex;align-items:center;gap:5px;padding:1px 9px;border-radius:8px;font-weight:700;font-size:12px;color:#F7DC8B;background:rgba(245,158,11,.14);border:1px solid rgba(245,158,11,.4);white-space:nowrap}
+    .hm-note{padding:12px 14px;border-radius:14px;background:rgba(148,163,184,.06);border:1px dashed rgba(148,163,184,.3);font-size:12px;line-height:1.6;color:#AAB6C8}
+    .hm-note i{color:#F59E0B;vertical-align:-2px;margin-right:2px}
+    .hm-note b{color:#E2E8F0}
+    .hm-mono{color:#F7DC8B}
+    .hm-foot{display:flex;flex-direction:column-reverse;gap:12px;padding:14px 20px 18px;position:sticky;bottom:0;background:#0F1626;border-top:1px solid rgba(148,163,184,.16);border-radius:0 0 16px 16px}
+    html.light .hm-foot{background:#FBF7EA;border-color:rgba(60,50,20,.14)}
+    @media(max-width:520px){.hm-head{padding:16px 16px 12px}.hm-body{padding:12px 16px 14px;gap:12px}.hm-step{padding:10px 12px;gap:12px}.hm-step p{font-size:12.5px}.hm-foot{padding:12px 16px 14px}.hm-warn{padding:10px 12px}}
+    .hm-check{display:flex;align-items:center;gap:8px;font-size:12px;color:#94A3B8;cursor:pointer;user-select:none}
+    .hm-check input{width:16px;height:16px;accent-color:#F59E0B}
+    @media(min-width:520px){.hm-foot{flex-direction:row;align-items:center;justify-content:space-between}}
+    html.light .hm-head{border-color:rgba(60,50,20,.14)}
+    html.light .hm-warn{background:#FFF3D6;border-color:#E0B24A;color:#5A4210}
+    html.light .hm-warn b{color:#4A3406}
+    html.light .hm-step{background:#FFFFFF;border-color:var(--line)}
+    html.light .hm-step h4{color:#14120C}
+    html.light .hm-step p{color:#2E3431}
+    html.light .hm-chip{color:#6B4D0A;background:#FFF1CC;border-color:#D9B04A}
+    html.light .hm-note{background:#FBF7EA;border-color:#CDBE95;color:#4C534E}
+    html.light .hm-note b{color:#14120C}
+    html.light .hm-mono{color:#8A5E00}
+    html.light .hm-check{color:#4C534E}
+
     /* ---- Phone-only layout fixes (<=640px): header buttons on their own row ---- */
     @media(max-width:640px){
       body>header{flex-wrap:wrap;row-gap:10px;padding-top:10px;padding-bottom:12px}
@@ -1049,24 +1087,58 @@
     <span>Designed &amp; built by Aman</span>
   </footer>
 
-  <!-- MODAL: HELP -->
-  <div id="helpModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4" onclick="if(event.target===this)closeHelpModal()">
-    <div class="bg-[#0F1626] border border-slate-700 w-full max-w-lg rounded-2xl p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto" role="dialog" aria-labelledby="helpTitle">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-        <h3 id="helpTitle" class="text-lg font-bold text-white flex items-center gap-2"><i class="ph ph-floppy-disk text-amber-400"></i> Saving and continuing later</h3>
-        <button type="button" onclick="closeHelpModal()" aria-label="Close" class="text-slate-400 hover:text-white p-1 rounded-lg"><i class="ph ph-x text-lg"></i></button>
+  <!-- MODAL: HELP / SAVING (also shown once on launch) -->
+  <div id="helpModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4" onclick="if(event.target===this)closeHelpModal()">
+    <div class="hm-dialog bg-[#0F1626] border border-slate-700 w-full max-w-lg rounded-2xl shadow-2xl max-h-[92vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+      <div class="hm-head">
+        <span class="hm-badge"><i class="ph-bold ph-floppy-disk"></i></span>
+        <div class="min-w-0 flex-1">
+          <h3 id="helpTitle" class="text-lg sm:text-xl font-bold text-white leading-tight">Saving and continuing later</h3>
+          <p class="text-xs text-slate-400 mt-0.5">3 quick steps so you never lose your work</p>
+        </div>
+        <button type="button" onclick="closeHelpModal()" aria-label="Close" class="text-slate-400 hover:text-white p-1 rounded-lg self-start"><i class="ph ph-x text-lg"></i></button>
       </div>
-      <p class="text-sm text-slate-300 leading-relaxed">This page does not save automatically. If you close or refresh the tab, your work is gone unless you saved it as a file first.</p>
-      <p class="text-sm text-slate-300 leading-relaxed">That file ends in <span class="font-mono text-amber-400">.json</span>. Think of it as a save game: it holds your teams, logos, fixtures, scores and settings. You do not open it in Word or edit it yourself. Only this app reads it.</p>
-      <ol class="space-y-3 text-sm text-slate-200">
-        <li class="flex gap-3"><span class="w-6 h-6 flex-none rounded-full bg-amber-500 text-black text-xs font-bold flex items-center justify-center">1</span><span><b>Save:</b> click <b>Save</b> at the top. A file downloads to your Downloads folder.</span></li>
-        <li class="flex gap-3"><span class="w-6 h-6 flex-none rounded-full bg-amber-500 text-black text-xs font-bold flex items-center justify-center">2</span><span><b>Keep it safe:</b> leave it where it is, or copy it to Google Drive, email or WhatsApp yourself.</span></li>
-        <li class="flex gap-3"><span class="w-6 h-6 flex-none rounded-full bg-amber-500 text-black text-xs font-bold flex items-center justify-center">3</span><span><b>Continue later:</b> open this page again, click <b>Open</b> and choose that file. Everything comes back as you left it.</span></li>
-      </ol>
-      <div class="rounded-xl border border-slate-700 bg-slate-900/60 p-3 text-xs text-slate-400 leading-relaxed">
-        Tip: save again after you change teams or fixtures. Each save makes a new file with today's date, so older ones stay as backups.
+
+      <div class="hm-body">
+        <div class="hm-warn">
+          <i class="ph-fill ph-warning"></i>
+          <p><b>This page does not save automatically.</b> If you close or refresh the tab, your work is gone, unless you saved a file first.</p>
+        </div>
+
+        <ol class="hm-steps">
+          <li class="hm-step">
+            <span class="hm-num">1</span>
+            <div>
+              <h4>Save your work</h4>
+              <p>Tap <span class="hm-chip"><i class="ph ph-floppy-disk"></i> Save</span> at the top of the page. A file downloads to your phone or computer.</p>
+            </div>
+          </li>
+          <li class="hm-step">
+            <span class="hm-num">2</span>
+            <div>
+              <h4>Keep the file safe</h4>
+              <p>Leave it in Downloads, or send a copy to yourself on WhatsApp, email or Google Drive.</p>
+            </div>
+          </li>
+          <li class="hm-step">
+            <span class="hm-num">3</span>
+            <div>
+              <h4>Continue later</h4>
+              <p>Open this page again, tap <span class="hm-chip"><i class="ph ph-folder-open"></i> Open</span> and choose that file. Everything comes back as you left it.</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="hm-note">
+          <p><i class="ph-fill ph-lightbulb"></i> <b>What is the file?</b> It ends in <span class="font-mono hm-mono">.json</span> and works like a save game. It holds your teams, logos, fixtures, scores and settings. Only this app can read it, so there is no need to open it in anything else.</p>
+          <p class="mt-2"><i class="ph-fill ph-clock-counter-clockwise"></i> <b>Tip:</b> save again after you change teams or fixtures. Each save is a new file with today's date, so older ones stay as backups.</p>
+        </div>
       </div>
-      <div class="flex justify-end"><button type="button" onclick="closeHelpModal()" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs">Got it</button></div>
+
+      <div class="hm-foot">
+        <label class="hm-check"><input type="checkbox" id="helpHideChk"> <span>Don't show this on startup</span></label>
+        <button type="button" id="helpOkBtn" onclick="closeHelpModal()" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-amber-900/30 flex items-center justify-center gap-2"><i class="ph-bold ph-check"></i> Got it, let's start</button>
+      </div>
     </div>
   </div>
 
@@ -3081,8 +3153,27 @@
     }
 
 
-    function openHelpModal() { const m = document.getElementById('helpModal'); m.classList.remove('hidden'); m.classList.add('flex'); }
-    function closeHelpModal() { const m = document.getElementById('helpModal'); m.classList.add('hidden'); m.classList.remove('flex'); }
+    const HELP_HIDE_KEY = 'sc_hide_save_help';
+    function openHelpModal() {
+      const m = document.getElementById('helpModal');
+      const chk = document.getElementById('helpHideChk');
+      if (chk) { try { chk.checked = localStorage.getItem(HELP_HIDE_KEY) === '1'; } catch (e) { chk.checked = false; } }
+      m.classList.remove('hidden'); m.classList.add('flex');
+      const ok = document.getElementById('helpOkBtn'); if (ok) setTimeout(() => ok.focus({ preventScroll: true }), 50);
+    }
+    function closeHelpModal() {
+      const m = document.getElementById('helpModal');
+      if (m.classList.contains('hidden')) return;
+      const chk = document.getElementById('helpHideChk');
+      if (chk) { try { chk.checked ? localStorage.setItem(HELP_HIDE_KEY, '1') : localStorage.removeItem(HELP_HIDE_KEY); } catch (e) {} }
+      m.classList.add('hidden'); m.classList.remove('flex');
+    }
+    // Show the saving guide once on launch (unless the user chose to hide it)
+    window.addEventListener('load', () => {
+      let hide = false;
+      try { hide = localStorage.getItem(HELP_HIDE_KEY) === '1'; } catch (e) {}
+      if (!hide) setTimeout(openHelpModal, 500);
+    });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeHelpModal(); closeMatchEditModal(); closeTeamModal(); } });
 
     /* App logo: SquareCut logo is embedded in this file (header, hero, footer, favicon) */
