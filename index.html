@@ -448,6 +448,24 @@
     .sc-nav-sub{max-width:46vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
     @media(max-width:640px){#navTournamentTitle.sc-brand{font-size:1.02rem!important}.sc-brand .sc-fx{display:none}.sc-logo{width:42px;height:42px;border-radius:12px}}
 
+    /* ---- Phone-only layout fixes (<=640px): header buttons on their own row ---- */
+    @media(max-width:640px){
+      body>header{flex-wrap:wrap;row-gap:10px;padding-top:10px;padding-bottom:12px}
+      body>header>div:first-child{flex:1 1 100%}
+      body>header>div:first-child .sc-nav-sub{max-width:100%}
+      body>header>div:last-child{flex:1 1 100%;display:flex;gap:8px}
+      body>header>div:last-child>*{flex:1 1 0;width:auto;min-width:0;height:38px;padding:0 8px;justify-content:center}
+    }
+    /* Phone/tablet: Round Fixture Sheet rows must fit the narrow poster */
+    @media(max-width:768px){
+      #cricketBroadcastPoster:not(.thumb-mode){padding:16px}
+      #cricketBroadcastPoster .fx-row{gap:8px;padding:10px}
+      #cricketBroadcastPoster .fx-row>div:first-child{width:auto;flex:none;white-space:nowrap}
+      #cricketBroadcastPoster .fx-row>div:last-child{width:52px}
+      #cricketBroadcastPoster .fx-row>div:nth-child(2){gap:6px;min-width:0}
+      #cricketBroadcastPoster .fx-row>div:nth-child(2) .font-display{font-size:1rem}
+    }
+
     /* Step navigator */
     .stepper-bar{background:linear-gradient(180deg,rgba(10,18,36,.92),rgba(7,13,26,.92))!important}
     .tab-btn{border-radius:14px!important;transition:background .15s,color .15s}
@@ -951,7 +969,7 @@
         </div>
 
         <!-- Poster Canvas Element -->
-        <div class="mt-8 flex justify-center overflow-x-auto py-4">
+        <div id="posterWrap" class="mt-8 flex justify-center overflow-x-auto py-4">
           <div id="cricketBroadcastPoster" class="w-[620px] max-w-full bg-[#080B14] rounded-2xl border-2 border-amber-500/40 shadow-2xl shadow-black relative overflow-hidden flex flex-col p-6 text-white select-none transition-all">
             
             <!-- Glows -->
@@ -2158,6 +2176,7 @@
       picker.innerHTML = '';
       const posterEl = document.getElementById('cricketBroadcastPoster');
       if (posterEl) posterEl.classList.toggle('thumb-mode', RPL_STATE.posterMode === 'match' && RPL_STATE.fixtures.length > 0);
+      fitPosterPreview();
 
       if (RPL_STATE.fixtures.length === 0) {
         container.innerHTML = `<div class="py-16 text-center text-slate-500"><p>Generate fixtures to load broadcast card.</p></div>`;
@@ -2226,7 +2245,7 @@
         let listHtml = '';
         roundObj.matches.forEach(m => {
           listHtml += `
-            <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 flex items-center justify-between gap-3">
+            <div class="fx-row bg-slate-900/80 border border-slate-800 rounded-xl p-3 flex items-center justify-between gap-3">
               <div class="w-20 text-left">
                 <span class="text-[10px] font-mono text-amber-400 block">MATCH #${m.matchNumber}</span>
                 <span class="text-xs font-bold text-white">${m.time}</span>
@@ -3087,6 +3106,45 @@
       renderBlackoutChips();
       refreshStepBar();
     });
+  </script>
+
+  <script>
+    /* Phone-only preview fitting. Scales ON-SCREEN previews only; every download
+       rebuilds its image from an off-screen clone, so exports are unaffected. */
+    function fitPosterPreview() {
+      const poster = document.getElementById('cricketBroadcastPoster');
+      const wrap = document.getElementById('posterWrap');
+      if (!poster || !wrap) return;
+      const clear = () => { poster.style.transform = ''; poster.style.transformOrigin = ''; poster.style.marginRight = ''; poster.style.marginBottom = ''; };
+      if (window.innerWidth > 768 || !poster.classList.contains('thumb-mode')) { clear(); return; }
+      const avail = wrap.clientWidth;
+      if (!avail) return;
+      const s = Math.min(1, (avail - 1) / 800);
+      poster.style.transformOrigin = 'top left';
+      poster.style.transform = 'scale(' + s + ')';
+      poster.style.marginRight = (-800 * (1 - s)) + 'px';
+      poster.style.marginBottom = (-450 * (1 - s)) + 'px';
+    }
+    (function () {
+      let lastPoolW = 0, t;
+      function refitPool() {
+        const host = document.getElementById('poolCardPreview');
+        const sec = document.getElementById('poolCardSection');
+        if (!host || !sec || sec.classList.contains('hidden') || !host.clientWidth) return;
+        if (host.clientWidth === lastPoolW) return;
+        lastPoolW = host.clientWidth;
+        if (typeof renderPoolCardPreview === 'function') renderPoolCardPreview();
+      }
+      function refitAll() { fitPosterPreview(); refitPool(); }
+      window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(refitAll, 120); });
+      window.addEventListener('orientationchange', () => setTimeout(refitAll, 250));
+      window.addEventListener('load', () => {
+        if (!window.ResizeObserver) return;
+        const ro = new ResizeObserver(() => { clearTimeout(t); t = setTimeout(refitAll, 60); });
+        ['posterWrap', 'poolCardPreview'].forEach(id => { const el = document.getElementById(id); if (el) ro.observe(el); });
+        refitAll();
+      });
+    })();
   </script>
 </body>
 </html>
