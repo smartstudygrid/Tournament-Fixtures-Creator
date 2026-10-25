@@ -108,7 +108,7 @@
     .fx-meta{margin-top:14px;font:600 19px Manrope,sans-serif;color:#E3C677;letter-spacing:.2em;text-transform:uppercase}
     .fx-rule{margin:28px 0 20px}
     .fx-chips{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-    .fx-chips span{padding:8px 18px;border:1px solid rgba(200,164,86,.5);border-radius:999px;font:600 15px Manrope,sans-serif;color:#F1ECDF;background:rgba(200,164,86,.08)}
+    .fx-chips span{white-space:nowrap;line-height:1.3;padding:8px 18px;border:1px solid rgba(200,164,86,.5);border-radius:999px;font:600 15px Manrope,sans-serif;color:#F1ECDF;background:rgba(200,164,86,.08)}
     .fx-h2{margin:40px 0 18px;text-align:center;font:600 30px Fraunces,serif;color:#E3C677}
     .fx-rounds{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:36px}
     .fx-round{border:1px solid #24392F;border-radius:12px;overflow:hidden;background:rgba(255,255,255,.02)}
@@ -341,6 +341,38 @@
     .preset-chip:hover{color:#fff;border-color:rgba(232,185,60,.5)}
     .stale-banner{background:rgba(239,68,68,.10)!important;border-color:rgba(239,68,68,.5)!important;color:#FCA5A5!important}
     .stale-banner i{color:#F87171}
+    /* ---------- Round cards (phone-first, one image per round) ---------- */
+    .rc-sheet{box-sizing:border-box;width:1080px;min-height:1350px;padding:50px 48px 38px;position:relative;display:flex;flex-direction:column;color:#F1ECDF;font-family:Manrope,sans-serif;background:radial-gradient(760px 420px at 50% -6%,var(--accglow,rgba(232,185,60,.22)),transparent 62%),radial-gradient(520px 520px at 100% 100%,var(--accglow2,rgba(47,107,255,.10)),transparent 70%),linear-gradient(170deg,var(--pbase,#0B1226) 0%,#0A1424 45%,#050810 100%);border:5px solid var(--acc,#C8A456)}
+    .rc-sheet *{box-sizing:border-box}
+    .rc-top{display:flex;align-items:center;gap:26px}
+    .rc-logo{width:112px;height:112px;flex:none;border-radius:50%;border:4px solid var(--acc2,#E3C677);background:#0B1A16;display:flex;align-items:center;justify-content:center;overflow:hidden;font:700 32px/1 Fraunces,serif;color:var(--acc2,#E3C677)}
+    .rc-logo img{width:100%;height:100%;object-fit:contain;padding:6px;display:block}
+    .rc-hd{min-width:0;flex:1}
+    .rc-eyebrow{font:800 18px Manrope,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--acc2,#E3C677)}
+    .rc-title{font:800 62px/1.05 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.03em;margin-top:4px}
+    .rc-tag{margin-top:4px;font:600 20px/1.3 Manrope,sans-serif;color:#B9C7D6}
+    .rc-banner{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:26px;padding:10px 26px;border-radius:22px;border:2px solid var(--acc66,rgba(200,164,86,.45));background:linear-gradient(90deg,var(--acc55,rgba(232,185,60,.34)),var(--acc14,rgba(232,185,60,.08)))}
+    .rc-rname{font:800 60px/1.1 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--acc2l,#FFF3C4)}
+    .rc-rdate{font:700 28px/1.2 Manrope,sans-serif;color:#fff;text-align:right}
+    .rc-list{display:flex;flex-direction:column;gap:12px;margin-top:22px;flex:1}
+    .rc-match{border:2px solid rgba(255,255,255,.10);border-radius:24px;background:rgba(255,255,255,.04);padding:12px 18px 14px}
+    .rc-meta{display:flex;align-items:center;gap:12px;margin-bottom:8px;font:700 21px/1.2 Manrope,sans-serif;color:#C9D4E4}
+    .rc-mno{color:var(--acc2,#E3C677);font-weight:800}
+    .rc-time{color:#fff;font-weight:800;font-size:26px}
+    .rc-venue{min-width:0;color:#B9C7D6;font-weight:600}
+    .rc-pool{margin-left:auto;flex:none;padding:3px 14px;border-radius:999px;border:2px solid var(--acc66,rgba(200,164,86,.5));color:var(--acc2,#E3C677);font:800 17px/1.3 Manrope,sans-serif;letter-spacing:.1em;text-transform:uppercase}
+    .rc-teams{display:grid;grid-template-columns:minmax(0,1fr) 84px minmax(0,1fr);align-items:center;gap:6px}
+    .rc-team{display:flex;align-items:center;gap:14px;min-width:0}
+    .rc-away{flex-direction:row-reverse;text-align:right}
+    .rc-crest{width:80px;height:80px;flex:none;border-radius:20px;border:3px solid;display:flex;align-items:center;justify-content:center;overflow:hidden;background:rgba(255,255,255,.06);font:800 24px Manrope,sans-serif}
+    .rc-crest img{width:100%;height:100%;object-fit:cover;display:block}
+    .rc-name{flex:1;min-width:0;font:800 32px/1.1 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.02em;color:#F8F4E8;overflow-wrap:anywhere}
+    .rc-vs{text-align:center;font:italic 900 42px/1 'Barlow Condensed',sans-serif;color:#fff;padding-right:6px}
+    .rc-foot{margin-top:22px;padding-top:16px;border-top:2px solid var(--acc66,rgba(200,164,86,.35));display:flex;justify-content:space-between;gap:16px;font:600 20px Manrope,sans-serif;color:#B9C7D6}
+    .rc-foot b{color:var(--acc2,#E3C677)}
+    .rc-export,.rc-export *{text-shadow:none!important}
+    .rc-export .rc-name,.rc-export .rc-title,.rc-export .rc-rname{line-height:1.2!important}
+    .rc-export .rc-vs{line-height:1.2!important}
     /* ---------- Pool draw card (export sheet) — phone-first portrait, 2 pool columns ---------- */
     .pc-sheet{box-sizing:border-box;width:1080px;padding:56px 44px 44px;position:relative;color:#F1ECDF;font-family:Manrope,sans-serif;background:radial-gradient(760px 420px at 50% -6%,var(--accglow,rgba(232,185,60,.22)),transparent 62%),radial-gradient(520px 520px at 100% 100%,var(--accglow2,rgba(47,107,255,.10)),transparent 70%),linear-gradient(170deg,var(--pbase,#0B1226) 0%,#0A1424 45%,#050810 100%);border:5px solid var(--acc,#C8A456)}
     .pc-sheet *{box-sizing:border-box}
@@ -1034,6 +1066,12 @@
               </button>
               <button type="button" onclick="downloadAllThumbs()" id="downloadAllThumbsBtn" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs uppercase tracking-wider border border-slate-600 flex items-center gap-2 transition cursor-pointer">
                 <i class="ph-bold ph-file-zip text-sm"></i> All Thumbs (ZIP)
+              </button>
+              <button type="button" onclick="downloadThisRound()" id="downloadThisRoundBtn" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-black font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 transition cursor-pointer">
+                <i class="ph-bold ph-device-mobile text-sm"></i> Round Card
+              </button>
+              <button type="button" onclick="downloadAllRounds()" id="downloadAllRoundsBtn" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-black font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 transition cursor-pointer">
+                <i class="ph-bold ph-file-zip text-sm"></i> All Rounds (ZIP)
               </button>
               <button type="button" onclick="downloadWhatsAppCard()" id="downloadWhatsAppBtn" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-black font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20 flex items-center gap-2 transition cursor-pointer">
                 <i class="ph-bold ph-whatsapp-logo text-sm"></i> WhatsApp Card
@@ -2575,6 +2613,132 @@
       } catch (err) {
         console.error(err);
         showToast('ZIP export failed. Try again.', 'error');
+      } finally {
+        if (btn) { btn.disabled = false; btn.innerHTML = original; }
+      }
+    }
+
+    /* ---------- Round cards: one phone-sized image per round ---------- */
+    function applyCardTheme(el) {
+      const th = THUMB_THEMES[RPL_STATE.posterVariant];
+      if (!th) return;
+      const st = el.style;
+      st.setProperty('--acc', th.acc);
+      st.setProperty('--acc2', th.acc2);
+      st.setProperty('--acc2l', th.acc2);
+      st.setProperty('--acc66', th.acc + '66');
+      st.setProperty('--acc55', th.acc + '55');
+      st.setProperty('--acc14', th.acc + '14');
+      st.setProperty('--accglow', th.acc + '38');
+      st.setProperty('--accglow2', th.c2 + '22');
+      st.setProperty('--pbase', th.base);
+    }
+
+    function buildRoundCard(round, totalRounds) {
+      const T = RPL_STATE.tournament;
+      const first = round.matches[0] || {};
+      const hash = '#' + (T.name || 'League').replace(/[^A-Za-z0-9]+/g, '');
+      const team = (t, side) => `
+        <div class="rc-team rc-${side}">
+          <span class="rc-crest" style="border-color:${esc(t.color)};color:${esc(t.color)}">${t.logo ? `<img src="${esc(t.logo)}" alt="">` : esc(t.code)}</span>
+          <span class="rc-name">${esc(t.name)}</span>
+        </div>`;
+      const rows = round.matches.map(m => `
+        <div class="rc-match">
+          <div class="rc-meta">
+            <span class="rc-mno">M${m.matchNumber}</span>
+            <span class="rc-time">${esc(fmtTime(m.time))}</span>
+            <span class="rc-venue">${esc(m.venue)}</span>
+            ${m.group ? `<span class="rc-pool">Pool ${esc(m.group)}</span>` : ''}
+          </div>
+          <div class="rc-teams">${team(m.homeTeam, 'home')}<div class="rc-vs">VS</div>${team(m.awayTeam, 'away')}</div>
+        </div>`).join('');
+      const div = document.createElement('div');
+      div.className = 'rc-sheet';
+      applyCardTheme(div);
+      div.innerHTML = `
+        <div class="rc-top">
+          <div class="rc-logo">${T.logoBase64 ? `<img src="${esc(T.logoBase64)}" alt="">` : 'RPL'}</div>
+          <div class="rc-hd">
+            <div class="rc-eyebrow">Official Fixtures</div>
+            <div class="rc-title">${esc(T.name)}</div>
+            <div class="rc-tag">${esc(T.tag)}</div>
+          </div>
+        </div>
+        <div class="rc-banner"><span class="rc-rname">Round ${round.roundNumber}</span><span class="rc-rdate">${esc(first.date || '')}</span></div>
+        <div class="rc-list">${rows}</div>
+        <div class="rc-foot"><span><b>Round ${round.roundNumber}</b> of ${totalRounds}</span><span>${esc(hash)}</span></div>`;
+      return div;
+    }
+
+    async function renderRoundCanvas(round, totalRounds) {
+      const sheet = buildRoundCard(round, totalRounds);
+      sheet.classList.add('rc-export');
+      const host = document.createElement('div');
+      host.className = 'fx-host';
+      host.setAttribute('aria-hidden', 'true');
+      host.appendChild(sheet);
+      document.body.appendChild(host);
+      try {
+        if (document.fonts && document.fonts.ready) await document.fonts.ready;
+        await new Promise(r => setTimeout(r, 150));
+        return await snapCanvas(sheet, { scale: 1.5, backgroundColor: '#050810', useCORS: true, logging: false, width: 1080, height: sheet.offsetHeight, windowWidth: 1200 });
+      } finally {
+        host.remove();
+      }
+    }
+
+    function roundFileName(round) {
+      return `${(RPL_STATE.tournament.name || 'League').replace(/[^\w\-]+/g, '_')}_Round_${String(round.roundNumber).padStart(2, '0')}`;
+    }
+
+    async function downloadThisRound() {
+      if (!guardScheduleFresh()) return;
+      const m = currentPosterMatch();
+      if (!m) { showToast('Generate the schedule first.', 'error'); return; }
+      const round = RPL_STATE.fixtures.find(r => r.roundNumber === m.round);
+      if (!round) return;
+      warnTagYear(RPL_STATE.fixtures);
+      try {
+        const canvas = await renderRoundCanvas(round, RPL_STATE.fixtures.length);
+        const a = document.createElement('a');
+        a.download = roundFileName(round) + '.png';
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+        showToast(`Round ${round.roundNumber} card downloaded.`, 'success');
+      } catch (err) {
+        console.error(err);
+        showToast('Round card export failed. Try again.', 'error');
+      }
+    }
+
+    async function downloadAllRounds() {
+      if (!guardScheduleFresh()) return;
+      if (typeof JSZip === 'undefined') { showToast('ZIP library did not load. Check your internet connection.', 'error'); return; }
+      const rounds = RPL_STATE.fixtures.filter(r => r.matches && r.matches.length);
+      if (!rounds.length) { showToast('Generate the schedule first.', 'error'); return; }
+      warnTagYear(RPL_STATE.fixtures);
+      const btn = document.getElementById('downloadAllRoundsBtn');
+      const original = btn ? btn.innerHTML : '';
+      if (btn) btn.disabled = true;
+      const zip = new JSZip();
+      try {
+        for (let i = 0; i < rounds.length; i++) {
+          if (btn) btn.innerHTML = `<i class="ph ph-spinner-gap animate-spin"></i> ${i + 1} / ${rounds.length}`;
+          const canvas = await renderRoundCanvas(rounds[i], rounds.length);
+          const blob = await new Promise(r => canvas.toBlob(r, 'image/png'));
+          zip.file(roundFileName(rounds[i]) + '.png', blob);
+        }
+        const out = await zip.generateAsync({ type: 'blob' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(out);
+        a.download = `${(RPL_STATE.tournament.name || 'League').replace(/[^\w\-]+/g, '_')}_Round_Cards.zip`;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+        showToast(`${rounds.length} round cards downloaded as ZIP.`, 'success');
+      } catch (err) {
+        console.error(err);
+        showToast('Round cards export failed. Try again.', 'error');
       } finally {
         if (btn) { btn.disabled = false; btn.innerHTML = original; }
       }
