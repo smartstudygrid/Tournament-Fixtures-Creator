@@ -14,6 +14,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;0,900;1,800;1,900&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- html2canvas for Ultra-HD poster export -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <!-- html-to-image: uses the browser's own renderer, so downloads match the preview (html2canvas stays as fallback) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
+  <!-- JSZip: "All thumbnails (ZIP)" export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <!-- Phosphor Icons -->
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
@@ -149,8 +153,8 @@
     .th-sub{position:absolute;top:88px;left:28px;right:28px;display:flex;align-items:center;justify-content:space-between;z-index:2;font:700 10px/1 Manrope,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#C9D4E4}
     .th-sub span{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
     .th-sub i{width:26px;height:1px;background:#C8A456;display:inline-block}
-    .th-center{position:absolute;top:110px;left:0;right:0;height:250px;display:flex;align-items:center;justify-content:center;gap:34px;z-index:2}
-    .th-side{width:270px;display:flex;flex-direction:column;align-items:center;min-width:0}
+    .th-center{position:absolute;top:110px;left:0;right:0;height:250px;display:flex;align-items:center;justify-content:center;gap:22px;z-index:2}
+    .th-side{width:292px;display:flex;flex-direction:column;align-items:center;min-width:0}
     .th-plate{width:176px;height:176px;border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden;background:rgba(255,255,255,.14);border:3px solid rgba(255,255,255,.94);font:800 52px 'Barlow Condensed',sans-serif}
     .th-plate img{width:100%;height:100%;object-fit:contain;padding:14px}
     .th-name{margin-top:14px;width:100%;font:700 30px/1 'Barlow Condensed',sans-serif;text-transform:uppercase;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -158,7 +162,7 @@
     .th-vs{flex:none;padding:0 8px 0 0;color:#fff;font:italic 900 76px/1.2 'Barlow Condensed',sans-serif;letter-spacing:.04em;text-transform:uppercase;text-shadow:0 4px 18px rgba(0,0,0,.55)}
     .th-bottom{position:absolute;left:0;right:0;bottom:0;height:74px;display:flex;align-items:center;background:rgba(4,8,14,.93);border-top:2px solid #C8A456;z-index:2}
     .th-cell{flex:1 1 0;min-width:0;padding:0 18px;text-align:center;border-right:1px solid rgba(255,255,255,.10)}
-    .th-cell:last-child{border-right:none}
+    .th-cell:last-child{border-right:none;padding-right:84px} /* keep venue clear of YouTube's duration badge (bottom-right) */
     .th-cell small{display:block;font:700 8px/1 Manrope,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#93A3B8;margin-bottom:5px}
     .th-cell span,.th-cell b{display:block;font:700 16px/1.15 Manrope,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .th-cell b{color:#F5D67B}
@@ -338,19 +342,19 @@
     .stale-banner{background:rgba(239,68,68,.10)!important;border-color:rgba(239,68,68,.5)!important;color:#FCA5A5!important}
     .stale-banner i{color:#F87171}
     /* ---------- Pool draw card (export sheet) — phone-first portrait, 2 pool columns ---------- */
-    .pc-sheet{box-sizing:border-box;width:1080px;padding:56px 44px 44px;position:relative;color:#F1ECDF;font-family:Manrope,sans-serif;background:radial-gradient(760px 420px at 50% -6%,rgba(232,185,60,.22),transparent 62%),radial-gradient(520px 520px at 100% 100%,rgba(47,107,255,.10),transparent 70%),linear-gradient(170deg,#0B1226 0%,#0A1424 45%,#050810 100%);border:5px solid #C8A456}
+    .pc-sheet{box-sizing:border-box;width:1080px;padding:56px 44px 44px;position:relative;color:#F1ECDF;font-family:Manrope,sans-serif;background:radial-gradient(760px 420px at 50% -6%,var(--accglow,rgba(232,185,60,.22)),transparent 62%),radial-gradient(520px 520px at 100% 100%,var(--accglow2,rgba(47,107,255,.10)),transparent 70%),linear-gradient(170deg,var(--pbase,#0B1226) 0%,#0A1424 45%,#050810 100%);border:5px solid var(--acc,#C8A456)}
     .pc-sheet *{box-sizing:border-box}
-    .pc-top{display:flex;align-items:center;gap:30px;padding-bottom:30px;border-bottom:2px solid rgba(200,164,86,.45)}
-    .pc-logo{width:150px;height:150px;flex:none;border-radius:50%;border:4px solid #E3C677;background:#0B1A16;display:flex;align-items:center;justify-content:center;overflow:hidden;font:700 40px/1 Fraunces,serif;color:#E3C677}
+    .pc-top{display:flex;align-items:center;gap:30px;padding-bottom:30px;border-bottom:2px solid var(--acc66,rgba(200,164,86,.45))}
+    .pc-logo{width:150px;height:150px;flex:none;border-radius:50%;border:4px solid var(--acc2,#E3C677);background:#0B1A16;display:flex;align-items:center;justify-content:center;overflow:hidden;font:700 40px/1 Fraunces,serif;color:var(--acc2,#E3C677)}
     .pc-logo img{width:100%;height:100%;object-fit:contain;padding:8px}
     .pc-heading{min-width:0;flex:1}
-    .pc-eyebrow{font:800 20px Manrope,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#E3C677}
+    .pc-eyebrow{font:800 20px Manrope,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:var(--acc2,#E3C677)}
     .pc-title{font:800 76px/1.05 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.03em;margin-top:6px}
     .pc-tag{margin-top:8px;font:600 22px/1.3 Manrope,sans-serif;color:#B9C7D6}
     .pc-pools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:34px;align-items:start}
-    .pc-pool{border:2px solid rgba(200,164,86,.45);border-radius:26px;background:rgba(255,255,255,.035);overflow:hidden}
-    .pc-phead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:20px 22px;background:linear-gradient(90deg,rgba(232,185,60,.34),rgba(232,185,60,.08));border-bottom:2px solid rgba(200,164,86,.4)}
-    .pc-pname{font:800 54px/1.1 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.06em;color:#FFF3C4}
+    .pc-pool{border:2px solid var(--acc66,rgba(200,164,86,.45));border-radius:26px;background:rgba(255,255,255,.035);overflow:hidden}
+    .pc-phead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:20px 22px;background:linear-gradient(90deg,var(--acc55,rgba(232,185,60,.34)),var(--acc14,rgba(232,185,60,.08)));border-bottom:2px solid var(--acc66,rgba(200,164,86,.4))}
+    .pc-pname{font:800 54px/1.1 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.06em;color:var(--acc2l,#FFF3C4)}
     .pc-pcount{font:800 16px Manrope,sans-serif;letter-spacing:.14em;color:#D6DEE8;text-transform:uppercase;white-space:nowrap}
     .pc-grid{display:flex;flex-direction:column;gap:14px;padding:16px}
     .pc-team{display:flex;align-items:center;gap:18px;padding:12px 14px 12px 12px;border:2px solid rgba(255,255,255,.09);border-radius:22px;background:rgba(255,255,255,.04);min-width:0;min-height:128px}
@@ -361,8 +365,8 @@
     #poolCardPreview{position:relative;max-height:none}
     .pc-sheet.pc-single .pc-pools{grid-template-columns:1fr}
     .pc-sheet.pc-single .pc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-    .pc-foot{margin-top:30px;padding-top:20px;border-top:2px solid rgba(200,164,86,.35);display:flex;justify-content:space-between;gap:16px;font:600 22px Manrope,sans-serif;color:#B9C7D6}
-    .pc-foot b{color:#E3C677}
+    .pc-foot{margin-top:30px;padding-top:20px;border-top:2px solid var(--acc66,rgba(200,164,86,.35));display:flex;justify-content:space-between;gap:16px;font:600 22px Manrope,sans-serif;color:#B9C7D6}
+    .pc-foot b{color:var(--acc2,#E3C677)}
     /* html2canvas: relax clipping and tight metrics for the PNG only */
     .pc-export,.pc-export *{text-shadow:none!important}
     .pc-export .pc-title,.pc-export .pc-tag,.pc-export .pc-name{overflow:visible!important;text-overflow:clip!important}
@@ -544,6 +548,10 @@
     @media(prefers-reduced-motion:reduce){.tab-content{animation:none}button{transition:none}}
 
     /* Footer */
+    .sc-credit{max-width:none!important;overflow:visible!important;text-overflow:clip!important;font:600 12px/1.2 Manrope,sans-serif;letter-spacing:.05em;color:#D5DEEA!important}
+    .sc-credit b{color:#F0C75E;font-weight:800}
+    html.light .sc-credit{color:#3E4540!important}
+    html.light .sc-credit b{color:#8A6A1E}
     .sc-footer{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;padding:22px 16px 28px;margin-top:8px;border-top:1px solid rgba(255,255,255,.06);font:600 12px Manrope,sans-serif;color:var(--mute)}
     .sc-footer img{width:24px;height:24px;border-radius:7px;object-fit:cover;box-shadow:0 0 0 1px rgba(255,255,255,.15)}
     .sc-footer b{color:#F1ECDF;font-weight:800}
@@ -635,7 +643,7 @@
         <div class="flex items-center gap-2">
           <h1 id="navTournamentTitle" class="font-bold text-base md:text-lg tracking-tight text-white flex items-center gap-2 sc-brand">Square<span class="sc-cut">Cut</span>&nbsp;<span class="sc-fx">Fixtures Creator</span> <span class="pro-badge">PRO</span></h1>
         </div>
-        <p id="navTournamentSub" class="text-xs text-slate-400 sc-nav-sub">Created by Amanullah Khan</p>
+        <p id="navTournamentSub" class="text-xs sc-nav-sub sc-credit">Created by <b>Amanullah Khan</b></p>
       </div>
     </div>
 
@@ -1021,6 +1029,12 @@
               <button type="button" onclick="downloadPosterImage()" id="downloadPosterBtn" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-black font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20 flex items-center gap-2 transition cursor-pointer">
                 <i class="ph-bold ph-download-simple text-sm"></i> YouTube Thumb
               </button>
+              <button type="button" onclick="copyThumbToClipboard()" id="copyThumbBtn" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs uppercase tracking-wider border border-slate-600 flex items-center gap-2 transition cursor-pointer">
+                <i class="ph-bold ph-copy text-sm"></i> Copy
+              </button>
+              <button type="button" onclick="downloadAllThumbs()" id="downloadAllThumbsBtn" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs uppercase tracking-wider border border-slate-600 flex items-center gap-2 transition cursor-pointer">
+                <i class="ph-bold ph-file-zip text-sm"></i> All Thumbs (ZIP)
+              </button>
               <button type="button" onclick="downloadWhatsAppCard()" id="downloadWhatsAppBtn" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-black font-extrabold text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/20 flex items-center gap-2 transition cursor-pointer">
                 <i class="ph-bold ph-whatsapp-logo text-sm"></i> WhatsApp Card
               </button>
@@ -1129,7 +1143,7 @@
     <img data-sc-logo alt="">
     <span><b>SquareCut</b> Fixtures Creator</span>
     <i></i>
-    <span>Designed &amp; built by Aman</span>
+    <span>Designed &amp; built by <b>Amanullah Khan</b></span>
   </footer>
 
   <!-- MODAL: HELP / SAVING (also shown once on launch) -->
@@ -1499,7 +1513,7 @@
 
       const navSub = document.getElementById('navTournamentSub');
       if (navSub) {
-        navSub.textContent = 'Created by Amanullah Khan';
+        navSub.innerHTML = 'Created by <b>Amanullah Khan</b>';
       }
       const pName = document.getElementById('posterTournamentName');
       if (pName) pName.textContent = RPL_STATE.tournament.name.toUpperCase();
@@ -1963,6 +1977,7 @@
       renderRoster();
       renderFixtures();
       warnCapacity(roundsList);
+      warnTagYear(roundsList);
 
       const issues = coverageIssues();
       if (issues.length) {
@@ -1998,6 +2013,37 @@
       nd.setDate(nd.getDate() + 7);
       return skipBlackoutWeeks(nd);
     }
+
+    /* ---------- Image export: html-to-image first, html2canvas as fallback ---------- */
+    const USE_HTML_TO_IMAGE = true;   // set to false to go back to html2canvas only
+    async function snapCanvas(el, o = {}) {
+      if (USE_HTML_TO_IMAGE && window.htmlToImage && typeof window.htmlToImage.toCanvas === 'function') {
+        try {
+          return await window.htmlToImage.toCanvas(el, {
+            pixelRatio: o.scale || 1,
+            backgroundColor: o.backgroundColor,
+            width: o.width || el.offsetWidth,
+            height: o.height || el.offsetHeight,
+            cacheBust: false
+          });
+        } catch (e) { console.warn('html-to-image failed, using html2canvas', e); }
+      }
+      return html2canvas(el, o);
+    }
+
+    /* Warn when match dates fall in a different year than the tournament tag (e.g. start date left on 2025) */
+    function warnTagYear(rounds) {
+      const T = RPL_STATE.tournament;
+      const tagYear = (String(T.tag || '').match(/\b(20\d{2})\b/) || [])[1];
+      const first = rounds && rounds[0] && rounds[0].matches && rounds[0].matches[0];
+      const matchYear = first && first.rawDate ? String(first.rawDate).slice(0, 4) : '';
+      if (tagYear && matchYear && tagYear !== matchYear) {
+        showToast(`Check the start date: matches fall in ${matchYear} but the tournament tag says ${tagYear}.`, 'error');
+        return true;
+      }
+      return false;
+    }
+
 
     /* Warn when a single weekend round has more matches than venues × slots */
     function warnCapacity(roundsList) {
@@ -2293,6 +2339,54 @@
       const sel = document.getElementById('posterVariantSelect');
       if (sel) sel.value = RPL_STATE.posterVariant;
       renderPoster();
+      if (typeof renderPoolCardPreview === 'function') renderPoolCardPreview();
+    }
+
+    /* Thumbnail / card themes (neon-style variants). acc/acc2 are reused by the pool card. */
+    const THUMB_THEMES = {
+      neon:     { base: '#0A0620', c1: '#7C3AED', c2: '#0891B2', alpha: '58', acc: '#22D3EE', acc2: '#67E8F9' },
+      cyber:    { base: '#0B0416', c1: '#FF2BD6', c2: '#00E5FF', alpha: '78', acc: '#FF2BD6', acc2: '#FF8AF0' },
+      inferno:  { base: '#0F0503', c1: '#FF3B1F', c2: '#FF9F1C', alpha: '72', acc: '#FF4A1C', acc2: '#FFB347' },
+      toxic:    { base: '#030A05', c1: '#A3E635', c2: '#22D3A0', alpha: '5E', acc: '#A3E635', acc2: '#D9F99D' },
+      electric: { base: '#030818', c1: '#2F6BFF', c2: '#38BDF8', alpha: '72', acc: '#2F7BFF', acc2: '#7DD3FC' }
+    };
+
+    function thumbHTML(selectedMatch) {
+        const T = RPL_STATE.tournament, h = selectedMatch.homeTeam, a = selectedMatch.awayTeam;
+        const variant = RPL_STATE.posterVariant || 'clash';
+        const theme = THUMB_THEMES[variant];
+        const base = theme ? theme.base : variant === 'arena' ? '#05070C' : '#071022';
+        const c1 = theme ? theme.c1 : h.color;
+        const c2 = theme ? theme.c2 : a.color;
+        const alpha = theme ? theme.alpha : variant === 'arena' ? '44' : '58';
+        const bg = `radial-gradient(620px 340px at 12% 34%, ${esc(c1)}${alpha}, transparent 65%),radial-gradient(620px 340px at 88% 34%, ${esc(c2)}${alpha}, transparent 65%),radial-gradient(900px 420px at 50% -18%, rgba(255,255,255,.10), transparent 62%),linear-gradient(165deg, ${base} 0%, #0B1224 58%, #04060C 100%)`;
+        const side = (t, glow) => `
+          <div class="th-side">
+            <div class="th-plate" style="box-shadow:0 0 0 6px ${esc(glow)}2e,0 0 40px ${esc(glow)}77">${t.logo ? `<img src="${esc(t.logo)}" alt="">` : esc(t.code)}</div>
+            <div class="th-name" style="font-size:${t.name.length > 18 ? 27 : t.name.length > 15 ? 31 : 36}px">${esc(t.name)}</div>
+          </div>`;
+        const metaLeft = `${selectedMatch.group ? `POOL ${esc(selectedMatch.group)} · ` : ''}ROUND ${selectedMatch.round}`;
+        return `
+          <div class="th th-${variant}" style="background:${bg}">
+            <div class="th-beam th-beam-l"></div>
+            <div class="th-beam th-beam-r"></div>
+            <div class="th-grid"></div>
+            <div class="th-vignette"></div>
+            <div class="th-top">
+              <div class="th-brand">
+                <span class="th-mini">${T.logoBase64 ? `<img src="${esc(T.logoBase64)}" alt="">` : 'RPL'}</span>
+                <span class="th-brandtext"><b>${esc(T.name)}</b><small>${esc(T.tag)}</small></span>
+              </div>
+              <div class="th-badge"><small>MATCH</small><b>${selectedMatch.matchNumber}</b></div>
+            </div>
+            <div class="th-sub"><span><i></i>${metaLeft}</span><span>MATCHDAY</span></div>
+            <div class="th-center">${side(h, c1)}<div class="th-vs">VS</div>${side(a, c2)}</div>
+            <div class="th-bottom">
+              <div class="th-cell"><small>Date</small><span>${esc(selectedMatch.date)}</span></div>
+              <div class="th-cell"><small>First ball</small><b>${esc(fmtTime(selectedMatch.time))}</b></div>
+              <div class="th-cell"><small>Venue</small><span>${esc(selectedMatch.venue)}</span></div>
+            </div>
+          </div>`;
     }
 
     function renderPoster() {
@@ -2329,48 +2423,7 @@
       if (RPL_STATE.posterMode === 'match') {
         const roundTitle = document.getElementById('posterRoundNumber');
         if (roundTitle) roundTitle.textContent = `ROUND ${selectedMatch.round} • ${selectedMatch.date.toUpperCase()}`;
-        const T = RPL_STATE.tournament, h = selectedMatch.homeTeam, a = selectedMatch.awayTeam;
-        const variant = RPL_STATE.posterVariant || 'clash';
-        const THEMES = {
-          neon:     { base: '#0A0620', c1: '#7C3AED', c2: '#0891B2', alpha: '58' },
-          cyber:    { base: '#0B0416', c1: '#FF2BD6', c2: '#00E5FF', alpha: '78' },
-          inferno:  { base: '#0F0503', c1: '#FF3B1F', c2: '#FF9F1C', alpha: '72' },
-          toxic:    { base: '#030A05', c1: '#A3E635', c2: '#22D3A0', alpha: '5E' },
-          electric: { base: '#030818', c1: '#2F6BFF', c2: '#38BDF8', alpha: '72' }
-        };
-        const theme = THEMES[variant];
-        const base = theme ? theme.base : variant === 'arena' ? '#05070C' : '#071022';
-        const c1 = theme ? theme.c1 : h.color;
-        const c2 = theme ? theme.c2 : a.color;
-        const alpha = theme ? theme.alpha : variant === 'arena' ? '44' : '58';
-        const bg = `radial-gradient(620px 340px at 12% 34%, ${esc(c1)}${alpha}, transparent 65%),radial-gradient(620px 340px at 88% 34%, ${esc(c2)}${alpha}, transparent 65%),radial-gradient(900px 420px at 50% -18%, rgba(255,255,255,.10), transparent 62%),linear-gradient(165deg, ${base} 0%, #0B1224 58%, #04060C 100%)`;
-        const side = (t, glow) => `
-          <div class="th-side">
-            <div class="th-plate" style="box-shadow:0 0 0 6px ${esc(glow)}2e,0 0 40px ${esc(glow)}77">${t.logo ? `<img src="${esc(t.logo)}" alt="">` : esc(t.code)}</div>
-            <div class="th-name">${esc(t.name)}</div>
-          </div>`;
-        const metaLeft = `${selectedMatch.group ? `POOL ${esc(selectedMatch.group)} · ` : ''}ROUND ${selectedMatch.round}`;
-        container.innerHTML = `
-          <div class="th th-${variant}" style="background:${bg}">
-            <div class="th-beam th-beam-l"></div>
-            <div class="th-beam th-beam-r"></div>
-            <div class="th-grid"></div>
-            <div class="th-vignette"></div>
-            <div class="th-top">
-              <div class="th-brand">
-                <span class="th-mini">${T.logoBase64 ? `<img src="${esc(T.logoBase64)}" alt="">` : 'RPL'}</span>
-                <span class="th-brandtext"><b>${esc(T.name)}</b><small>${esc(T.tag)}</small></span>
-              </div>
-              <div class="th-badge"><small>MATCH</small><b>${selectedMatch.matchNumber}</b></div>
-            </div>
-            <div class="th-sub"><span><i></i>${metaLeft}</span><span>MATCHDAY</span></div>
-            <div class="th-center">${side(h, c1)}<div class="th-vs">VS</div>${side(a, c2)}</div>
-            <div class="th-bottom">
-              <div class="th-cell"><small>Date</small><span>${esc(selectedMatch.date)}</span></div>
-              <div class="th-cell"><small>First ball</small><b>${esc(fmtTime(selectedMatch.time))}</b></div>
-              <div class="th-cell"><small>Venue</small><span>${esc(selectedMatch.venue)}</span></div>
-            </div>
-          </div>`;
+        container.innerHTML = thumbHTML(selectedMatch);
       } else {
         const roundObj = RPL_STATE.fixtures.find(r => r.roundNumber === selectedMatch.round) || RPL_STATE.fixtures[0];
         const roundTitle = document.getElementById('posterRoundNumber');
@@ -2402,6 +2455,7 @@
         showToast('Switch Type to "Matchday Clash" to export the YouTube thumbnail.', 'error');
         return;
       }
+      warnTagYear(RPL_STATE.fixtures);
       const srcCard = document.querySelector('#posterDynamicContent .th');
       const btn = document.getElementById('downloadPosterBtn');
       if (!srcCard) { showToast('Generate the schedule first.', 'error'); return; }
@@ -2425,7 +2479,7 @@
       try {
         if (document.fonts && document.fonts.ready) await document.fonts.ready;
         await new Promise(r => setTimeout(r, 300));
-        const canvas = await html2canvas(clone, {
+        const canvas = await snapCanvas(clone, {
           scale: 1.6,
           backgroundColor: '#050810',
           useCORS: true,
@@ -2448,6 +2502,81 @@
           btn.disabled = false;
           btn.innerHTML = originalText;
         }
+      }
+    }
+
+    /* ---------- Thumbnail: copy to clipboard + ZIP of every match ---------- */
+    async function renderThumbCanvas(match) {
+      const host = document.createElement('div');
+      host.className = 'fx-host';
+      host.setAttribute('aria-hidden', 'true');
+      host.innerHTML = thumbHTML(match);
+      const card = host.firstElementChild;
+      card.classList.add('th-export');
+      document.body.appendChild(host);
+      try {
+        if (document.fonts && document.fonts.ready) await document.fonts.ready;
+        await new Promise(r => setTimeout(r, 120));
+        return await snapCanvas(card, { scale: 1.6, backgroundColor: '#050810', useCORS: true, logging: false, width: 800, height: 450, windowWidth: 1200 });
+      } finally {
+        host.remove();
+      }
+    }
+
+    function currentPosterMatch() {
+      const all = RPL_STATE.fixtures.flatMap(r => r.matches);
+      return all.find(m => m.id === RPL_STATE.posterMatchId) || all[0];
+    }
+
+    async function copyThumbToClipboard() {
+      if (RPL_STATE.posterMode !== 'match') { showToast('Switch Type to "Matchday Clash" first.', 'error'); return; }
+      if (!guardScheduleFresh()) return;
+      const m = currentPosterMatch();
+      if (!m) { showToast('Generate the schedule first.', 'error'); return; }
+      if (!(navigator.clipboard && window.ClipboardItem)) { showToast('Copy is not supported in this browser. Use Download instead.', 'error'); return; }
+      try {
+        const canvas = await renderThumbCanvas(m);
+        const blob = await new Promise(r => canvas.toBlob(r, 'image/png'));
+        await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+        showToast('Thumbnail copied. Paste it anywhere.', 'success');
+      } catch (err) {
+        console.error(err);
+        showToast('Copy failed. Use Download instead.', 'error');
+      }
+    }
+
+    async function downloadAllThumbs() {
+      if (RPL_STATE.posterMode !== 'match') { showToast('Switch Type to "Matchday Clash" first.', 'error'); return; }
+      if (!guardScheduleFresh()) return;
+      if (typeof JSZip === 'undefined') { showToast('ZIP library did not load. Check your internet connection.', 'error'); return; }
+      const matches = RPL_STATE.fixtures.flatMap(r => r.matches);
+      if (!matches.length) { showToast('Generate the schedule first.', 'error'); return; }
+      warnTagYear(RPL_STATE.fixtures);
+      const btn = document.getElementById('downloadAllThumbsBtn');
+      const original = btn ? btn.innerHTML : '';
+      if (btn) btn.disabled = true;
+      const zip = new JSZip();
+      try {
+        for (let i = 0; i < matches.length; i++) {
+          const m = matches[i];
+          if (btn) btn.innerHTML = `<i class="ph ph-spinner-gap animate-spin"></i> ${i + 1} / ${matches.length}`;
+          const canvas = await renderThumbCanvas(m);
+          const blob = await new Promise(r => canvas.toBlob(r, 'image/png'));
+          const safe = c => String(c || 'TBD').replace(/[^\w\-]+/g, '');
+          zip.file(`M${String(m.matchNumber).padStart(2, '0')}_${safe(m.homeTeam.code)}_vs_${safe(m.awayTeam.code)}.png`, blob);
+        }
+        const out = await zip.generateAsync({ type: 'blob' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(out);
+        a.download = `${(RPL_STATE.tournament.name || 'League').replace(/[^\w\-]+/g, '_')}_All_Thumbnails.zip`;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+        showToast(`${matches.length} thumbnails downloaded as ZIP.`, 'success');
+      } catch (err) {
+        console.error(err);
+        showToast('ZIP export failed. Try again.', 'error');
+      } finally {
+        if (btn) { btn.disabled = false; btn.innerHTML = original; }
       }
     }
 
@@ -2491,7 +2620,7 @@
         if (document.fonts && document.fonts.ready) await document.fonts.ready;
         await new Promise(r => setTimeout(r, 250));
         const sheet = host.firstElementChild;
-        const canvas = await html2canvas(sheet, { scale: 1, backgroundColor: '#0B1026', useCORS: true, logging: false, width: 1080, height: 1350, windowWidth: 1200 });
+        const canvas = await snapCanvas(sheet, { scale: 1, backgroundColor: '#0B1026', useCORS: true, logging: false, width: 1080, height: 1350, windowWidth: 1200 });
         const a = document.createElement('a');
         a.download = `${T.name.replace(/[^\w\-]+/g, '_')}_Match${m.matchNumber}_WhatsApp.png`;
         a.href = canvas.toDataURL('image/png');
@@ -2552,7 +2681,7 @@
         if (document.fonts && document.fonts.ready) await document.fonts.ready;
         await new Promise(r => setTimeout(r, 250));
         const sheet = host.firstElementChild;
-        const canvas = await html2canvas(sheet, { scale: 1, backgroundColor: '#0B1026', useCORS: true, logging: false });
+        const canvas = await snapCanvas(sheet, { scale: 1, backgroundColor: '#0B1026', useCORS: true, logging: false });
         const a = document.createElement('a');
         a.download = `${T.name.replace(/[^\w\-]+/g, '_')}_Banner_${label}.png`;
         a.href = canvas.toDataURL('image/png');
@@ -2596,6 +2725,19 @@
 
       const div = document.createElement('div');
       div.className = 'pc-sheet' + (chosen.length === 1 ? ' pc-single' : '');
+      const pcTheme = THUMB_THEMES[RPL_STATE.posterVariant];
+      if (pcTheme) {
+        const st = div.style;
+        st.setProperty('--acc', pcTheme.acc);
+        st.setProperty('--acc2', pcTheme.acc2);
+        st.setProperty('--acc2l', pcTheme.acc2);
+        st.setProperty('--acc66', pcTheme.acc + '66');
+        st.setProperty('--acc55', pcTheme.acc + '55');
+        st.setProperty('--acc14', pcTheme.acc + '14');
+        st.setProperty('--accglow', pcTheme.acc + '38');
+        st.setProperty('--accglow2', pcTheme.c2 + '22');
+        st.setProperty('--pbase', pcTheme.base);
+      }
       const shownTeams = chosen.length === 1
         ? RPL_STATE.teams.filter(t => t.group === chosen[0]).length
         : RPL_STATE.teams.length;
@@ -2667,7 +2809,7 @@
         await new Promise(r => setTimeout(r, 200));
         const scale = Math.max(1, Math.min(2, 14000 / sheet.offsetHeight));
         // 1080px wide x2 = 2160px: crisp on phones
-        const canvas = await html2canvas(sheet, {
+        const canvas = await snapCanvas(sheet, {
           scale, backgroundColor: '#050810', useCORS: true, logging: false,
           width: 1080, windowWidth: 1200
         });
@@ -3198,7 +3340,7 @@
         await new Promise(r => setTimeout(r, 200));
         const sheet = host.firstElementChild;
         const scale = Math.max(1, Math.min(2, 15000 / sheet.offsetHeight));
-        const canvas = await html2canvas(sheet, { scale, backgroundColor: light ? '#F7F3E6' : '#07100D', useCORS: true, logging: false });
+        const canvas = await snapCanvas(sheet, { scale, backgroundColor: light ? '#F7F3E6' : '#07100D', useCORS: true, logging: false });
         const a = document.createElement('a');
         a.download = `${T.name.replace(/[^\w\-]+/g, '_')}_Full_Fixtures.png`;
         a.href = canvas.toDataURL('image/png');
