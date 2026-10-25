@@ -579,6 +579,47 @@
     .th .th-badge b::before{content:"#";font-size:.62em;font-weight:700;margin-right:3px;opacity:.85;vertical-align:.32em}
     .th-neon .th-badge b{color:#67E8F9!important}
     .th-neon .th-badge small{color:#A5F3FC!important}
+    /* Extra thumbnail styles: Cyber Neon, Inferno, Toxic Green, Electric Blue */
+    .th-cyber .th-plate{border-color:#FF2BD6;background:rgba(255,43,214,.12)}
+    .th-cyber .th-bottom{background:rgba(10,3,22,.95);border-top-color:#FF2BD6}
+    .th-cyber .th-sub i{background:#FF2BD6}
+    .th-cyber .th-mini{border-color:#FF2BD6}
+    .th-cyber .th-sub{color:#7DF9FF}
+    .th-cyber .th-cell b{color:#FF8AF0}
+    .th-cyber .th-cell small{color:#7DF9FF}
+    .th-cyber .th-badge b{color:#FF8AF0!important}
+    .th-cyber .th-badge small{color:#7DF9FF!important}
+    .th-cyber .th-brandtext small{color:#7DF9FF}
+    .th-inferno .th-plate{border-color:#FF4A1C;background:rgba(255,74,28,.12)}
+    .th-inferno .th-bottom{background:rgba(14,5,3,.95);border-top-color:#FF4A1C}
+    .th-inferno .th-sub i{background:#FF4A1C}
+    .th-inferno .th-mini{border-color:#FF4A1C}
+    .th-inferno .th-sub{color:#FFD2A8}
+    .th-inferno .th-cell b{color:#FFB347}
+    .th-inferno .th-cell small{color:#FFD2A8}
+    .th-inferno .th-badge b{color:#FFB347!important}
+    .th-inferno .th-badge small{color:#FFD2A8!important}
+    .th-inferno .th-brandtext small{color:#FFD2A8}
+    .th-toxic .th-plate{border-color:#A3E635;background:rgba(163,230,53,.12)}
+    .th-toxic .th-bottom{background:rgba(3,10,5,.95);border-top-color:#A3E635}
+    .th-toxic .th-sub i{background:#A3E635}
+    .th-toxic .th-mini{border-color:#A3E635}
+    .th-toxic .th-sub{color:#BBF7D0}
+    .th-toxic .th-cell b{color:#D9F99D}
+    .th-toxic .th-cell small{color:#BBF7D0}
+    .th-toxic .th-badge b{color:#D9F99D!important}
+    .th-toxic .th-badge small{color:#BBF7D0!important}
+    .th-toxic .th-brandtext small{color:#BBF7D0}
+    .th-electric .th-plate{border-color:#2F7BFF;background:rgba(47,123,255,.12)}
+    .th-electric .th-bottom{background:rgba(3,8,24,.95);border-top-color:#2F7BFF}
+    .th-electric .th-sub i{background:#2F7BFF}
+    .th-electric .th-mini{border-color:#2F7BFF}
+    .th-electric .th-sub{color:#BAE6FD}
+    .th-electric .th-cell b{color:#7DD3FC}
+    .th-electric .th-cell small{color:#BAE6FD}
+    .th-electric .th-badge b{color:#7DD3FC!important}
+    .th-electric .th-badge small{color:#BAE6FD!important}
+    .th-electric .th-brandtext small{color:#BAE6FD}
     .th-export .th-badge small{letter-spacing:.2em!important}
     .th-export .th-badge b{line-height:1.15!important}
   </style>
@@ -972,6 +1013,10 @@
                   <option value="clash">World Feed</option>
                   <option value="arena">Floodlight</option>
                   <option value="neon">Prime Night</option>
+                  <option value="cyber">Cyber Neon</option>
+                  <option value="inferno">Inferno</option>
+                  <option value="toxic">Toxic Green</option>
+                  <option value="electric">Electric Blue</option>
                 </select>
               </div>
 
@@ -2288,14 +2333,22 @@
         if (roundTitle) roundTitle.textContent = `ROUND ${selectedMatch.round} • ${selectedMatch.date.toUpperCase()}`;
         const T = RPL_STATE.tournament, h = selectedMatch.homeTeam, a = selectedMatch.awayTeam;
         const variant = RPL_STATE.posterVariant || 'clash';
-        const base = variant === 'neon' ? '#0A0620' : variant === 'arena' ? '#05070C' : '#071022';
-        const c1 = variant === 'neon' ? '#7C3AED' : h.color;
-        const c2 = variant === 'neon' ? '#0891B2' : a.color;
-        const alpha = variant === 'arena' ? '44' : '58';
+        const THEMES = {
+          neon:     { base: '#0A0620', c1: '#7C3AED', c2: '#0891B2', alpha: '58' },
+          cyber:    { base: '#0B0416', c1: '#FF2BD6', c2: '#00E5FF', alpha: '78' },
+          inferno:  { base: '#0F0503', c1: '#FF3B1F', c2: '#FF9F1C', alpha: '72' },
+          toxic:    { base: '#030A05', c1: '#A3E635', c2: '#22D3A0', alpha: '5E' },
+          electric: { base: '#030818', c1: '#2F6BFF', c2: '#38BDF8', alpha: '72' }
+        };
+        const theme = THEMES[variant];
+        const base = theme ? theme.base : variant === 'arena' ? '#05070C' : '#071022';
+        const c1 = theme ? theme.c1 : h.color;
+        const c2 = theme ? theme.c2 : a.color;
+        const alpha = theme ? theme.alpha : variant === 'arena' ? '44' : '58';
         const bg = `radial-gradient(620px 340px at 12% 34%, ${esc(c1)}${alpha}, transparent 65%),radial-gradient(620px 340px at 88% 34%, ${esc(c2)}${alpha}, transparent 65%),radial-gradient(900px 420px at 50% -18%, rgba(255,255,255,.10), transparent 62%),linear-gradient(165deg, ${base} 0%, #0B1224 58%, #04060C 100%)`;
-        const side = t => `
+        const side = (t, glow) => `
           <div class="th-side">
-            <div class="th-plate" style="box-shadow:0 0 0 6px ${esc(t.color)}2e,0 0 40px ${esc(t.color)}55">${t.logo ? `<img src="${esc(t.logo)}" alt="">` : esc(t.code)}</div>
+            <div class="th-plate" style="box-shadow:0 0 0 6px ${esc(glow)}2e,0 0 40px ${esc(glow)}77">${t.logo ? `<img src="${esc(t.logo)}" alt="">` : esc(t.code)}</div>
             <div class="th-name">${esc(t.name)}</div>
           </div>`;
         const metaLeft = `${selectedMatch.group ? `POOL ${esc(selectedMatch.group)} · ` : ''}ROUND ${selectedMatch.round}`;
@@ -2313,7 +2366,7 @@
               <div class="th-badge"><small>MATCH</small><b>${selectedMatch.matchNumber}</b></div>
             </div>
             <div class="th-sub"><span><i></i>${metaLeft}</span><span>MATCHDAY</span></div>
-            <div class="th-center">${side(h)}<div class="th-vs">VS</div>${side(a)}</div>
+            <div class="th-center">${side(h, c1)}<div class="th-vs">VS</div>${side(a, c2)}</div>
             <div class="th-bottom">
               <div class="th-cell"><small>Date</small><span>${esc(selectedMatch.date)}</span></div>
               <div class="th-cell"><small>First ball</small><b>${esc(fmtTime(selectedMatch.time))}</b></div>
