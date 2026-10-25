@@ -337,40 +337,38 @@
     .preset-chip:hover{color:#fff;border-color:rgba(232,185,60,.5)}
     .stale-banner{background:rgba(239,68,68,.10)!important;border-color:rgba(239,68,68,.5)!important;color:#FCA5A5!important}
     .stale-banner i{color:#F87171}
-    /* ---------- Pool draw card (export sheet) ---------- */
-    .pc-sheet{box-sizing:border-box;width:1600px;padding:60px 60px 48px;position:relative;color:#F1ECDF;font-family:Manrope,sans-serif;background:radial-gradient(900px 480px at 50% -10%,rgba(232,185,60,.20),transparent 62%),linear-gradient(165deg,#0B1226 0%,#0A1424 45%,#050810 100%);border:4px solid #C8A456}
+    /* ---------- Pool draw card (export sheet) — phone-first portrait, 2 pool columns ---------- */
+    .pc-sheet{box-sizing:border-box;width:1080px;padding:56px 44px 44px;position:relative;color:#F1ECDF;font-family:Manrope,sans-serif;background:radial-gradient(760px 420px at 50% -6%,rgba(232,185,60,.22),transparent 62%),radial-gradient(520px 520px at 100% 100%,rgba(47,107,255,.10),transparent 70%),linear-gradient(170deg,#0B1226 0%,#0A1424 45%,#050810 100%);border:5px solid #C8A456}
     .pc-sheet *{box-sizing:border-box}
-    .pc-top{display:flex;align-items:center;gap:26px;padding-bottom:24px;border-bottom:1px solid rgba(200,164,86,.4)}
-    .pc-logo{width:92px;height:92px;flex:none;border-radius:50%;border:3px solid #E3C677;background:#0B1A16;display:flex;align-items:center;justify-content:center;overflow:hidden;font:700 28px/1 Fraunces,serif;color:#E3C677}
-    .pc-logo img{width:100%;height:100%;object-fit:contain;padding:6px}
-    .pc-heading{min-width:0}
-    .pc-eyebrow{font:700 13px Manrope,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:#E3C677}
-    .pc-title{font:800 50px/1.05 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.04em;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .pc-tag{margin-top:5px;font:600 15px Manrope,sans-serif;color:#B3C3BB;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .pc-pools{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:30px}
-    .pc-pool{border:1px solid rgba(200,164,86,.4);border-radius:16px;background:rgba(255,255,255,.035);overflow:hidden}
-    .pc-phead{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:linear-gradient(90deg,rgba(200,164,86,.24),rgba(200,164,86,.05));border-bottom:1px solid rgba(200,164,86,.35)}
-    .pc-pname{font:800 25px 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.08em}
-    .pc-pcount{font:700 11px Manrope,sans-serif;letter-spacing:.16em;color:#D6DEE8;text-transform:uppercase}
-    .pc-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;padding:14px}
-    .pc-team{display:flex;align-items:center;gap:11px;padding:9px 11px;border:1px solid rgba(255,255,255,.08);border-radius:11px;background:rgba(255,255,255,.03);min-width:0}
-    .pc-crest{width:44px;height:44px;flex:none;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:rgba(255,255,255,.08);font:800 12px Manrope,sans-serif}
-    .pc-crest img{width:100%;height:100%;object-fit:contain;padding:4px}
-    .pc-tinfo{min-width:0}
-    .pc-name{display:block;font:700 14px/1.2 Manrope,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#F1ECDF}
-    .pc-code{display:block;font:600 9px Manrope,sans-serif;letter-spacing:.14em;color:#A7B7AF;margin-top:3px}
+    .pc-top{display:flex;align-items:center;gap:30px;padding-bottom:30px;border-bottom:2px solid rgba(200,164,86,.45)}
+    .pc-logo{width:150px;height:150px;flex:none;border-radius:50%;border:4px solid #E3C677;background:#0B1A16;display:flex;align-items:center;justify-content:center;overflow:hidden;font:700 40px/1 Fraunces,serif;color:#E3C677}
+    .pc-logo img{width:100%;height:100%;object-fit:contain;padding:8px}
+    .pc-heading{min-width:0;flex:1}
+    .pc-eyebrow{font:800 20px Manrope,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#E3C677}
+    .pc-title{font:800 76px/1.05 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.03em;margin-top:6px}
+    .pc-tag{margin-top:8px;font:600 22px/1.3 Manrope,sans-serif;color:#B9C7D6}
+    .pc-pools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:34px;align-items:start}
+    .pc-pool{border:2px solid rgba(200,164,86,.45);border-radius:26px;background:rgba(255,255,255,.035);overflow:hidden}
+    .pc-phead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:20px 22px;background:linear-gradient(90deg,rgba(232,185,60,.34),rgba(232,185,60,.08));border-bottom:2px solid rgba(200,164,86,.4)}
+    .pc-pname{font:800 54px/1.1 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.06em;color:#FFF3C4}
+    .pc-pcount{font:800 16px Manrope,sans-serif;letter-spacing:.14em;color:#D6DEE8;text-transform:uppercase;white-space:nowrap}
+    .pc-grid{display:flex;flex-direction:column;gap:14px;padding:16px}
+    .pc-team{display:flex;align-items:center;gap:18px;padding:12px 14px 12px 12px;border:2px solid rgba(255,255,255,.09);border-radius:22px;background:rgba(255,255,255,.04);min-width:0;min-height:128px}
+    .pc-crest{width:104px;height:104px;flex:none;border-radius:24px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:rgba(255,255,255,.08);font:800 28px Manrope,sans-serif}
+    .pc-crest img{width:100%;height:100%;object-fit:cover}
+    .pc-tinfo{min-width:0;flex:1}
+    .pc-name{display:block;font:800 36px/1.1 'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.02em;color:#F8F4E8;overflow-wrap:anywhere}
     #poolCardPreview{position:relative;max-height:none}
     .pc-sheet.pc-single .pc-pools{grid-template-columns:1fr}
-    .pc-sheet.pc-single .pc-grid{grid-template-columns:repeat(3,1fr);gap:15px}
-    .pc-sheet.pc-single .pc-team{padding:12px 13px}
-    .pc-sheet.pc-single .pc-name{font-size:16px}
-    .pc-foot{margin-top:26px;padding-top:16px;border-top:1px solid rgba(200,164,86,.3);display:flex;justify-content:space-between;font:500 13px Manrope,sans-serif;color:#A7B7AF}
+    .pc-sheet.pc-single .pc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .pc-foot{margin-top:30px;padding-top:20px;border-top:2px solid rgba(200,164,86,.35);display:flex;justify-content:space-between;gap:16px;font:600 22px Manrope,sans-serif;color:#B9C7D6}
     .pc-foot b{color:#E3C677}
-    /* html2canvas clips glyphs inside overflow:hidden text; relax it for the PNG only */
+    /* html2canvas: relax clipping and tight metrics for the PNG only */
     .pc-export,.pc-export *{text-shadow:none!important}
-    .pc-export .pc-title,.pc-export .pc-tag,.pc-export .pc-name{overflow:visible!important;text-overflow:clip!important;white-space:normal!important}
-    .pc-export .pc-title{line-height:1.16!important}
-    .pc-export .pc-name{line-height:1.3!important}
+    .pc-export .pc-title,.pc-export .pc-tag,.pc-export .pc-name{overflow:visible!important;text-overflow:clip!important}
+    .pc-export .pc-title{line-height:1.18!important}
+    .pc-export .pc-name{line-height:1.2!important}
+    .pc-export .pc-pname{line-height:1.2!important}
     /* ---------- Light mode (toggle) ---------- */
     html.light{--ink:#F4F1E8;--panel:#FFFFFF;--panel2:#EFEAD9;--line:#DCD2B8;--ivory:#14120C;--mute:#4C534E;--brass:#9A7A2E;--brass-hi:#6E5518}
     html.light body{background:repeating-linear-gradient(90deg,rgba(0,0,0,.025) 0 90px,transparent 90px 180px),radial-gradient(1100px 520px at 85% -8%,rgba(154,122,46,.14),transparent),var(--ink)!important;color:var(--ivory)}
@@ -2586,9 +2584,9 @@
       const poolBlocks = chosen.map(k => {
         const list = RPL_STATE.teams.filter(t => t.group === k);
         const tiles = list.map(t => `
-          <div class="pc-team" style="border-left:4px solid ${esc(t.color)}">
+          <div class="pc-team" style="border-left:8px solid ${esc(t.color)}">
             <span class="pc-crest" style="color:${esc(t.color)};background:${esc(t.color)}22;border:1px solid ${esc(t.color)}55">${t.logo ? `<img src="${esc(t.logo)}" alt="">` : esc(t.code)}</span>
-            <span class="pc-tinfo"><span class="pc-name">${esc(t.name)}</span><span class="pc-code">${esc(t.code)}</span></span>
+            <span class="pc-tinfo"><span class="pc-name">${esc(t.name)}</span></span>
           </div>`).join('');
         return `<div class="pc-pool">
           <div class="pc-phead"><span class="pc-pname">Pool ${k}</span><span class="pc-pcount">${list.length} team${list.length === 1 ? '' : 's'}</span></div>
@@ -2631,7 +2629,7 @@
       host.appendChild(sheet);
       requestAnimationFrame(() => {
         const w = host.clientWidth || 900;
-        const scale = Math.min(1, w / 1600);
+        const scale = Math.min(1, w / 1080);
         sheet.style.transformOrigin = 'top left';
         sheet.style.transform = `scale(${scale})`;
         host.style.height = Math.ceil(sheet.offsetHeight * scale) + 'px';
@@ -2668,9 +2666,10 @@
         if (document.fonts && document.fonts.ready) await document.fonts.ready;
         await new Promise(r => setTimeout(r, 200));
         const scale = Math.max(1, Math.min(2, 14000 / sheet.offsetHeight));
+        // 1080px wide x2 = 2160px: crisp on phones
         const canvas = await html2canvas(sheet, {
           scale, backgroundColor: '#050810', useCORS: true, logging: false,
-          width: 1600, windowWidth: 1700
+          width: 1080, windowWidth: 1200
         });
         const a = document.createElement('a');
         const scopeName = sel && sel.value !== 'all' ? `_Pool_${sel.value}` : '_All_Pools';
