@@ -11,7 +11,7 @@
   <!-- Google Fonts: Barlow Condensed (sport display), Fraunces, Manrope -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;0,900;1,800;1,900&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- html2canvas for Ultra-HD poster export -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <!-- Phosphor Icons -->
@@ -155,7 +155,7 @@
     .th-plate img{width:100%;height:100%;object-fit:contain;padding:14px}
     .th-name{margin-top:14px;width:100%;font:700 30px/1 'Barlow Condensed',sans-serif;text-transform:uppercase;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .th-code{margin-top:5px;font:700 10px/1 Manrope,sans-serif;letter-spacing:.18em;color:#D6BE7C}
-    .th-vs{position:relative;flex:none;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#FBEBB9,#D9A62E 70%);color:#161006;font:800 26px/1 'Barlow Condensed',sans-serif;box-shadow:0 0 0 6px rgba(232,185,60,.14),0 0 34px rgba(232,185,60,.35)}
+    .th-vs{flex:none;padding:0 8px 0 0;color:#fff;font:italic 900 76px/1.2 'Barlow Condensed',sans-serif;letter-spacing:.04em;text-transform:uppercase;text-shadow:0 4px 18px rgba(0,0,0,.55)}
     .th-bottom{position:absolute;left:0;right:0;bottom:0;height:74px;display:flex;align-items:center;background:rgba(4,8,14,.93);border-top:2px solid #C8A456;z-index:2}
     .th-cell{flex:1 1 0;min-width:0;padding:0 18px;text-align:center;border-right:1px solid rgba(255,255,255,.10)}
     .th-cell:last-child{border-right:none}
@@ -165,6 +165,8 @@
     /* Export clone: html2canvas mangles text-shadow / tight metrics, so strip them for the PNG only */
     .th-export,.th-export *{text-shadow:none!important;letter-spacing:0!important}
     .th-export .th-name{line-height:1.22!important}
+    /* VS badge: html2canvas drops the glyph low inside display:grid + line-height:1. Centre with flex and a relaxed line-height; --vs-nudge fine-tunes if ever needed */
+    .th-export .th-vs{line-height:1.2!important;letter-spacing:0!important;padding:0 10px 0 0!important;overflow:visible!important}
     .th-export .th-brandtext b{line-height:1.2!important}
     .th-export .th-brandtext small{line-height:1.2!important}
     .th-export .th-name,.th-export .th-brandtext b,.th-export .th-brandtext small,.th-export .th-cell span,.th-export .th-cell b{overflow:visible!important;text-overflow:clip!important}
@@ -259,11 +261,11 @@
     .stepbar{position:sticky;bottom:12px;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-radius:16px;background:rgba(8,14,28,.92);border:1px solid var(--pro-line);box-shadow:0 24px 48px -20px rgba(0,0,0,.85);backdrop-filter:blur(10px)}
     /* Match-card style variants (all export-safe: no text-shadow) */
     .th-arena .th-plate{background:rgba(232,185,60,.10);border-color:#E8B93C}
-    .th-arena .th-vs{background:radial-gradient(circle at 35% 30%,#FFF3C4,#C8931F 70%);color:#161006}
+    .th-arena .th-vs{color:#fff}
     .th-arena .th-badge{background:linear-gradient(180deg,#FBEBB9,#C8931F)}
     .th-arena .th-bottom{background:rgba(0,0,0,.94)}
     .th-neon .th-plate{border-color:#22D3EE;background:rgba(34,211,238,.10)}
-    .th-neon .th-vs{background:radial-gradient(circle at 35% 30%,#F0ABFC,#7C3AED 70%);color:#fff;box-shadow:0 0 0 6px rgba(240,171,252,.14),0 0 34px rgba(124,58,237,.45)}
+    .th-neon .th-vs{color:#fff}
     .th-neon .th-bottom{background:rgba(8,4,22,.94);border-top-color:#22D3EE}
     .th-neon .th-badge{background:linear-gradient(180deg,#67E8F9,#0891B2);color:#04121A}
     .th-neon .th-sub,.th-neon .th-code{color:#A5F3FC}
@@ -1437,7 +1439,7 @@
 
       if (timeSlotsInput) {
         const raw = timeSlotsInput.value;
-        RPL_STATE.tournament.timeSlots = raw.split(',').map(s => s.trim()).filter(Boolean);
+        RPL_STATE.tournament.timeSlots = raw.split(',').map(s => fmtTime(s)).filter(Boolean);
         if (RPL_STATE.tournament.timeSlots.length === 0) RPL_STATE.tournament.timeSlots = ["07:30 AM", "01:30 PM", "06:30 PM"];
       }
 
@@ -2113,7 +2115,7 @@
           mCard.innerHTML = `
             <div class="flex items-center justify-between text-[11px] text-slate-400 pb-2 border-b border-slate-800/50">
               <span class="font-mono font-bold text-amber-400">MATCH #${m.matchNumber} ${m.group ? `• POOL ${m.group}` : ''}</span>
-              <span class="flex items-center gap-1"><i class="ph ph-clock text-slate-400"></i> ${m.time}</span>
+              <span class="flex items-center gap-1"><i class="ph ph-clock text-slate-400"></i> ${fmtTime(m.time)}</span>
             </div>
 
             <div class="flex items-center justify-between gap-2 py-1">
@@ -2209,6 +2211,15 @@
       showToast(`Match #${m.matchNumber}: home & away swapped.`, 'info');
     }
 
+    // "6:AM" / "6AM" / "6 am" / "6:30am" -> "6:00 AM" / "6:30 AM"
+    function fmtTime(t) {
+      const str = String(t == null ? '' : t).trim();
+      const m = str.match(/^(\d{1,2})\s*(?::\s*(\d{1,2}))?\s*:?\s*([AaPp])\.?\s*[Mm]\.?$/);
+      if (!m) return str;
+      const mins = m[2] == null ? '00' : m[2].padStart(2, '0');
+      return `${m[1]}:${mins} ${m[3].toUpperCase()}M`;
+    }
+
     function saveMatchEdit() {
       const id = document.getElementById('matchEditingId').value;
       const m = findMatch(id);
@@ -2221,7 +2232,7 @@
         m.rawDate = dateVal;
         m.date = isNaN(d) ? m.date : d.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
       }
-      if (timeVal) m.time = timeVal;
+      if (timeVal) m.time = fmtTime(timeVal);
       if (venueVal) m.venue = venueVal;
       closeMatchEditModal();
       renderFixtures();
@@ -2306,7 +2317,7 @@
             <div class="th-center">${side(h)}<div class="th-vs">VS</div>${side(a)}</div>
             <div class="th-bottom">
               <div class="th-cell"><small>Date</small><span>${esc(selectedMatch.date)}</span></div>
-              <div class="th-cell"><small>First ball</small><b>${esc(selectedMatch.time)}</b></div>
+              <div class="th-cell"><small>First ball</small><b>${esc(fmtTime(selectedMatch.time))}</b></div>
               <div class="th-cell"><small>Venue</small><span>${esc(selectedMatch.venue)}</span></div>
             </div>
           </div>`;
@@ -2320,7 +2331,7 @@
             <div class="fx-row bg-slate-900/80 border border-slate-800 rounded-xl p-3 flex items-center justify-between gap-3">
               <div class="w-20 text-left">
                 <span class="text-[10px] font-mono text-amber-400 block">MATCH #${m.matchNumber}</span>
-                <span class="text-xs font-bold text-white">${m.time}</span>
+                <span class="text-xs font-bold text-white">${fmtTime(m.time)}</span>
               </div>
               <div class="flex items-center gap-3 flex-1 justify-center">
                 <span class="font-display text-lg text-white font-bold">${m.homeTeam.code}</span>
@@ -2420,7 +2431,7 @@
           <div class="wa-vsrow">${side(m.homeTeam)}<div class="wa-vs">VS</div>${side(m.awayTeam)}</div>
           <div class="wa-info">
             <div class="wa-row"><small>Date</small><span>${esc(m.date)}</span></div>
-            <div class="wa-row"><small>Time</small><b>${esc(m.time)}</b></div>
+            <div class="wa-row"><small>Time</small><b>${esc(fmtTime(m.time))}</b></div>
             <div class="wa-row"><small>Venue</small><span>${esc(m.venue)}</span></div>
           </div>
           <div class="wa-foot">${esc(T.tag)}${T.sponsors ? `<br><b>Sponsored by:</b> ${esc(T.sponsors)}` : ''}<br><b>${esc(hash)}</b></div>
@@ -2830,7 +2841,7 @@
         r.matches.forEach(m => {
           const pool = grouped && m.group ? ` [Pool ${m.group}]` : '';
           text += `  • *M#${m.matchNumber}${pool}:* ${m.homeTeam.name} 🆚 ${m.awayTeam.name}\n`;
-          text += `    ⏰ ${m.time} | 📍 ${m.venue}\n`;
+          text += `    ⏰ ${fmtTime(m.time)} | 📍 ${m.venue}\n`;
         });
         text += `\n`;
       });
@@ -3101,7 +3112,7 @@
           <div class="fx-rhead">Round ${r.roundNumber}<span>${esc(r.date)}</span></div>
           ${r.matches.map(m => `
             <div class="fx-match">
-              <div class="fx-when">M${m.matchNumber}<span>${esc(m.time)}</span></div>
+              <div class="fx-when">M${m.matchNumber}<span>${esc(fmtTime(m.time))}</span></div>
               <div class="fx-team fx-home">${esc(m.homeTeam.name)}</div>
               <div class="fx-vs">VS</div>
               <div class="fx-team fx-away">${esc(m.awayTeam.name)}</div>
