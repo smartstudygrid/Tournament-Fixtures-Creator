@@ -2336,29 +2336,32 @@
       return null;
     }
 
-    /* Random pitches per date + ground + time slot, so two matches never share a pitch at the same moment (if enough pitches). Manually set pitches are kept. */
+    /* Random pitches: within one round (date) every pitch is used at most once. Manually set pitches are kept. */
+    function pitchTakenBy(rawDate, pitch, except) {
+      for (const r of RPL_STATE.fixtures) if (r.rawDate === rawDate)
+        for (const o of r.matches) if (o !== except && o.pitch === pitch) return o;
+      return null;
+    }
+
     function randomizePitches() {
       if (!RPL_STATE.fixtures.length) { showToast('Add or generate matches first.', 'error'); return; }
       const n = Math.max(1, Math.min(20, parseInt(document.getElementById('pitchCountInput').value, 10) || 3));
       RPL_STATE.pitchCount = n;
       const names = Array.from({ length: n }, (_, i) => 'Pitch ' + (i + 1));
-      let set = 0, kept = 0, over = false;
+      let set = 0, kept = 0, short = 0, need = 0;
       RPL_STATE.fixtures.forEach(r => {
-        const groups = {};
-        r.matches.forEach(m => { const k = (m.venue || '') + '|' + fmtTime(m.time); (groups[k] = groups[k] || []).push(m); });
-        Object.values(groups).forEach(list => {
-          const used = new Set(list.filter(m => m.pitchLocked && m.pitch).map(m => m.pitch));
-          let pool = shuffled(names.filter(p => !used.has(p)));
-          list.forEach(m => {
-            if (m.pitchLocked) { kept++; return; }
-            if (!pool.length) { over = true; pool = shuffled(names); }
-            m.pitch = pool.pop(); set++;
-          });
+        const used = new Set(r.matches.filter(m => m.pitchLocked && m.pitch).map(m => m.pitch));
+        let pool = shuffled(names.filter(p => !used.has(p)));
+        need = Math.max(need, r.matches.length);
+        r.matches.forEach(m => {
+          if (m.pitchLocked) { kept++; return; }
+          if (pool.length) { m.pitch = pool.pop(); set++; } else { m.pitch = ''; short++; }
         });
       });
       RPL_STATE.fixturesEdited = true;
       renderFixtures(); renderPoster();
-      showToast(`Randomized ${set} pitch${set === 1 ? '' : 'es'}${kept ? `, kept ${kept} set by hand` : ''}.${over ? ' Some matches share a pitch at the same time: add more pitches.' : ''}`, over ? 'error' : 'success');
+      const msg = `Randomized ${set} pitch${set === 1 ? '' : 'es'}${kept ? `, kept ${kept} set by hand` : ''}.`;
+      showToast(short ? `${msg} ${short} match${short === 1 ? '' : 'es'} left without a pitch: a pitch can't repeat in a round, so you need at least ${need} pitches.` : msg, short ? 'error' : 'success');
     }
 
     function clearAutoPitches() {
@@ -2426,8 +2429,10 @@
     function moveMatchToDate(id, rawDate) {
       const m = findMatch(id);
       if (!m || m.rawDate === rawDate) return;
+      let note = '';
+      if (m.pitch && pitchTakenBy(rawDate, m.pitch, m)) { note = ` ${m.pitch} was already used in that round, so the pitch was cleared.`; m.pitch = ''; m.pitchLocked = false; }
       placeMatchOnDate(m, rawDate);
-      finishFixtureEdit('Match moved to ' + m.date + '.', m);
+      finishFixtureEdit('Match moved to ' + m.date + '.' + note, m);
     }
 
     function updateMatchNote() {
@@ -2508,18 +2513,23 @@
       const venueVal = document.getElementById('matchEditVenue').value.trim();
       if (!h || !a || h.id === a.id) { showToast('Pick two different teams.', 'error'); return; }
       if (!dateVal) { showToast('Pick a match date.', 'error'); return; }
+      let pv = normPitch(document.getElementById('matchEditPitch').value), pitchNote = '';
+      const taken = pv ? pitchTakenBy(dateVal, pv, m) : null;
+      if (taken) {
+        if (!m || pv !== (m.pitch || '')) { showToast(`${pv} is already used in this round (Match #${taken.matchNumber}). Pick another pitch.`, 'error'); return; }
+        pitchNote = ` ${pv} was already used on that date, so the pitch was cleared.`; pv = '';
+      }
       const grouped = RPL_STATE.tournament.structure === 'groups';
       if (isNew) m = { id: 'm_x' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5), matchNumber: 0, round: 0, scoreA: '', scoreB: '', winner: null, summary: '' };
       m.homeTeam = h; m.awayTeam = a;
       m.group = grouped && h.group === a.group ? h.group : null;
       m.time = timeVal ? fmtTime(timeVal) : (m.time || '');
       m.venue = venueVal || m.venue || '';
-      const pv = normPitch(document.getElementById('matchEditPitch').value);
       if (pv !== (m.pitch || '')) m.pitchLocked = !!pv;   // typed by hand = locked from Randomize
       m.pitch = pv;
       if (isNew || m.rawDate !== dateVal) placeMatchOnDate(m, dateVal);
       closeMatchEditModal();
-      finishFixtureEdit(isNew ? 'Match added.' : `Match #${m.matchNumber} updated.`, m);
+      finishFixtureEdit((isNew ? 'Match added.' : `Match #${m.matchNumber} updated.`) + pitchNote, m);
     }
 
     function switchPosterMode(mode) {
