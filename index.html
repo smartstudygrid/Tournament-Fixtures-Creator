@@ -695,6 +695,9 @@
         <i class="ph ph-folder-open text-base text-amber-400"></i><span class="hidden md:inline">Open</span>
         <input type="file" accept=".json,application/json" class="hidden" onchange="loadProjectJSON(event)">
       </label>
+      <button type="button" onclick="openCloudModal()" title="Save to / open from the shared cloud folder" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 text-xs font-bold border border-slate-700 transition">
+        <i class="ph ph-cloud text-base text-amber-400"></i><span class="hidden md:inline">Cloud</span>
+      </button>
       <!-- Quick Export WhatsApp -->
       <button onclick="exportToWhatsApp()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md shadow-emerald-900/30 transition">
         <i class="ph ph-whatsapp-logo text-base"></i>
@@ -1308,6 +1311,43 @@
       <div class="pt-4 border-t border-slate-800 flex items-center justify-end gap-2.5">
         <button type="button" onclick="closeTeamModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold">Cancel</button>
         <button type="button" onclick="saveTeamFromModal()" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs">Save Team</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MODAL: CLOUD PROJECTS (Google Drive via Apps Script) -->
+  <div id="cloudModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-[#0F1626] border border-slate-700 w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2"><i class="ph ph-cloud text-amber-400"></i> Cloud projects</h3>
+        <button type="button" onclick="closeCloudModal()" class="text-slate-400 hover:text-white p-1 rounded-lg"><i class="ph ph-x text-lg"></i></button>
+      </div>
+      <p class="text-xs text-slate-400">Anyone with this page can open a saved project. Saving or deleting needs the edit passcode.</p>
+
+      <div id="cloudSetup" class="hidden space-y-2 bg-[#080D1A] border border-slate-800 rounded-xl p-3">
+        <label class="block text-xs font-semibold text-slate-300">Cloud web app URL</label>
+        <input type="text" id="cloudUrlInput" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500" placeholder="https://script.google.com/macros/s/.../exec">
+        <button type="button" onclick="saveCloudUrl()" class="px-3 py-1.5 rounded-lg bg-amber-500 text-black font-bold text-xs">Save URL</button>
+      </div>
+
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-bold text-slate-300 uppercase">Open a project</span>
+          <span class="flex items-center gap-3">
+            <button type="button" onclick="refreshCloudList()" class="text-xs text-slate-400 hover:text-white"><i class="ph ph-arrows-clockwise"></i> Refresh</button>
+            <button type="button" onclick="document.getElementById('cloudSetup').classList.toggle('hidden')" class="text-xs text-slate-400 hover:text-white"><i class="ph ph-gear"></i> URL</button>
+          </span>
+        </div>
+        <div id="cloudList" class="space-y-1.5 text-sm"></div>
+      </div>
+
+      <div class="space-y-2 border-t border-slate-800 pt-4">
+        <span class="text-xs font-bold text-slate-300 uppercase">Save current project</span>
+        <input type="text" id="cloudName" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500" placeholder="Project name">
+        <input type="password" id="cloudPass" autocomplete="off" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500" placeholder="Edit passcode">
+        <button type="button" id="cloudSaveBtn" onclick="cloudSave(false)" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs">Save to cloud</button>
+        <p class="text-[11px] text-slate-500">Saving over an existing project keeps a dated backup of the old version in Drive.</p>
       </div>
     </div>
   </div>
@@ -3290,8 +3330,8 @@
       const file = event.target.files[0];
       if (!file) return;
       const reader = new FileReader();
-      reader.onload = function(e) {
-        tempTeamLogoBase64 = e.target.result;
+      reader.onload = async function(e) {
+        tempTeamLogoBase64 = await shrinkImage(e.target.result, 384);
         document.getElementById('modalLogoPreviewImg').src = tempTeamLogoBase64;
         document.getElementById('modalLogoPreviewImg').classList.remove('hidden');
         document.getElementById('modalLogoPreviewFallback').classList.add('hidden');
@@ -3303,8 +3343,8 @@
       const file = event.target.files[0];
       if (!file) return;
       const reader = new FileReader();
-      reader.onload = function(e) {
-        const b64 = e.target.result;
+      reader.onload = async function(e) {
+        const b64 = await shrinkImage(e.target.result, 512);
         RPL_STATE.tournament.logoBase64 = b64;
 
         const pImg = document.getElementById('posterTournamentLogoImg');
@@ -3519,9 +3559,51 @@
 
 
     /* ---------- Local project save / open ---------- */
+    /* ---------- Project payload: slim + small, so saving never exhausts browser memory ---------- */
+    /* Re-encode a big logo to a small PNG (keeps transparency). Returns the original if anything goes wrong. */
+    function shrinkImage(src, max) {
+      return new Promise(resolve => {
+        if (!src || /^data:image\/svg/i.test(src)) return resolve(src);
+        const timer = setTimeout(() => resolve(src), 8000);
+        const img = new Image();
+        img.onload = () => {
+          clearTimeout(timer);
+          try {
+            if (!img.width || !img.height) return resolve(src);
+            const k = Math.min(1, max / Math.max(img.width, img.height));
+            const c = document.createElement('canvas');
+            c.width = Math.max(1, Math.round(img.width * k)); c.height = Math.max(1, Math.round(img.height * k));
+            c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+            const out = c.toDataURL('image/png');
+            resolve(out.length < src.length ? out : src);
+          } catch (e) { resolve(src); }
+        };
+        img.onerror = () => { clearTimeout(timer); resolve(src); };
+        img.src = src;
+      });
+    }
+
+    /* Shrinks oversized logos already in the project. Returns how many were changed. */
+    async function shrinkAllLogos() {
+      let n = 0, tourn = false;
+      for (const t of RPL_STATE.teams) {
+        if (t.logo && t.logo.length > 150000) { const o = t.logo; t.logo = await shrinkImage(o, 384); if (t.logo !== o) n++; }
+      }
+      const T = RPL_STATE.tournament;
+      if (T.logoBase64 && T.logoBase64.length > 200000) { const o = T.logoBase64; T.logoBase64 = await shrinkImage(o, 512); if (T.logoBase64 !== o) { n++; tourn = true; } }
+      if (n) { onTeamsChanged(); if (tourn) applyTournamentLogo(T.logoBase64); renderFixtures(); renderPoster(); }
+      return n;
+    }
+
+    /* Matches store only team ids (the teams list holds each logo once); applyProject restores the links. */
+    function projectPayload() {
+      const { adminAuth, fixtures, ...rest } = RPL_STATE;
+      const slim = (fixtures || []).map(r => ({ ...r, matches: r.matches.map(m => ({ ...m, homeTeam: { id: m.homeTeam.id }, awayTeam: { id: m.awayTeam.id } })) }));
+      return { app: 'rpl-fixtures', version: 3, savedAt: new Date().toISOString(), data: { ...rest, fixtures: slim } };
+    }
+
     function saveProjectJSON() {
-      const { adminAuth, ...rest } = RPL_STATE;
-      const payload = { app: 'rpl-fixtures', version: 2, savedAt: new Date().toISOString(), data: JSON.parse(JSON.stringify(rest)) };
+      const payload = projectPayload();
       const name = (RPL_STATE.tournament.name || 'RPL').replace(/[^\w\-]+/g, '_');
       const url = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' }));
       const a = document.createElement('a');
@@ -3530,6 +3612,113 @@
       document.body.appendChild(a); a.click(); a.remove();
       setTimeout(() => URL.revokeObjectURL(url), 1000);
       showToast('Saved. Find the .json file in your Downloads. Use Open to continue later.', 'success');
+    }
+
+/* ---------- Cloud projects (Google Drive through an Apps Script web app) ---------- */
+    const CLOUD_URL_DEFAULT = 'https://script.google.com/macros/s/AKfycbyQiJYfbfUdXbu1LzCzyx4o8khiFmpKDl-CBeHj_9BeQ2i9tuxcOBJ2sNYxmemp9a1q/exec';   // shared cloud: everyone using this file is pre-connected
+    window.__cloud = { name: '', updated: null, list: [] };
+    function cloudUrl() { try { return localStorage.getItem('rplCloudUrl') || CLOUD_URL_DEFAULT; } catch (e) { return CLOUD_URL_DEFAULT; } }
+
+    async function cloudCall(params, body) {
+      const url = cloudUrl();
+      if (!url) throw new Error('Set the cloud URL first.');
+      const res = body
+        ? await fetch(url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) })
+        : await fetch(url + (url.includes('?') ? '&' : '?') + new URLSearchParams(params));
+      return res.json();
+    }
+
+    function openCloudModal() {
+      const m = document.getElementById('cloudModal');
+      m.classList.remove('hidden'); m.classList.add('flex');
+      document.getElementById('cloudName').value = window.__cloud.name || RPL_STATE.tournament.name || '';
+      try { document.getElementById('cloudPass').value = sessionStorage.getItem('rplCloudPass') || ''; } catch (e) {}
+      document.getElementById('cloudUrlInput').value = cloudUrl();
+      document.getElementById('cloudSetup').classList.toggle('hidden', !!cloudUrl());
+      refreshCloudList();
+    }
+    function closeCloudModal() { const m = document.getElementById('cloudModal'); m.classList.add('hidden'); m.classList.remove('flex'); }
+
+    function saveCloudUrl() {
+      const v = document.getElementById('cloudUrlInput').value.trim();
+      if (!/^https:\/\/script\.google\.com\//.test(v)) { showToast('That does not look like an Apps Script web app URL.', 'error'); return; }
+      try { localStorage.setItem('rplCloudUrl', v); } catch (e) {}
+      document.getElementById('cloudSetup').classList.add('hidden');
+      refreshCloudList();
+    }
+
+    async function refreshCloudList() {
+      const box = document.getElementById('cloudList');
+      if (!cloudUrl()) { box.innerHTML = '<p class="text-xs text-slate-500">Paste the cloud URL above to connect.</p>'; return; }
+      box.innerHTML = '<p class="text-xs text-slate-500">Loading…</p>';
+      try {
+        const j = await cloudCall({ action: 'list' });
+        if (!j.ok) throw new Error(j.error);
+        window.__cloud.list = j.files;
+        box.innerHTML = j.files.length ? j.files.map((f, i) => `
+          <div class="flex items-center gap-2 bg-[#080D1A] border border-slate-800 rounded-xl px-3 py-2">
+            <div class="min-w-0 flex-1"><div class="font-bold text-white truncate">${esc(f.name)}</div><div class="text-[11px] text-slate-500">${esc(new Date(f.updated).toLocaleString())}</div></div>
+            <button type="button" onclick="cloudOpen(${i})" class="px-3 py-1.5 rounded-lg bg-amber-500 text-black font-bold text-xs">Open</button>
+            <button type="button" onclick="cloudDelete(${i})" title="Delete (needs passcode)" class="p-1.5 rounded-lg text-red-400 hover:bg-red-500/10"><i class="ph ph-trash"></i></button>
+          </div>`).join('') : '<p class="text-xs text-slate-500">No saved projects yet.</p>';
+      } catch (err) { box.innerHTML = `<p class="text-xs text-red-400">Could not load the list: ${esc(err.message)}</p>`; }
+    }
+
+    async function cloudOpen(i) {
+      const f = window.__cloud.list[i];
+      if (!f) return;
+      try {
+        const j = await cloudCall({ action: 'load', id: f.id });
+        if (!j.ok) throw new Error(j.error);
+        const json = JSON.parse(j.data);
+        applyProject(json.data || json);
+        window.__cloud.name = j.name; window.__cloud.updated = j.updated;
+        closeCloudModal();
+        showToast(`Opened "${j.name}" from the cloud.`, 'success');
+      } catch (err) { showToast('Could not open: ' + err.message, 'error'); }
+    }
+
+    function rememberPass(p) { try { sessionStorage.setItem('rplCloudPass', p); } catch (e) {} }
+
+    async function cloudSave(force) {
+      const name = document.getElementById('cloudName').value.trim();
+      const pass = document.getElementById('cloudPass').value;
+      if (!name) { showToast('Give the project a name.', 'error'); return; }
+      if (!pass) { showToast('Enter the edit passcode to save.', 'error'); return; }
+      syncTournamentInputs();
+      const btn = document.getElementById('cloudSaveBtn'); btn.disabled = true;
+      try {
+        await shrinkAllLogos();
+        const dataStr = JSON.stringify(projectPayload());
+        if (dataStr.length > 8e6) throw new Error(`the project is ${(dataStr.length / 1e6).toFixed(1)} MB, which is too large. Remove or replace very large logos.`);
+        const j = await cloudCall(null, { action: 'save', name, passcode: pass, data: dataStr, expected: name === window.__cloud.name ? window.__cloud.updated : null, force: !!force });
+        if (j.conflict) {
+          if (confirm(`"${name}" already exists in the cloud or was changed since you opened it.\n\nReplace it? A dated backup of the current cloud version is kept.`)) { btn.disabled = false; return cloudSave(true); }
+          return;
+        }
+        if (!j.ok) throw new Error(j.error);
+        rememberPass(pass);
+        window.__cloud.name = j.name; window.__cloud.updated = j.updated;
+        showToast(`Saved "${j.name}" to the cloud.`, 'success');
+        refreshCloudList();
+      } catch (err) { showToast('Could not save: ' + err.message, 'error'); }
+      btn.disabled = false;
+    }
+
+    async function cloudDelete(i) {
+      const f = window.__cloud.list[i];
+      const pass = document.getElementById('cloudPass').value;
+      if (!f) return;
+      if (!pass) { showToast('Enter the edit passcode (in the save box) to delete.', 'error'); return; }
+      if (!confirm(`Delete "${f.name}" from the cloud? A backup copy is kept in Drive.`)) return;
+      try {
+        const j = await cloudCall(null, { action: 'delete', id: f.id, passcode: pass });
+        if (!j.ok) throw new Error(j.error);
+        rememberPass(pass);
+        if (window.__cloud.name === f.name) { window.__cloud.name = ''; window.__cloud.updated = null; }
+        showToast(`Deleted "${f.name}".`, 'success');
+        refreshCloudList();
+      } catch (err) { showToast('Could not delete: ' + err.message, 'error'); }
     }
 
     function loadProjectJSON(event) {
@@ -3591,6 +3780,11 @@
         if (!t.code) t.code = String(t.name || 'TEAM').slice(0, 3).toUpperCase();
       });
       RPL_STATE.fixtures = Array.isArray(d.fixtures) ? d.fixtures : [];
+      const teamById = Object.fromEntries(RPL_STATE.teams.map(t => [t.id, t]));
+      RPL_STATE.fixtures.forEach(r => r.matches.forEach(m => ['homeTeam', 'awayTeam'].forEach(k => {
+        const t = m[k] && teamById[m[k].id];
+        m[k] = t || (m[k] && m[k].name ? m[k] : { id: (m[k] && m[k].id) || '?', name: '(removed team)', code: '???', group: null, color: '#64748B', logo: null });
+      })));
       RPL_STATE.scheduleSig = RPL_STATE.fixtures.length ? scheduleSignature() : null;
       RPL_STATE.fixturesEdited = !!d.fixturesEdited;
       RPL_STATE.pitchCount = d.pitchCount || RPL_STATE.pitchCount || 3;
