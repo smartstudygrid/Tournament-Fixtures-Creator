@@ -508,6 +508,7 @@
     .hm-foot{display:flex;flex-direction:column-reverse;gap:12px;padding:14px 20px 18px;position:sticky;bottom:0;background:#0F1626;border-top:1px solid rgba(148,163,184,.16);border-radius:0 0 16px 16px}
     html.light .hm-foot{background:#FBF7EA;border-color:rgba(60,50,20,.14)}
     @media(max-width:520px){.hm-head{padding:16px 16px 12px}.hm-body{padding:12px 16px 14px;gap:12px}.hm-step{padding:10px 12px;gap:12px}.hm-step p{font-size:12.5px}.hm-foot{padding:12px 16px 14px}.hm-warn{padding:10px 12px}}
+    @media(min-width:768px){#helpModal .hm-head{padding:16px 22px 12px}#helpModal .hm-body{padding:12px 22px 4px;gap:10px}#helpModal .hm-steps{gap:8px}#helpModal .hm-step{padding:9px 14px}#helpModal .hm-foot{padding:10px 22px 14px}}
     .hm-check{display:flex;align-items:center;gap:8px;font-size:12px;color:#94A3B8;cursor:pointer;user-select:none}
     .hm-check input{width:16px;height:16px;accent-color:#F59E0B}
     @media(min-width:520px){.hm-foot{flex-direction:row;align-items:center;justify-content:space-between}}
@@ -1197,7 +1198,7 @@
 
   <!-- MODAL: HELP / SAVING (also shown once on launch) -->
   <div id="helpModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4" onclick="if(event.target===this)closeHelpModal()">
-    <div class="hm-dialog bg-[#0F1626] border border-slate-700 w-full max-w-lg rounded-2xl shadow-2xl max-h-[92vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+    <div class="hm-dialog bg-[#0F1626] border border-slate-700 w-full max-w-lg md:max-w-[720px] rounded-2xl shadow-2xl max-h-[92vh] md:max-h-[97vh] overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
       <div class="hm-head">
         <span class="hm-badge"><i class="ph-bold ph-floppy-disk"></i></span>
         <div class="min-w-0 flex-1">
