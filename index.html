@@ -680,16 +680,18 @@
     /* A4 two-column full fixture sheet (1240 x 1754 = A4 @150dpi, exported at 2x) */
     .a4-sheet{position:relative;box-sizing:border-box;width:1240px;height:1754px;padding:48px 52px 34px;display:flex;flex-direction:column;overflow:hidden;font-family:Manrope,sans-serif;color:#F1ECDF;background:radial-gradient(120% 55% at 50% 0%,#17387A 0%,#0A1B3D 48%,#050B1A 100%)}
     .a4-sheet::after{content:"";position:absolute;inset:16px;border:2px solid rgba(232,185,60,.5);border-radius:20px;pointer-events:none}
-    .a4-head{text-align:center;flex:none}
-    .a4-logo{height:96px;display:flex;justify-content:center;align-items:center}
-    .a4-logo img{max-height:96px;max-width:260px;object-fit:contain}
-    .a4-logo span{font:900 64px 'Barlow Condensed',sans-serif;color:#F6D77A}
-    .a4-title{margin-top:8px;font:900 100px/1 'Barlow Condensed',sans-serif;letter-spacing:.03em;text-transform:uppercase;color:#F6D77A;text-shadow:0 5px 0 #8A6314,0 12px 26px rgba(0,0,0,.45)}
+    .a4-head{flex:none;display:flex;align-items:center;justify-content:center;gap:44px;text-align:center}
+    .a4-htext{display:flex;flex-direction:column;align-items:center;min-width:0}
+    .a4-logo{flex:none;display:flex;justify-content:center;align-items:center}
+    .a4-logo img{max-height:210px;max-width:320px;object-fit:contain;border:0;border-radius:0;padding:0;background:none;box-shadow:none}
+    .a4-logo span{font:900 110px 'Barlow Condensed',sans-serif;color:#F6D77A}
+    .a4-title{font:900 108px/1 'Barlow Condensed',sans-serif;letter-spacing:.03em;text-transform:uppercase;color:#F6D77A;text-shadow:0 5px 0 #8A6314,0 12px 26px rgba(0,0,0,.45)}
     .a4-pill{display:inline-block;margin-top:14px;padding:8px 46px 6px;border-radius:999px;background:linear-gradient(180deg,#FBE7A1,#E0AE33);color:#0B1B3A;font:800 38px/1.2 'Barlow Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 4px 0 #8A6314;max-width:100%;white-space:nowrap}
     .a4-tag{margin-top:14px;font:600 18px Manrope,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#C9D6F2}
-    .a4-head.a4-compact .a4-logo{height:70px}
-    .a4-head.a4-compact .a4-logo img{max-height:70px}
-    .a4-head.a4-compact .a4-title{font-size:72px;margin-top:4px}
+    .a4-head.a4-compact{gap:28px}
+    .a4-head.a4-compact .a4-logo img{max-height:96px;max-width:170px}
+    .a4-head.a4-compact .a4-logo span{font-size:56px}
+    .a4-head.a4-compact .a4-title{font-size:72px}
     .a4-head.a4-compact .a4-pill{font-size:28px;margin-top:8px;padding:5px 34px 3px}
     .a4-grid{flex:1;min-height:0;display:flex;align-items:center;padding:22px 0 8px}
     .a4-cards{width:100%;display:grid;grid-template-columns:1fr 1fr;column-gap:22px;row-gap:12px}
@@ -3914,7 +3916,7 @@ async function downloadRoundImage(roundNumber, btn) {
       const themeSel = document.getElementById('scheduleThemeSelect');
       const light = !!(themeSel && themeSel.value === 'light');
       const GAP = 12, MINH = 96, MAXH = 190;
-      const PAGE_H = 1754 - 48 - 34, FOOT = 40, HEAD1 = 315, HEADN = 200;
+      const PAGE_H = 1754 - 48 - 34, FOOT = 40, HEAD1 = 235, HEADN = 150;
       const rowsFor = avail => Math.max(1, Math.floor((avail + GAP) / (MINH + GAP)));
       const cap1 = 2 * rowsFor(PAGE_H - HEAD1 - FOOT - 30), capN = 2 * rowsFor(PAGE_H - HEADN - FOOT - 30);
       let pages = 1;
@@ -3963,16 +3965,18 @@ async function downloadRoundImage(roundNumber, btn) {
         for (let i = 0; i < slices.length; i++) {
           const slice = slices[i], first = i === 0;
           const logo = T.logoBase64 ? `<img src="${esc(T.logoBase64)}" alt="">` : '<span>' + esc((T.name || 'RPL').split(/\s+/).map(w => w[0]).join('').slice(0, 4).toUpperCase()) + '</span>';
-          const pillFs = Math.round(nameFs(String(T.name).length, first ? 38 : 28, first ? 24 : 18, 0.8));
+          const pillFs = Math.round(Math.max(first ? 22 : 16, Math.min(first ? 38 : 28, (first ? 640 : 560) / (0.5 * Math.max(1, String(T.name).length)))));
           const host = document.createElement('div');
           host.className = 'fx-host';
           host.innerHTML = `
             <div class="a4-sheet${light ? ' a4-light' : ''}">
               <div class="a4-head${first ? '' : ' a4-compact'}">
                 <div class="a4-logo">${logo}</div>
-                <div class="a4-title">Fixtures</div>
-                <div class="a4-pill" style="font-size:${pillFs}px">${esc(T.name)}</div>
-                ${first && T.tag ? `<div class="a4-tag">${esc(T.tag)}</div>` : ''}
+                <div class="a4-htext">
+                  <div class="a4-title">Fixtures</div>
+                  <div class="a4-pill" style="font-size:${pillFs}px">${esc(T.name)}</div>
+                  ${first && T.tag ? `<div class="a4-tag">${esc(T.tag)}</div>` : ''}
+                </div>
               </div>
               <div class="a4-grid"><div class="a4-cards"></div></div>
               <div class="a4-foot"><span>${T.sponsors ? `<b>Sponsors:</b> ${esc(T.sponsors)}` : '&nbsp;'}</span><span>${slices.length > 1 ? `Page ${i + 1} of ${slices.length}` : ''}</span></div>
