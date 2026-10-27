@@ -949,7 +949,7 @@
       <div class="gen-panel bg-gradient-to-r from-amber-500/10 via-slate-900 to-emerald-500/10 border border-amber-500/30 rounded-2xl p-5 md:p-6 flex flex-col gap-4 shadow-xl">
         <div>
           <h3 class="text-xl font-display text-white tracking-wide">Generate Weekend Schedule</h3>
-          <p class="text-xs text-slate-300 mt-1">Builds every pairing from the teams above, then assigns dates, grounds and time slots from your setup.</p>
+          <p class="text-xs text-slate-300 mt-1">Builds every pairing from the teams above, then assigns dates, grounds and time slots from your setup. You can then edit, move or add matches by hand.</p>
         </div>
         <div class="flex items-center gap-2.5 flex-nowrap overflow-x-auto w-full pb-1">
           <button type="button" onclick="generateFixtures()" class="flex-none whitespace-nowrap px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs uppercase tracking-wider shadow-xl shadow-amber-500/25 transition flex items-center gap-2">
@@ -1008,6 +1008,7 @@
         <div class="flex items-center gap-2">
           <span class="p-1 rounded bg-amber-500/20 text-amber-400 text-sm"><i class="ph ph-calendar-blank"></i></span>
           <h3 class="text-lg font-bold text-white">Scheduled League Matches</h3>
+          <button type="button" onclick="openAddMatchModal()" class="ml-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center gap-1.5"><i class="ph-bold ph-plus"></i> Add Match</button>
         </div>
         <div class="bg-slate-900 border border-slate-800 rounded-xl p-1 flex text-xs overflow-x-auto max-w-full">
           <button type="button" id="viewAllBtn" onclick="filterRounds('all')" class="px-3 py-1.5 rounded-lg bg-amber-500 text-black font-bold whitespace-nowrap flex-none">All Matches</button>
@@ -1316,13 +1317,12 @@
         </button>
       </div>
 
-      <div class="flex items-center justify-between gap-2 bg-[#080D1A] border border-slate-800 rounded-xl px-3.5 py-2.5">
-        <span id="matchEditHome" class="text-sm font-bold text-white truncate"></span>
-        <button type="button" onclick="swapEditTeams()" title="Swap home & away" class="flex-none p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 transition">
-          <i class="ph-bold ph-arrows-left-right"></i>
-        </button>
-        <span id="matchEditAway" class="text-sm font-bold text-white truncate text-right"></span>
+      <div class="grid grid-cols-[1fr_auto_1fr] items-end gap-2">
+        <div class="min-w-0"><label class="block text-xs font-semibold text-slate-300 mb-1.5">Home team</label><select id="matchEditHome" onchange="updateMatchNote()" class="w-full min-w-0 bg-[#080D1A] border border-slate-700 rounded-xl px-2.5 py-2.5 text-xs font-bold text-white focus:outline-none focus:border-amber-500"></select></div>
+        <button type="button" onclick="swapEditTeams()" title="Swap home &amp; away" class="flex-none p-2.5 mb-px rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 transition"><i class="ph-bold ph-arrows-left-right"></i></button>
+        <div class="min-w-0"><label class="block text-xs font-semibold text-slate-300 mb-1.5">Away team</label><select id="matchEditAway" onchange="updateMatchNote()" class="w-full min-w-0 bg-[#080D1A] border border-slate-700 rounded-xl px-2.5 py-2.5 text-xs font-bold text-white focus:outline-none focus:border-amber-500"></select></div>
       </div>
+      <p id="matchEditNote" class="hidden text-[11px] text-amber-400"></p>
 
       <div class="space-y-4">
         <div>
@@ -1341,13 +1341,19 @@
             <datalist id="matchEditVenueList"></datalist>
           </div>
         </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase mb-1.5">Pitch number <span class="normal-case font-medium text-slate-500">(optional)</span></label>
+          <input type="text" id="matchEditPitch" list="matchEditPitchList" class="w-full bg-[#080D1A] border border-slate-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500" placeholder="Pitch 1">
+          <datalist id="matchEditPitchList"><option value="Pitch 1"><option value="Pitch 2"><option value="Pitch 3"><option value="Pitch 4"><option value="Pitch 5"><option value="Pitch 6"></datalist>
+        </div>
       </div>
 
       <input type="hidden" id="matchEditingId" value="">
 
       <div class="pt-4 border-t border-slate-800 flex items-center justify-end gap-2.5">
+        <button type="button" id="matchDeleteBtn" onclick="deleteMatch()" class="mr-auto px-3 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs font-semibold border border-red-500/30 flex items-center gap-1.5"><i class="ph ph-trash"></i> Delete</button>
         <button type="button" onclick="closeMatchEditModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold">Cancel</button>
-        <button type="button" onclick="saveMatchEdit()" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs">Save Match</button>
+        <button type="button" onclick="saveMatchEdit()" id="matchSaveBtn" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs">Save Match</button>
       </div>
     </div>
   </div>
@@ -1387,6 +1393,7 @@
       },
       teams: JSON.parse(JSON.stringify(DEFAULT_PRESET_TEAMS)),
       fixtures: [],
+      fixturesEdited: false, // true once matches were added / edited / moved by hand
       scheduleSig: null,
       activeFilter: 'all',
       posterMatchId: null,
@@ -1912,6 +1919,7 @@
       const tg = document.getElementById('shuffleToggle');
       window.__shuffle = SHUFFLE_NEXT || !!(tg && tg.checked);
       SHUFFLE_NEXT = false;
+      if (RPL_STATE.fixtures.length && RPL_STATE.fixturesEdited && !confirm('This replaces your manual edits and added matches with a freshly generated schedule. Continue?')) return;
       syncTournamentInputs();
       if (RPL_STATE.teams.length < 2) {
         showToast('Please add at least 2 teams before generating fixtures.', 'error');
@@ -1993,6 +2001,7 @@
             rawDate: rawDate,
             time: slot,
             venue: venue,
+            pitch: '',
             homeTeam: pair.teamA,
             awayTeam: pair.teamB,
             scoreA: '',
@@ -2007,6 +2016,7 @@
 
       RPL_STATE.fixtures = roundsList;
       RPL_STATE.scheduleSig = scheduleSignature();
+      RPL_STATE.fixturesEdited = false;
       if (roundsList.length && roundsList[0].matches.length) {
         RPL_STATE.posterMatchId = roundsList[0].matches[0].id;
       }
@@ -2183,7 +2193,8 @@
           <div class="py-12 text-center border border-slate-800 rounded-2xl bg-slate-900/40">
             <i class="ph ph-calendar-x text-4xl text-slate-500 mb-2"></i>
             <p class="text-slate-300 font-semibold">No fixtures generated yet</p>
-            <p class="text-xs text-slate-500 mt-1">Configure your rules and click "Generate Schedule Now".</p>
+            <p class="text-xs text-slate-500 mt-1">Configure your rules and click "Generate Schedule Now", or build the fixtures yourself.</p>
+            <button type="button" onclick="openAddMatchModal()" class="mt-4 px-4 py-2 rounded-xl bg-amber-500 text-black font-bold text-xs inline-flex items-center gap-1.5"><i class="ph-bold ph-plus"></i> Add a match manually</button>
           </div>
         `;
         setStale(false);
@@ -2225,13 +2236,20 @@
                 <i class="ph ph-calendar text-amber-400"></i> ${roundObj.date}
               </span>
             </div>
-            <span class="text-xs text-slate-400">${roundObj.matches.length} match${roundObj.matches.length === 1 ? '' : 'es'}${breakdown ? ` · ${breakdown}` : ''}</span>
+            <span class="flex items-center gap-3"><span class="text-xs text-slate-400">${roundObj.matches.length} match${roundObj.matches.length === 1 ? '' : 'es'}${breakdown ? ` · ${breakdown}` : ''}</span>
+              <button type="button" onclick="openAddMatchModal('${roundObj.rawDate}')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] font-bold border border-slate-700 flex items-center gap-1"><i class="ph-bold ph-plus text-amber-400"></i> Add match</button></span>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 matchGrid"></div>
         `;
 
         const matchGrid = roundCard.querySelector('.matchGrid');
+        roundCard.addEventListener('dragover', e => { e.preventDefault(); roundCard.classList.add('ring-2', 'ring-amber-500/50'); });
+        roundCard.addEventListener('dragleave', e => { if (!roundCard.contains(e.relatedTarget)) roundCard.classList.remove('ring-2', 'ring-amber-500/50'); });
+        roundCard.addEventListener('drop', e => {
+          e.preventDefault(); roundCard.classList.remove('ring-2', 'ring-amber-500/50');
+          moveMatchToDate(e.dataTransfer.getData('text/plain'), roundObj.rawDate);
+        });
 
         roundObj.matches.forEach(m => {
           const mCard = document.createElement('div');
@@ -2239,9 +2257,15 @@
 
           mCard.className = `bg-[#080D1A] border ${isSelected ? 'border-amber-500 ring-2 ring-amber-500/20' : 'border-slate-800 hover:border-slate-700'} rounded-xl p-3.5 flex flex-col justify-between gap-3 transition hover:shadow-lg`;
 
+          mCard.draggable = true;
+          mCard.classList.add('cursor-grab');
+          mCard.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', m.id); e.dataTransfer.effectAllowed = 'move'; setTimeout(() => mCard.classList.add('opacity-40'), 0); });
+          mCard.addEventListener('dragend', () => mCard.classList.remove('opacity-40'));
+          const clash = teamClash(m);
+
           mCard.innerHTML = `
             <div class="flex items-center justify-between text-[11px] text-slate-400 pb-2 border-b border-slate-800/50">
-              <span class="font-mono font-bold text-amber-400">MATCH #${m.matchNumber} ${m.group ? `• POOL ${m.group}` : ''}</span>
+              <span class="font-mono font-bold text-amber-400"><i class="ph-bold ph-dots-six-vertical text-slate-500"></i>MATCH #${m.matchNumber} ${m.group ? `• POOL ${m.group}` : ''}${clash ? ` <i class="ph-fill ph-warning text-red-400" title="${esc(clash)} plays twice on this date"></i>` : ''}</span>
               <span class="flex items-center gap-1"><i class="ph ph-clock text-slate-400"></i> ${fmtTime(m.time)}</span>
             </div>
 
@@ -2269,7 +2293,7 @@
 
             <div class="flex items-center justify-between pt-2 border-t border-slate-800/50 text-[11px] text-slate-400">
               <span class="truncate flex items-center gap-1">
-                <i class="ph-fill ph-map-pin text-slate-500"></i> ${m.venue}
+                <i class="ph-fill ph-map-pin text-slate-500"></i> ${esc(venueLabel(m))}
               </span>
               <span class="flex items-center gap-1.5 flex-none ml-2">
                 <button type="button" onclick="openMatchEditModal('${m.id}')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] font-bold border border-slate-700 transition flex items-center gap-1"><i class="ph-bold ph-pencil-simple"></i> Edit</button>
@@ -2305,19 +2329,102 @@
       return null;
     }
 
-    function openMatchEditModal(id) {
+    function venueLabel(m) { return (m.venue || '') + (m.pitch ? ' · ' + m.pitch : ''); }
+    function normPitch(v) { v = String(v || '').trim(); return /^\d+$/.test(v) ? 'Pitch ' + v : v; }
+
+    function teamOptions(sel) {
+      const g = RPL_STATE.tournament.structure === 'groups';
+      return RPL_STATE.teams.map(t => `<option value="${esc(t.id)}"${t.id === sel ? ' selected' : ''}>${esc(t.name)}${g && t.group ? ' (Pool ' + esc(t.group) + ')' : ''}</option>`).join('');
+    }
+
+    function fmtDateLabel(raw) {
+      const d = new Date(raw + 'T00:00:00');
+      return isNaN(d) ? raw : d.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+    }
+
+    /* Rebuilds rounds from the matches: one round per date, chronological, matches renumbered. */
+    function normalizeRounds() {
+      const all = [];
+      RPL_STATE.fixtures.forEach(r => r.matches.forEach(m => {
+        if (!m.rawDate) { const d = new Date(m.date); m.rawDate = isNaN(d) ? '9999-12-31' : dateKey(d); }
+        all.push(m);
+      }));
+      const order = new Map(all.map((m, i) => [m, i]));
+      all.sort((a, b) => a.rawDate < b.rawDate ? -1 : a.rawDate > b.rawDate ? 1 : order.get(a) - order.get(b));
+      const rounds = [];
+      all.forEach((m, i) => {
+        let r = rounds[rounds.length - 1];
+        if (!r || r.rawDate !== m.rawDate) { r = { roundNumber: rounds.length + 1, date: fmtDateLabel(m.rawDate), rawDate: m.rawDate, matches: [] }; rounds.push(r); }
+        m.matchNumber = i + 1; m.round = r.roundNumber; m.date = r.date; r.matches.push(m);
+      });
+      RPL_STATE.fixtures = rounds;
+      if (RPL_STATE.activeFilter !== 'all' && !rounds.some(r => String(r.roundNumber) === RPL_STATE.activeFilter)) RPL_STATE.activeFilter = 'all';
+      if (!findMatch(RPL_STATE.posterMatchId)) RPL_STATE.posterMatchId = all[0] ? all[0].id : null;
+    }
+
+    function teamClash(m) {
+      for (const r of RPL_STATE.fixtures) for (const o of r.matches) {
+        if (o === m || o.rawDate !== m.rawDate) continue;
+        for (const t of [m.homeTeam, m.awayTeam]) if (t.id === o.homeTeam.id || t.id === o.awayTeam.id) return t.name;
+      }
+      return '';
+    }
+
+    function placeMatchOnDate(m, rawDate) {
+      RPL_STATE.fixtures.forEach(r => { const i = r.matches.indexOf(m); if (i > -1) r.matches.splice(i, 1); });
+      m.rawDate = rawDate; m.date = fmtDateLabel(rawDate);
+      RPL_STATE.fixtures.push({ roundNumber: 0, date: m.date, rawDate, matches: [m] });
+    }
+
+    function finishFixtureEdit(msg, m) {
+      RPL_STATE.fixturesEdited = true;
+      normalizeRounds();
+      renderFixtures(); renderRoster(); renderPoster();
+      const clash = m ? teamClash(m) : '';
+      showToast(clash ? `${msg} Heads up: ${clash} already plays on this date.` : msg, clash ? 'error' : 'success');
+    }
+
+    function moveMatchToDate(id, rawDate) {
       const m = findMatch(id);
-      if (!m) return;
+      if (!m || m.rawDate === rawDate) return;
+      placeMatchOnDate(m, rawDate);
+      finishFixtureEdit('Match moved to ' + m.date + '.', m);
+    }
+
+    function updateMatchNote() {
+      const note = document.getElementById('matchEditNote');
+      const h = RPL_STATE.teams.find(t => t.id === document.getElementById('matchEditHome').value);
+      const a = RPL_STATE.teams.find(t => t.id === document.getElementById('matchEditAway').value);
+      let msg = '';
+      if (h && a && h.id === a.id) msg = 'Pick two different teams.';
+      else if (h && a && RPL_STATE.tournament.structure === 'groups' && h.group !== a.group) msg = 'Different pools: this will be saved as a cross-pool match.';
+      note.textContent = msg; note.classList.toggle('hidden', !msg);
+    }
+
+    function openAddMatchModal(rawDate) { openMatchEditModal(null, rawDate); }
+
+    function openMatchEditModal(id, presetDate) {
+      const m = id ? findMatch(id) : null;
+      if (id && !m) return;
+      if (RPL_STATE.teams.length < 2) { showToast('Add at least 2 teams first.', 'error'); return; }
       syncTournamentInputs();
-      document.getElementById('matchEditingId').value = id;
-      document.getElementById('matchModalTitle').innerHTML = `<i class="ph ph-calendar-blank text-amber-400"></i> Edit Match #${m.matchNumber}${m.group ? ' • Pool ' + esc(m.group) : ''}`;
-      document.getElementById('matchEditHome').textContent = m.homeTeam.name;
-      document.getElementById('matchEditAway').textContent = m.awayTeam.name;
-      document.getElementById('matchEditDate').value = m.rawDate || '';
-      document.getElementById('matchEditTime').value = m.time || '';
-      document.getElementById('matchEditVenue').value = m.venue || '';
-      document.getElementById('matchEditTimeList').innerHTML = RPL_STATE.tournament.timeSlots.map(s => `<option value="${esc(s)}">`).join('');
-      document.getElementById('matchEditVenueList').innerHTML = RPL_STATE.tournament.venues.map(s => `<option value="${esc(s)}">`).join('');
+      const T = RPL_STATE.tournament, ts = RPL_STATE.teams;
+      document.getElementById('matchEditingId').value = id || '';
+      document.getElementById('matchModalTitle').innerHTML = m
+        ? `<i class="ph ph-calendar-blank text-amber-400"></i> Edit Match #${m.matchNumber}${m.group ? ' • Pool ' + esc(m.group) : ''}`
+        : `<i class="ph ph-plus-circle text-amber-400"></i> Add Match`;
+      document.getElementById('matchEditHome').innerHTML = teamOptions(m ? m.homeTeam.id : ts[0].id);
+      document.getElementById('matchEditAway').innerHTML = teamOptions(m ? m.awayTeam.id : ts[1].id);
+      const lastRound = RPL_STATE.fixtures[RPL_STATE.fixtures.length - 1];
+      document.getElementById('matchEditDate').value = m ? (m.rawDate || '') : (presetDate || (lastRound && lastRound.rawDate) || T.startDate || '');
+      document.getElementById('matchEditTime').value = m ? (m.time || '') : (T.timeSlots[0] || '');
+      document.getElementById('matchEditVenue').value = m ? (m.venue || '') : (T.venues[0] || '');
+      document.getElementById('matchEditPitch').value = m ? (m.pitch || '') : '';
+      document.getElementById('matchEditTimeList').innerHTML = T.timeSlots.map(s => `<option value="${esc(s)}">`).join('');
+      document.getElementById('matchEditVenueList').innerHTML = T.venues.map(s => `<option value="${esc(s)}">`).join('');
+      document.getElementById('matchDeleteBtn').classList.toggle('hidden', !m);
+      document.getElementById('matchSaveBtn').textContent = m ? 'Save Match' : 'Add Match';
+      updateMatchNote();
       const modal = document.getElementById('matchModal');
       if (modal) { modal.classList.remove('hidden'); modal.classList.add('flex'); }
     }
@@ -2328,17 +2435,20 @@
     }
 
     function swapEditTeams() {
-      const id = document.getElementById('matchEditingId').value;
-      const m = findMatch(id);
-      if (!m) return;
-      const t = m.homeTeam; m.homeTeam = m.awayTeam; m.awayTeam = t;
-      document.getElementById('matchEditHome').textContent = m.homeTeam.name;
-      document.getElementById('matchEditAway').textContent = m.awayTeam.name;
-      renderFixtures();
-      showToast(`Match #${m.matchNumber}: home & away swapped.`, 'info');
+      const h = document.getElementById('matchEditHome'), a = document.getElementById('matchEditAway');
+      const t = h.value; h.value = a.value; a.value = t;
+      updateMatchNote();
     }
 
-    // "6:AM" / "6AM" / "6 am" / "6:30am" -> "6:00 AM" / "6:30 AM"
+    function deleteMatch() {
+      const m = findMatch(document.getElementById('matchEditingId').value);
+      if (!m || !confirm(`Delete Match #${m.matchNumber} (${m.homeTeam.name} vs ${m.awayTeam.name})?`)) return;
+      RPL_STATE.fixtures.forEach(r => { const i = r.matches.indexOf(m); if (i > -1) r.matches.splice(i, 1); });
+      closeMatchEditModal();
+      finishFixtureEdit('Match deleted. Remaining matches were renumbered.');
+    }
+
+// "6:AM" / "6AM" / "6 am" / "6:30am" -> "6:00 AM" / "6:30 AM"
     function fmtTime(t) {
       const str = String(t == null ? '' : t).trim();
       const m = str.match(/^(\d{1,2})\s*(?::\s*(\d{1,2}))?\s*:?\s*([AaPp])\.?\s*[Mm]\.?$/);
@@ -2349,22 +2459,26 @@
 
     function saveMatchEdit() {
       const id = document.getElementById('matchEditingId').value;
-      const m = findMatch(id);
-      if (!m) return;
+      const isNew = !id;
+      let m = isNew ? null : findMatch(id);
+      if (!isNew && !m) return;
+      const h = RPL_STATE.teams.find(t => t.id === document.getElementById('matchEditHome').value);
+      const a = RPL_STATE.teams.find(t => t.id === document.getElementById('matchEditAway').value);
       const dateVal = document.getElementById('matchEditDate').value;
       const timeVal = document.getElementById('matchEditTime').value.trim();
       const venueVal = document.getElementById('matchEditVenue').value.trim();
-      if (dateVal) {
-        const d = new Date(dateVal + 'T00:00:00');
-        m.rawDate = dateVal;
-        m.date = isNaN(d) ? m.date : d.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
-      }
-      if (timeVal) m.time = fmtTime(timeVal);
-      if (venueVal) m.venue = venueVal;
+      if (!h || !a || h.id === a.id) { showToast('Pick two different teams.', 'error'); return; }
+      if (!dateVal) { showToast('Pick a match date.', 'error'); return; }
+      const grouped = RPL_STATE.tournament.structure === 'groups';
+      if (isNew) m = { id: 'm_x' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5), matchNumber: 0, round: 0, scoreA: '', scoreB: '', winner: null, summary: '' };
+      m.homeTeam = h; m.awayTeam = a;
+      m.group = grouped && h.group === a.group ? h.group : null;
+      m.time = timeVal ? fmtTime(timeVal) : (m.time || '');
+      m.venue = venueVal || m.venue || '';
+      m.pitch = normPitch(document.getElementById('matchEditPitch').value);
+      if (isNew || m.rawDate !== dateVal) placeMatchOnDate(m, dateVal);
       closeMatchEditModal();
-      renderFixtures();
-      renderPoster();
-      showToast(`Match #${m.matchNumber} updated.`, 'success');
+      finishFixtureEdit(isNew ? 'Match added.' : `Match #${m.matchNumber} updated.`, m);
     }
 
     function switchPosterMode(mode) {
@@ -2422,7 +2536,7 @@
             <div class="th-bottom">
               <div class="th-cell"><small>Date</small><span>${esc(selectedMatch.date)}</span></div>
               <div class="th-cell"><small>First ball</small><b>${esc(fmtTime(selectedMatch.time))}</b></div>
-              <div class="th-cell"><small>Venue</small><span>${esc(selectedMatch.venue)}</span></div>
+              <div class="th-cell"><small>Venue</small><span>${esc(venueLabel(selectedMatch))}</span></div>
             </div>
           </div>`;
     }
@@ -2479,7 +2593,7 @@
                 <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-bold">VS</span>
                 <span class="font-display text-lg text-white font-bold">${m.awayTeam.code}</span>
               </div>
-              <div class="w-28 text-right truncate text-[11px] text-slate-400">${m.venue}</div>
+              <div class="w-28 text-right truncate text-[11px] text-slate-400">${esc(venueLabel(m))}</div>
             </div>
           `;
         });
@@ -2648,7 +2762,7 @@
           <div class="rc-meta">
             <span class="rc-mno">M${m.matchNumber}</span>
             <span class="rc-time">${esc(fmtTime(m.time))}</span>
-            <span class="rc-venue">${esc(m.venue)}</span>
+            <span class="rc-venue">${esc(venueLabel(m))}</span>
             ${m.group ? `<span class="rc-pool">Pool ${esc(m.group)}</span>` : ''}
           </div>
           <div class="rc-teams">${team(m.homeTeam, 'home')}<div class="rc-vs">VS</div>${team(m.awayTeam, 'away')}</div>
@@ -2775,7 +2889,7 @@
           <div class="wa-info">
             <div class="wa-row"><small>Date</small><span>${esc(m.date)}</span></div>
             <div class="wa-row"><small>Time</small><b>${esc(fmtTime(m.time))}</b></div>
-            <div class="wa-row"><small>Venue</small><span>${esc(m.venue)}</span></div>
+            <div class="wa-row"><small>Venue</small><span>${esc(venueLabel(m))}</span></div>
           </div>
           <div class="wa-foot">${esc(T.tag)}${T.sponsors ? `<br><b>Sponsored by:</b> ${esc(T.sponsors)}` : ''}<br><b>${esc(hash)}</b></div>
         </div>`;
@@ -3174,6 +3288,7 @@
       } else {
         RPL_STATE.fixtures = [];
         RPL_STATE.scheduleSig = null;
+        RPL_STATE.fixturesEdited = false;
         renderFixtures();
         if (notify) showToast(`Sample teams loaded (${RPL_STATE.teams.length}). Build the schedule when you are ready.`, 'info');
       }
@@ -3198,7 +3313,7 @@
         r.matches.forEach(m => {
           const pool = grouped && m.group ? ` [Pool ${m.group}]` : '';
           text += `  • *M#${m.matchNumber}${pool}:* ${m.homeTeam.name} 🆚 ${m.awayTeam.name}\n`;
-          text += `    ⏰ ${fmtTime(m.time)} | 📍 ${m.venue}\n`;
+          text += `    ⏰ ${fmtTime(m.time)} | 📍 ${venueLabel(m)}\n`;
         });
         text += `\n`;
       });
@@ -3313,7 +3428,7 @@
         m.homeTeam = h; m.awayTeam = a;
         used.add(h.id); used.add(a.id);
       }));
-      if (RPL_STATE.teams.some(t => !used.has(t.id))) stale = true;
+      if (!RPL_STATE.fixturesEdited && RPL_STATE.teams.some(t => !used.has(t.id))) stale = true;
       if (!stale) stale = scheduleIsStale();
       setStale(stale);
     }
@@ -3424,6 +3539,7 @@
       });
       RPL_STATE.fixtures = Array.isArray(d.fixtures) ? d.fixtures : [];
       RPL_STATE.scheduleSig = RPL_STATE.fixtures.length ? scheduleSignature() : null;
+      RPL_STATE.fixturesEdited = !!d.fixturesEdited;
       if (d.knockouts) RPL_STATE.knockouts = d.knockouts;
       RPL_STATE.posterMatchId = d.posterMatchId || null;
       RPL_STATE.posterMode = d.posterMode || 'match';
@@ -3473,7 +3589,7 @@
               <div class="fx-team fx-home">${esc(m.homeTeam.name)}</div>
               <div class="fx-vs">VS</div>
               <div class="fx-team fx-away">${esc(m.awayTeam.name)}</div>
-              <div class="fx-venue"><span>${esc(m.venue)}</span>${m.group ? `<span>Pool ${esc(m.group)}</span>` : ''}</div>
+              <div class="fx-venue"><span>${esc(venueLabel(m))}</span>${m.group ? `<span>Pool ${esc(m.group)}</span>` : ''}</div>
             </div>`).join('')}
         </div>`).join('');
 
