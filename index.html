@@ -360,6 +360,7 @@
     .rc-mno{color:var(--acc2,#E3C677);font-weight:800}
     .rc-time{color:#fff;font-weight:800;font-size:26px}
     .rc-venue{min-width:0;color:#B9C7D6;font-weight:600}
+    .rc-pitch{flex:none;padding:2px 12px;border-radius:8px;background:var(--acc66,rgba(200,164,86,.35));color:#fff;font:800 18px/1.3 Manrope,sans-serif;letter-spacing:.04em}
     .rc-pool{margin-left:auto;flex:none;padding:3px 14px;border-radius:999px;border:2px solid var(--acc66,rgba(200,164,86,.5));color:var(--acc2,#E3C677);font:800 17px/1.3 Manrope,sans-serif;letter-spacing:.1em;text-transform:uppercase}
     .rc-teams{display:grid;grid-template-columns:minmax(0,1fr) 84px minmax(0,1fr);align-items:center;gap:6px}
     .rc-team{display:flex;align-items:center;gap:14px;min-width:0}
@@ -1009,6 +1010,12 @@
           <span class="p-1 rounded bg-amber-500/20 text-amber-400 text-sm"><i class="ph ph-calendar-blank"></i></span>
           <h3 class="text-lg font-bold text-white">Scheduled League Matches</h3>
           <button type="button" onclick="openAddMatchModal()" class="ml-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center gap-1.5"><i class="ph-bold ph-plus"></i> Add Match</button>
+          <span class="ml-1 flex items-center gap-1.5 bg-slate-900 border border-slate-800 rounded-xl px-2 py-1 text-xs text-slate-300">
+            <label for="pitchCountInput" class="font-semibold">Pitches</label>
+            <input type="number" id="pitchCountInput" min="1" max="20" value="3" class="w-12 bg-[#080D1A] border border-slate-700 rounded-lg px-1.5 py-1 text-xs text-white text-center focus:outline-none focus:border-amber-500">
+            <button type="button" onclick="randomizePitches()" title="Randomly assign pitch numbers. Manually set pitches are kept." class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-100 font-bold border border-slate-700 flex items-center gap-1"><i class="ph-bold ph-dice-five text-amber-400"></i> Randomize</button>
+            <button type="button" onclick="clearAutoPitches()" title="Remove auto-assigned pitches (manual ones stay)" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white font-semibold">Clear</button>
+          </span>
         </div>
         <div class="bg-slate-900 border border-slate-800 rounded-xl p-1 flex text-xs overflow-x-auto max-w-full">
           <button type="button" id="viewAllBtn" onclick="filterRounds('all')" class="px-3 py-1.5 rounded-lg bg-amber-500 text-black font-bold whitespace-nowrap flex-none">All Matches</button>
@@ -2293,7 +2300,7 @@
 
             <div class="flex items-center justify-between pt-2 border-t border-slate-800/50 text-[11px] text-slate-400">
               <span class="truncate flex items-center gap-1">
-                <i class="ph-fill ph-map-pin text-slate-500"></i> ${esc(venueLabel(m))}
+                <i class="ph-fill ph-map-pin text-slate-500"></i> ${esc(venueLabel(m))}${m.pitchLocked ? ' <i class="ph-fill ph-lock-simple text-amber-400" title="Pitch set manually; Randomize will keep it"></i>' : ''}
               </span>
               <span class="flex items-center gap-1.5 flex-none ml-2">
                 <button type="button" onclick="openMatchEditModal('${m.id}')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] font-bold border border-slate-700 transition flex items-center gap-1"><i class="ph-bold ph-pencil-simple"></i> Edit</button>
@@ -2327,6 +2334,38 @@
         if (m) return m;
       }
       return null;
+    }
+
+    /* Random pitches per date + ground + time slot, so two matches never share a pitch at the same moment (if enough pitches). Manually set pitches are kept. */
+    function randomizePitches() {
+      if (!RPL_STATE.fixtures.length) { showToast('Add or generate matches first.', 'error'); return; }
+      const n = Math.max(1, Math.min(20, parseInt(document.getElementById('pitchCountInput').value, 10) || 3));
+      RPL_STATE.pitchCount = n;
+      const names = Array.from({ length: n }, (_, i) => 'Pitch ' + (i + 1));
+      let set = 0, kept = 0, over = false;
+      RPL_STATE.fixtures.forEach(r => {
+        const groups = {};
+        r.matches.forEach(m => { const k = (m.venue || '') + '|' + fmtTime(m.time); (groups[k] = groups[k] || []).push(m); });
+        Object.values(groups).forEach(list => {
+          const used = new Set(list.filter(m => m.pitchLocked && m.pitch).map(m => m.pitch));
+          let pool = shuffled(names.filter(p => !used.has(p)));
+          list.forEach(m => {
+            if (m.pitchLocked) { kept++; return; }
+            if (!pool.length) { over = true; pool = shuffled(names); }
+            m.pitch = pool.pop(); set++;
+          });
+        });
+      });
+      RPL_STATE.fixturesEdited = true;
+      renderFixtures(); renderPoster();
+      showToast(`Randomized ${set} pitch${set === 1 ? '' : 'es'}${kept ? `, kept ${kept} set by hand` : ''}.${over ? ' Some matches share a pitch at the same time: add more pitches.' : ''}`, over ? 'error' : 'success');
+    }
+
+    function clearAutoPitches() {
+      let n = 0;
+      RPL_STATE.fixtures.forEach(r => r.matches.forEach(m => { if (!m.pitchLocked && m.pitch) { m.pitch = ''; n++; } }));
+      renderFixtures(); renderPoster();
+      showToast(n ? `Cleared ${n} auto-assigned pitch${n === 1 ? '' : 'es'}.` : 'No auto-assigned pitches to clear.', 'info');
     }
 
     function venueLabel(m) { return (m.venue || '') + (m.pitch ? ' · ' + m.pitch : ''); }
@@ -2475,7 +2514,9 @@
       m.group = grouped && h.group === a.group ? h.group : null;
       m.time = timeVal ? fmtTime(timeVal) : (m.time || '');
       m.venue = venueVal || m.venue || '';
-      m.pitch = normPitch(document.getElementById('matchEditPitch').value);
+      const pv = normPitch(document.getElementById('matchEditPitch').value);
+      if (pv !== (m.pitch || '')) m.pitchLocked = !!pv;   // typed by hand = locked from Randomize
+      m.pitch = pv;
       if (isNew || m.rawDate !== dateVal) placeMatchOnDate(m, dateVal);
       closeMatchEditModal();
       finishFixtureEdit(isNew ? 'Match added.' : `Match #${m.matchNumber} updated.`, m);
@@ -2536,7 +2577,7 @@
             <div class="th-bottom">
               <div class="th-cell"><small>Date</small><span>${esc(selectedMatch.date)}</span></div>
               <div class="th-cell"><small>First ball</small><b>${esc(fmtTime(selectedMatch.time))}</b></div>
-              <div class="th-cell"><small>Venue</small><span>${esc(venueLabel(selectedMatch))}</span></div>
+              <div class="th-cell"><small>Venue</small><span>${esc(selectedMatch.venue)}</span></div>${selectedMatch.pitch ? `<div class="th-cell"><small>Pitch</small><b>${esc(selectedMatch.pitch)}</b></div>` : ''}
             </div>
           </div>`;
     }
@@ -2762,7 +2803,8 @@
           <div class="rc-meta">
             <span class="rc-mno">M${m.matchNumber}</span>
             <span class="rc-time">${esc(fmtTime(m.time))}</span>
-            <span class="rc-venue">${esc(venueLabel(m))}</span>
+            <span class="rc-venue">${esc(m.venue)}</span>
+            ${m.pitch ? `<span class="rc-pitch">${esc(m.pitch)}</span>` : ''}
             ${m.group ? `<span class="rc-pool">Pool ${esc(m.group)}</span>` : ''}
           </div>
           <div class="rc-teams">${team(m.homeTeam, 'home')}<div class="rc-vs">VS</div>${team(m.awayTeam, 'away')}</div>
@@ -2889,7 +2931,8 @@
           <div class="wa-info">
             <div class="wa-row"><small>Date</small><span>${esc(m.date)}</span></div>
             <div class="wa-row"><small>Time</small><b>${esc(fmtTime(m.time))}</b></div>
-            <div class="wa-row"><small>Venue</small><span>${esc(venueLabel(m))}</span></div>
+            <div class="wa-row"><small>Venue</small><span>${esc(m.venue)}</span></div>
+            ${m.pitch ? `<div class="wa-row"><small>Pitch</small><b>${esc(m.pitch)}</b></div>` : ''}
           </div>
           <div class="wa-foot">${esc(T.tag)}${T.sponsors ? `<br><b>Sponsored by:</b> ${esc(T.sponsors)}` : ''}<br><b>${esc(hash)}</b></div>
         </div>`;
@@ -3540,6 +3583,8 @@
       RPL_STATE.fixtures = Array.isArray(d.fixtures) ? d.fixtures : [];
       RPL_STATE.scheduleSig = RPL_STATE.fixtures.length ? scheduleSignature() : null;
       RPL_STATE.fixturesEdited = !!d.fixturesEdited;
+      RPL_STATE.pitchCount = d.pitchCount || RPL_STATE.pitchCount || 3;
+      const pci = document.getElementById('pitchCountInput'); if (pci) pci.value = RPL_STATE.pitchCount;
       if (d.knockouts) RPL_STATE.knockouts = d.knockouts;
       RPL_STATE.posterMatchId = d.posterMatchId || null;
       RPL_STATE.posterMode = d.posterMode || 'match';
