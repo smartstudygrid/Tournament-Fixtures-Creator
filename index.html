@@ -2272,6 +2272,8 @@
         const roundCard = document.createElement('div');
         roundCard.className = "bg-[#0B101C] border border-slate-800/90 rounded-2xl p-4 md:p-6 shadow-xl space-y-4";
         const groupedNow = RPL_STATE.tournament.structure === 'groups';
+        const rIdx = RPL_STATE.fixtures.indexOf(roundObj), rLast = RPL_STATE.fixtures.length - 1;
+        const arrow = (dir, icon, off, tip) => `<button type="button" ${off ? 'disabled' : `onclick="moveRound(${rIdx},${dir})"`} title="${tip}" class="p-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 ${off ? 'opacity-30 cursor-not-allowed' : 'hover:bg-slate-700'}"><i class="ph-bold ${icon} text-xs"></i></button>`;
         const breakdown = groupedNow
           ? poolKeys().map(k => [k, roundObj.matches.filter(m => m.group === k).length]).filter(([, n]) => n).map(([k, n]) => `Pool ${k}: ${n}`).join(' · ')
           : '';
@@ -2284,6 +2286,7 @@
               </span>
             </div>
             <span class="flex items-center gap-3"><span class="text-xs text-slate-400">${roundObj.matches.length} match${roundObj.matches.length === 1 ? '' : 'es'}${breakdown ? ` · ${breakdown}` : ''}</span>
+              <span class="flex items-center gap-1">${arrow(-1, 'ph-arrow-up', rIdx === 0, 'Move round up (swaps dates with the round above)')}${arrow(1, 'ph-arrow-down', rIdx === rLast, 'Move round down (swaps dates with the round below)')}</span>
               <button type="button" onclick="openAddMatchModal('${roundObj.rawDate}')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] font-bold border border-slate-700 flex items-center gap-1"><i class="ph-bold ph-plus text-amber-400"></i> Add match</button></span>
           </div>
 
@@ -2464,6 +2467,18 @@
       renderFixtures(); renderRoster(); renderPoster();
       const clash = m ? teamClash(m) : '';
       showToast(clash ? `${msg} Heads up: ${clash} already plays on this date.` : msg, clash ? 'error' : 'success');
+    }
+
+/* Moves a whole round up/down by swapping its date with the neighbouring round; matches stay together. */
+    function moveRound(idx, dir) {
+      const a = RPL_STATE.fixtures[idx], b = RPL_STATE.fixtures[idx + dir];
+      if (!a || !b) return;
+      const na = String(a.roundNumber), nb = String(b.roundNumber);
+      const da = a.rawDate, db = b.rawDate;
+      a.matches.forEach(m => { m.rawDate = db; });
+      b.matches.forEach(m => { m.rawDate = da; });
+      if (RPL_STATE.activeFilter === na) RPL_STATE.activeFilter = nb; else if (RPL_STATE.activeFilter === nb) RPL_STATE.activeFilter = na;
+      finishFixtureEdit(`Round ${na} moved ${dir < 0 ? 'up' : 'down'}: it swapped dates with Round ${nb}.`);
     }
 
     function moveMatchToDate(id, rawDate) {
