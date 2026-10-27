@@ -662,13 +662,67 @@
     .th-electric .th-brandtext small{color:#BAE6FD}
     .th-export .th-badge small{letter-spacing:.2em!important}
     .th-export .th-badge b{line-height:1.15!important}
+    /* Step buttons merged into the frozen header */
+    .hdr-steps{order:3;width:100%}
+    @media(min-width:1400px){.hdr-steps{order:0;width:auto;flex:1 1 auto;max-width:640px;margin:0 16px}}
+    .hdr-steps .stepper{gap:8px;align-items:stretch}
+    .hdr-steps .tab-btn{flex-direction:row!important;justify-content:center;align-items:center;gap:8px!important;padding:.4rem .7rem!important;border-radius:12px!important;background:rgba(148,163,184,.08)!important;border:1px solid rgba(148,163,184,.24)!important;box-shadow:0 2px 0 rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.05);cursor:pointer;transition:transform .12s,background .15s,border-color .15s}
+    .hdr-steps .tab-btn:hover{background:rgba(148,163,184,.16)!important;border-color:var(--pro-gold,#E8B93C)!important;transform:translateY(-1px)}
+    .hdr-steps .tab-btn:active{transform:translateY(1px);box-shadow:none}
+    .hdr-steps .tab-btn.active{background:linear-gradient(180deg,rgba(247,220,139,.22),rgba(224,174,51,.10))!important;border-color:var(--pro-gold-hi,#F7DC8B)!important;box-shadow:0 0 0 2px rgba(232,185,60,.18),0 2px 0 rgba(0,0,0,.28)}
+    .hdr-steps .tab-btn.done{border-color:rgba(44,122,91,.65)!important}
+    .hdr-steps .tab-btn .step-num{width:24px;height:24px;font-size:12px}
+    .hdr-steps .tab-btn .step-lbl{font-size:12px;font-weight:700}
+    html.light .hdr-steps .tab-btn{background:#FFFFFF!important;border-color:var(--line)!important;box-shadow:0 2px 0 rgba(60,50,20,.12)}
+    html.light .hdr-steps .tab-btn:hover{background:#FBF7EA!important}
+    html.light .hdr-steps .tab-btn.active{background:rgba(154,122,46,.16)!important;border-color:#9A7A2E!important}
+    @media(max-width:640px){.hdr-steps .tab-btn{flex-direction:column!important;gap:3px!important;padding:.4rem .2rem!important}.hdr-steps .tab-btn .step-lbl{font-size:10px}.hdr-steps .stepper{gap:5px}}
+    /* A4 two-column full fixture sheet (1240 x 1754 = A4 @150dpi, exported at 2x) */
+    .a4-sheet{position:relative;box-sizing:border-box;width:1240px;height:1754px;padding:48px 52px 34px;display:flex;flex-direction:column;overflow:hidden;font-family:Manrope,sans-serif;color:#F1ECDF;background:radial-gradient(120% 55% at 50% 0%,#17387A 0%,#0A1B3D 48%,#050B1A 100%)}
+    .a4-sheet::after{content:"";position:absolute;inset:16px;border:2px solid rgba(232,185,60,.5);border-radius:20px;pointer-events:none}
+    .a4-head{text-align:center;flex:none}
+    .a4-logo{height:96px;display:flex;justify-content:center;align-items:center}
+    .a4-logo img{max-height:96px;max-width:260px;object-fit:contain}
+    .a4-logo span{font:900 64px 'Barlow Condensed',sans-serif;color:#F6D77A}
+    .a4-title{margin-top:8px;font:900 100px/1 'Barlow Condensed',sans-serif;letter-spacing:.03em;text-transform:uppercase;color:#F6D77A;text-shadow:0 5px 0 #8A6314,0 12px 26px rgba(0,0,0,.45)}
+    .a4-pill{display:inline-block;margin-top:14px;padding:8px 46px 6px;border-radius:999px;background:linear-gradient(180deg,#FBE7A1,#E0AE33);color:#0B1B3A;font:800 38px/1.2 'Barlow Condensed',sans-serif;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 4px 0 #8A6314;max-width:100%;white-space:nowrap}
+    .a4-tag{margin-top:14px;font:600 18px Manrope,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#C9D6F2}
+    .a4-head.a4-compact .a4-logo{height:70px}
+    .a4-head.a4-compact .a4-logo img{max-height:70px}
+    .a4-head.a4-compact .a4-title{font-size:72px;margin-top:4px}
+    .a4-head.a4-compact .a4-pill{font-size:28px;margin-top:8px;padding:5px 34px 3px}
+    .a4-grid{flex:1;min-height:0;display:flex;align-items:center;padding:22px 0 8px}
+    .a4-cards{width:100%;display:grid;grid-template-columns:1fr 1fr;column-gap:22px;row-gap:12px}
+    .a4-card{box-sizing:border-box;padding:3px;border-radius:16px;background:linear-gradient(180deg,#F6D77A,#B98A1E);box-shadow:0 6px 16px rgba(0,0,0,.35)}
+    .a4-in{display:flex;height:100%;border-radius:13px;overflow:hidden;background:#C99A27}
+    .a4-team{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;overflow:hidden}
+    .a4-left{clip-path:polygon(0 0,100% 0,calc(100% - 24px) 100%,0 100%);padding-right:22px}
+    .a4-right{margin-left:-24px;clip-path:polygon(24px 0,100% 0,100% 100%,0 100%);padding-left:22px}
+    .a4-crest{display:flex;align-items:center;justify-content:center}
+    .a4-crest img{max-width:100%;max-height:100%;object-fit:contain}
+    .a4-code{font:900 34px 'Barlow Condensed',sans-serif;color:#fff;letter-spacing:.06em}
+    .a4-tname{max-width:94%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:#fff;text-align:center;line-height:1.1}
+    .a4-mid{flex:1.3 1 0;margin-left:-24px;min-width:0;display:flex;flex-direction:column;background:#F6F1E4;color:#0B1B3A;clip-path:polygon(29px 0,calc(100% - 5px) 0,calc(100% - 29px) 100%,5px 100%)}
+    .a4-tab{flex:none;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#14336B,#0A1B3D);color:#F6D77A;font-family:'Barlow Condensed',sans-serif;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .a4-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 34px}
+    .a4-date{font-family:'Barlow Condensed',sans-serif;font-weight:900;letter-spacing:.03em;text-transform:uppercase;line-height:1;white-space:nowrap}
+    .a4-sep{width:72%;height:2px;background:rgba(11,27,58,.22);margin:6px 0}
+    .a4-time{font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;line-height:1.1}
+    .a4-foot{flex:none;display:flex;justify-content:space-between;gap:20px;padding-top:6px;font:600 15px Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#9FB3DA}
+    .a4-foot b{color:#F6D77A}
+    .a4-sheet.a4-light{background:#F7F3E6;color:#14213D}
+    .a4-sheet.a4-light::after{border-color:rgba(154,116,24,.55)}
+    .a4-sheet.a4-light .a4-title{color:#14213D;text-shadow:0 4px 0 rgba(201,154,39,.65)}
+    .a4-sheet.a4-light .a4-tag,.a4-sheet.a4-light .a4-foot{color:#6B7268}
+    .a4-sheet.a4-light .a4-foot b{color:#7A5F1E}
+    .a4-sheet.a4-light .a4-mid{background:#FFFFFF}
   </style>
 </head>
 
 <body class="bg-[#070A12] text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-black cricket-mesh">
 
   <!-- Top Global Header -->
-  <header class="sticky top-0 z-40 bg-[#0B101D]/90 backdrop-blur-md border-b border-slate-800/80 px-4 lg:px-8 py-3 flex items-center justify-between">
+  <header class="sticky top-0 z-40 bg-[#0B101D]/90 backdrop-blur-md border-b border-slate-800/80 px-4 lg:px-8 py-3 flex items-center justify-between flex-wrap gap-y-2">
     <div class="flex items-center gap-3 min-w-0">
       <div class="sc-logo" title="SquareCut">
         <img id="headerAppLogo" data-sc-logo alt="SquareCut logo" src="data:image/jpeg;base64,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" />
@@ -679,6 +733,24 @@
         </div>
         <p id="navTournamentSub" class="text-xs sc-nav-sub sc-credit">Created by <b>Amanullah Khan</b></p>
       </div>
+    </div>
+
+    <!-- Steps live in the header -->
+    <div class="hdr-steps">
+      <div class="stepper text-xs font-semibold">
+      <button onclick="switchTab('configTab')" id="tabBtn_configTab" class="tab-btn active">
+        <span class="step-num">1</span><span class="step-lbl">Tournament Setup</span>
+      </button>
+      <button onclick="switchTab('teamsTab')" id="tabBtn_teamsTab" class="tab-btn">
+        <span class="step-num">2</span><span class="step-lbl">Teams &amp; Pools (<span id="tabTeamsCount">8</span>)</span>
+      </button>
+      <button onclick="switchTab('fixturesTab')" id="tabBtn_fixturesTab" class="tab-btn">
+        <span class="step-num">3</span><span class="step-lbl">Fixtures Schedule</span>
+      </button>
+      <button onclick="switchTab('studioTab')" id="tabBtn_studioTab" class="tab-btn">
+        <span class="step-num">4</span><span class="step-lbl">Image Studio</span>
+      </button>
+    </div>
     </div>
 
     <!-- Right Header Actions -->
@@ -699,31 +771,9 @@
       <button type="button" onclick="openCloudModal()" title="Save to / open from the shared cloud folder" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 text-xs font-bold border border-slate-700 transition">
         <i class="ph ph-cloud text-base text-amber-400"></i><span class="hidden md:inline">Cloud</span>
       </button>
-      <!-- Quick Export WhatsApp -->
-      <button onclick="exportToWhatsApp()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md shadow-emerald-900/30 transition">
-        <i class="ph ph-whatsapp-logo text-base"></i>
-        <span class="hidden md:inline">Share Schedule</span>
-      </button>
     </div>
   </header>
 
-  <!-- Step Navigator -->
-  <div class="bg-[#0A0E18] border-b border-slate-800/80 px-4 lg:px-8 pt-3 pb-1 stepper-bar">
-    <div class="max-w-7xl mx-auto stepper text-xs font-semibold">
-      <button onclick="switchTab('configTab')" id="tabBtn_configTab" class="tab-btn active">
-        <span class="step-num">1</span><span class="step-lbl">Tournament Setup</span>
-      </button>
-      <button onclick="switchTab('teamsTab')" id="tabBtn_teamsTab" class="tab-btn">
-        <span class="step-num">2</span><span class="step-lbl">Teams &amp; Pools (<span id="tabTeamsCount">8</span>)</span>
-      </button>
-      <button onclick="switchTab('fixturesTab')" id="tabBtn_fixturesTab" class="tab-btn">
-        <span class="step-num">3</span><span class="step-lbl">Fixtures Schedule</span>
-      </button>
-      <button onclick="switchTab('studioTab')" id="tabBtn_studioTab" class="tab-btn">
-        <span class="step-num">4</span><span class="step-lbl">Image Studio</span>
-      </button>
-    </div>
-  </div>
 
   <!-- Toast Container -->
   <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 bg-[#0F172A] border border-amber-500/50 text-white px-4 py-3 rounded-2xl shadow-2xl">
@@ -746,7 +796,6 @@
             <span><i class="ph-bold ph-users-three"></i> Pools &amp; crossovers</span>
             <span><i class="ph-bold ph-map-pin"></i> Venues &amp; time slots</span>
             <span><i class="ph-bold ph-image"></i> HD image export</span>
-            <span><i class="ph-bold ph-whatsapp-logo"></i> WhatsApp share</span>
           </div>
         </div>
       </section>
@@ -967,10 +1016,7 @@
             <i class="ph-bold ph-shuffle text-base text-amber-400"></i> Shuffle &amp; Generate
           </button>
           <button type="button" id="fullImageBtn" onclick="downloadFullFixtureImage()" class="flex-none whitespace-nowrap px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 font-bold text-xs border border-slate-700 transition flex items-center gap-2">
-            <i class="ph-bold ph-image text-base text-amber-400"></i> Full Fixture Image
-          </button>
-          <button type="button" onclick="exportToWhatsApp()" class="flex-none whitespace-nowrap px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 font-bold text-xs border border-slate-700 transition flex items-center gap-2">
-            <i class="ph-bold ph-whatsapp-logo text-base text-emerald-400"></i> WhatsApp Text
+            <i class="ph-bold ph-image text-base text-amber-400"></i> Full Fixtures (A4)
           </button>
           <label class="flex-none flex items-center gap-2 px-3 py-2.5 rounded-xl border border-slate-700 bg-slate-800 text-xs font-semibold text-slate-100 select-none">
             Theme:
@@ -1014,11 +1060,11 @@
           <span class="p-1 rounded bg-amber-500/20 text-amber-400 text-sm"><i class="ph ph-calendar-blank"></i></span>
           <h3 class="text-lg font-bold text-white">Scheduled League Matches</h3>
           <button type="button" onclick="openAddMatchModal()" class="ml-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center gap-1.5"><i class="ph-bold ph-plus"></i> Add Match</button>
-          <span class="ml-1 flex items-center gap-1.5 bg-slate-900 border border-slate-800 rounded-xl px-2 py-1 text-xs text-slate-300">
-            <label for="pitchCountInput" class="font-semibold">Pitches</label>
-            <input type="number" id="pitchCountInput" min="1" max="20" value="3" class="w-12 bg-[#080D1A] border border-slate-700 rounded-lg px-1.5 py-1 text-xs text-white text-center focus:outline-none focus:border-amber-500">
-            <button type="button" onclick="randomizePitches()" title="Randomly assign pitch numbers. Manually set pitches are kept." class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-100 font-bold border border-slate-700 flex items-center gap-1"><i class="ph-bold ph-dice-five text-amber-400"></i> Randomize</button>
-            <button type="button" onclick="clearAutoPitches()" title="Remove auto-assigned pitches (manual ones stay)" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white font-semibold">Clear</button>
+          <span class="ml-1 flex flex-wrap items-center gap-2 bg-slate-900/80 border border-slate-700 rounded-xl pl-3 pr-1.5 py-1 text-xs text-slate-300">
+            <label for="pitchCountInput" class="flex items-center gap-1.5 font-bold text-slate-200"><i class="ph-bold ph-flag-pennant text-amber-400"></i> Pitches</label>
+            <select id="pitchCountInput" title="How many pitches are available" class="bg-[#080D1A] border border-slate-700 rounded-lg pl-2.5 pr-7 py-1.5 text-xs font-bold text-white focus:outline-none focus:border-amber-500 cursor-pointer"><option value="1">1</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option></select>
+            <button type="button" onclick="randomizePitches()" title="Randomly assign pitch numbers. A pitch is never repeated within a round, and pitches you set by hand are kept." class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-black font-extrabold flex items-center gap-1.5 transition"><i class="ph-bold ph-dice-five"></i> Randomize</button>
+            <button type="button" onclick="clearAutoPitches()" title="Remove auto-assigned pitches (manual ones stay)" class="px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 font-semibold flex items-center gap-1 transition"><i class="ph ph-eraser"></i> Clear</button>
           </span>
         </div>
         <div class="bg-slate-900 border border-slate-800 rounded-xl p-1 flex text-xs overflow-x-auto max-w-full">
@@ -1174,17 +1220,6 @@
         </div>
         <div id="poolCardPreview" class="mt-5 rounded-2xl border border-slate-800 bg-[#05080F] overflow-hidden"></div>
       </section>
-    </div>
-
-    <!-- Guided step bar -->
-    <div class="stepbar mt-8">
-      <button type="button" id="stepBackBtn" onclick="stepNav(-1)" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 font-bold text-xs border border-slate-700 transition flex items-center gap-2 disabled:opacity-40">
-        <i class="ph-bold ph-arrow-left"></i> Back
-      </button>
-      <span id="stepPosLabel" class="text-xs font-semibold text-slate-400 text-center">Step 1 of 4 — Tournament Setup</span>
-      <button type="button" id="stepNextBtn" onclick="stepNav(1)" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-extrabold text-xs uppercase tracking-wider transition flex items-center gap-2">
-        Continue <i class="ph-bold ph-arrow-right"></i>
-      </button>
     </div>
 
   </main>
@@ -3432,39 +3467,6 @@ async function downloadRoundImage(roundNumber, btn) {
       }
     }
 
-    function exportToWhatsApp() {
-      if (!guardScheduleFresh()) return;
-      syncTournamentInputs();
-      const T = RPL_STATE.tournament;
-      const grouped = T.structure === 'groups';
-      const legs = T.doubleRoundRobin ? ' (Home & Away)' : '';
-      const hash = '#' + T.name.replace(/[^A-Za-z0-9]+/g, '');
-      let text = `🏏 *${T.name.toUpperCase()}* 🏏\n`;
-      text += `📅 ${T.tag}\n`;
-      text += `⚔️ ${T.format}${legs}\n`;
-      text += `🗓️ ${matchDaysLabel()}${grouped ? ` · ${matchScopeLabel()}` : ''}\n`;
-      text += `📍 ${T.venues.join(' | ')}\n\n`;
-      text += `📋 *OFFICIAL FIXTURES*\n\n`;
-
-      RPL_STATE.fixtures.forEach(r => {
-        text += `🔹 *ROUND ${r.roundNumber} — ${r.date}*\n`;
-        r.matches.forEach(m => {
-          const pool = grouped && m.group ? ` [Pool ${m.group}]` : '';
-          text += `  • *M#${m.matchNumber}${pool}:* ${m.homeTeam.name} 🆚 ${m.awayTeam.name}\n`;
-          text += `    ⏰ ${fmtTime(m.time)} | 📍 ${venueLabel(m)}\n`;
-        });
-        text += `\n`;
-      });
-      text += `🏆 ${T.name} ${hash}`;
-
-      const done = () => showToast('WhatsApp schedule copied — paste it into any chat!', 'success');
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(done).catch(() => legacyCopy(text, done));
-      } else {
-        legacyCopy(text, done);
-      }
-    }
-
     function legacyCopy(text, done) {
       const dummy = document.createElement('textarea');
       dummy.value = text;
@@ -3898,66 +3900,105 @@ async function downloadRoundImage(roundNumber, btn) {
       if (studioOpen) renderPoolCardPreview();
     }
 
-    /* ---------- Complete fixture sheet as one PNG ---------- */
+    /* ---------- Complete fixture sheet: A4 portrait, two columns, auto-paginated ---------- */
     async function downloadFullFixtureImage() {
       if (!guardScheduleFresh()) return;
       syncTournamentInputs();
-      const T = RPL_STATE.tournament, grouped = T.structure === 'groups';
+      const T = RPL_STATE.tournament;
+      const all = RPL_STATE.fixtures.flatMap(r => r.matches);
+      if (!all.length) { showToast('Generate or add matches first.', 'error'); return; }
       const btn = document.getElementById('fullImageBtn');
       const original = btn ? btn.innerHTML : '';
-      if (btn) { btn.disabled = true; btn.innerHTML = '<i class="ph ph-spinner-gap animate-spin"></i> Building image'; }
+      if (btn) { btn.disabled = true; btn.innerHTML = '<i class="ph ph-spinner-gap animate-spin"></i> Building A4'; }
 
-      const rounds = RPL_STATE.fixtures.map(r => `
-        <div class="fx-round">
-          <div class="fx-rhead">Round ${r.roundNumber}<span>${esc(r.date)}</span></div>
-          ${r.matches.map(m => `
-            <div class="fx-match">
-              <div class="fx-when">M${m.matchNumber}<span>${esc(fmtTime(m.time))}</span></div>
-              <div class="fx-team fx-home">${esc(m.homeTeam.name)}</div>
-              <div class="fx-vs">VS</div>
-              <div class="fx-team fx-away">${esc(m.awayTeam.name)}</div>
-              <div class="fx-venue"><span>${esc(venueLabel(m))}</span>${m.group ? `<span>Pool ${esc(m.group)}</span>` : ''}</div>
-            </div>`).join('')}
-        </div>`).join('');
-
-      const chips = [T.format, grouped ? `${poolKeys().length} pools` : 'Single round robin', T.doubleRoundRobin ? 'Home & away' : null, matchDaysLabel(), grouped ? matchScopeLabel() : null, `${RPL_STATE.teams.length} teams`]
-        .filter(Boolean).map(c => `<span>${esc(c)}</span>`).join('');
-
-      const host = document.createElement('div');
-      host.className = 'fx-host';
       const themeSel = document.getElementById('scheduleThemeSelect');
       const light = !!(themeSel && themeSel.value === 'light');
-      host.innerHTML = `
-        <div class="fx-sheet${light ? ' fx-light' : ''}" id="fxSheet">
-          <div class="fx-frame"></div>
-          <div class="fx-head">
-            <div class="fx-logo">${T.logoBase64 ? `<img src="${esc(T.logoBase64)}" alt="">` : '<span>RPL</span>'}</div>
-            <div class="fx-title">${esc(T.name)}</div>
-            <div class="fx-meta">${esc(T.tag)}</div>
-            <div class="fx-rule"><i></i><b></b><i></i></div>
-            <div class="fx-chips">${chips}</div>
-          </div>
-          <div class="fx-rounds">${rounds}</div>
-          <div class="fx-foot"><b>Grounds:</b> ${esc(T.venues.join(', '))}${T.sponsors ? ` &nbsp;&nbsp; <b>Sponsors:</b> ${esc(T.sponsors)}` : ''}</div>
-        </div>`;
-      document.body.appendChild(host);
+      const GAP = 12, MINH = 96, MAXH = 190;
+      const PAGE_H = 1754 - 48 - 34, FOOT = 40, HEAD1 = 315, HEADN = 200;
+      const rowsFor = avail => Math.max(1, Math.floor((avail + GAP) / (MINH + GAP)));
+      const cap1 = 2 * rowsFor(PAGE_H - HEAD1 - FOOT - 30), capN = 2 * rowsFor(PAGE_H - HEADN - FOOT - 30);
+      let pages = 1;
+      while (cap1 + capN * (pages - 1) < all.length) pages++;
+      const slices = [];
+      if (pages === 1) slices.push(all);
+      else {
+        const first = Math.min(cap1, Math.ceil(all.length / pages));
+        slices.push(all.slice(0, first));
+        const rest = all.slice(first), per = Math.ceil(rest.length / (pages - 1));
+        for (let i = 0; i < pages - 1; i++) slices.push(rest.slice(i * per, (i + 1) * per));
+      }
 
+      const nameFs = (len, base, minV, step) => Math.max(minV, Math.min(base, base - Math.max(0, len - 22) * step));
+      const teamBlock = (t, side, H) => {
+        const c = /^#[0-9a-f]{6}$/i.test(t.color || '') ? t.color : '#1E3A8A';
+        const nm = String(t.name || '');
+        const fs = Math.round(Math.max(11, Math.min(Math.round(H * 0.115), 19) - Math.max(0, nm.length - 14) * 0.4));
+        const cs = Math.round(H * 0.5);
+        const crest = t.logo ? `<img src="${esc(t.logo)}" alt="">` : `<span class="a4-code">${esc(t.code || nm.slice(0, 3).toUpperCase())}</span>`;
+        return `<div class="a4-team a4-${side}" style="background:linear-gradient(155deg,${c} 0%,${c} 38%,#071022 155%)">
+          <div class="a4-crest" style="width:${cs}px;height:${cs}px;filter:drop-shadow(0 3px 5px rgba(0,0,0,.45))">${crest}</div>
+          <div class="a4-tname" style="font-size:${fs}px">${esc(nm)}</div></div>`;
+      };
+      const cardHTML = (m, H) => {
+        const d = new Date((m.rawDate || '') + 'T00:00:00');
+        const dateTxt = isNaN(d) ? esc(m.date) : d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }).toUpperCase();
+        const tabH = Math.round(H * 0.24);
+        const time = fmtTime(m.time) + (m.pitch ? ' · ' + m.pitch : '');
+        return `<div class="a4-card" style="height:${H}px"><div class="a4-in">
+          ${teamBlock(m.homeTeam, 'left', H)}
+          <div class="a4-mid">
+            <div class="a4-tab" style="height:${tabH}px;font-size:${Math.round(tabH * 0.62)}px">Match ${m.matchNumber}</div>
+            <div class="a4-body">
+              <div class="a4-date" style="font-size:${Math.round(H * 0.3)}px">${dateTxt}</div>
+              <div class="a4-sep"></div>
+              <div class="a4-time" style="font-size:${Math.max(15, Math.round(H * 0.135))}px">${esc(time)}</div>
+            </div>
+          </div>
+          ${teamBlock(m.awayTeam, 'right', H)}</div></div>`;
+      };
+
+      const filesBase = T.name.replace(/[^\w\-]+/g, '_');
       try {
         if (document.fonts && document.fonts.ready) await document.fonts.ready;
-        await new Promise(r => setTimeout(r, 200));
-        const sheet = host.firstElementChild;
-        const scale = Math.max(1, Math.min(2, 15000 / sheet.offsetHeight));
-        const canvas = await snapCanvas(sheet, { scale, backgroundColor: light ? '#F7F3E6' : '#07100D', useCORS: true, logging: false });
-        const a = document.createElement('a');
-        a.download = `${T.name.replace(/[^\w\-]+/g, '_')}_Full_Fixtures.png`;
-        a.href = canvas.toDataURL('image/png');
-        a.click();
-        showToast('Full fixture image downloaded.', 'success');
+        for (let i = 0; i < slices.length; i++) {
+          const slice = slices[i], first = i === 0;
+          const logo = T.logoBase64 ? `<img src="${esc(T.logoBase64)}" alt="">` : '<span>' + esc((T.name || 'RPL').split(/\s+/).map(w => w[0]).join('').slice(0, 4).toUpperCase()) + '</span>';
+          const pillFs = Math.round(nameFs(String(T.name).length, first ? 38 : 28, first ? 24 : 18, 0.8));
+          const host = document.createElement('div');
+          host.className = 'fx-host';
+          host.innerHTML = `
+            <div class="a4-sheet${light ? ' a4-light' : ''}">
+              <div class="a4-head${first ? '' : ' a4-compact'}">
+                <div class="a4-logo">${logo}</div>
+                <div class="a4-title">Fixtures</div>
+                <div class="a4-pill" style="font-size:${pillFs}px">${esc(T.name)}</div>
+                ${first && T.tag ? `<div class="a4-tag">${esc(T.tag)}</div>` : ''}
+              </div>
+              <div class="a4-grid"><div class="a4-cards"></div></div>
+              <div class="a4-foot"><span>${T.sponsors ? `<b>Sponsors:</b> ${esc(T.sponsors)}` : '&nbsp;'}</span><span>${slices.length > 1 ? `Page ${i + 1} of ${slices.length}` : ''}</span></div>
+            </div>`;
+          document.body.appendChild(host);
+          const sheet = host.firstElementChild;
+          const avail = sheet.querySelector('.a4-grid').clientHeight - 30;
+          const rows = Math.ceil(slice.length / 2);
+          const H = Math.max(80, Math.min(MAXH, Math.floor((avail - (rows - 1) * GAP) / rows)));
+          sheet.querySelector('.a4-cards').innerHTML = slice.map(m => cardHTML(m, H)).join('');
+          await Promise.all([...sheet.querySelectorAll('img')].map(im => im.complete ? null : new Promise(r => { im.onload = im.onerror = r; })));
+          await new Promise(r => setTimeout(r, 150));
+          const canvas = await snapCanvas(sheet, { scale: 2, backgroundColor: light ? '#F7F3E6' : '#050B1A', useCORS: true, logging: false });
+          host.remove();
+          const a = document.createElement('a');
+          a.download = `${filesBase}_Fixtures_A4${slices.length > 1 ? '_p' + (i + 1) : ''}.png`;
+          a.href = canvas.toDataURL('image/png');
+          a.click();
+          if (i < slices.length - 1) await new Promise(r => setTimeout(r, 500));
+        }
+        showToast(slices.length > 1 ? `Fixture sheet downloaded: ${slices.length} A4 pages.` : 'A4 fixture sheet downloaded.', 'success');
       } catch (err) {
         console.error(err);
+        document.querySelectorAll('.fx-host .a4-sheet').forEach(s => s.parentElement.remove());
         showToast('Image export failed. Try again.', 'error');
       } finally {
-        host.remove();
         if (btn) { btn.disabled = false; btn.innerHTML = original; }
         setStale(scheduleIsStale());
       }
@@ -4046,6 +4087,16 @@ async function downloadRoundImage(roundNumber, btn) {
         ['posterWrap', 'poolCardPreview'].forEach(id => { const el = document.getElementById(id); if (el) ro.observe(el); });
         refitAll();
       });
+    })();
+  </script>
+  <script>
+    /* Keep the frozen step bar directly under the (variable-height) header */
+    (function () {
+      const hdr = document.querySelector('body > header');
+      if (!hdr) return;
+      const set = () => document.documentElement.style.setProperty('--hdr-h', hdr.offsetHeight + 'px');
+      set(); window.addEventListener('resize', set); window.addEventListener('load', set);
+      if (window.ResizeObserver) new ResizeObserver(set).observe(hdr);
     })();
   </script>
 </body>
