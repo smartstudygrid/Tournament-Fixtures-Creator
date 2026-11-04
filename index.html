@@ -616,7 +616,6 @@
     .th .th-badge,.th-arena .th-badge,.th-neon .th-badge{background:none!important;box-shadow:none!important;border:none!important;padding:0!important;border-radius:0!important;display:flex;align-items:baseline;gap:10px;color:#F5D67B!important}
     .th .th-badge small{font:700 15px/1 'Barlow Condensed',sans-serif!important;letter-spacing:.32em;text-transform:uppercase;color:#C9D4E4!important}
     .th .th-badge b{font:800 46px/1 'Barlow Condensed',sans-serif!important;color:#F5D67B!important;letter-spacing:.02em}
-    .th .th-badge b::before{content:"#";font-size:.62em;font-weight:700;margin-right:3px;opacity:.85;vertical-align:.32em}
     .th-neon .th-badge b{color:#67E8F9!important}
     .th-neon .th-badge small{color:#A5F3FC!important}
     /* Extra thumbnail styles: Cyber Neon, Inferno, Toxic Green, Electric Blue */
@@ -718,6 +717,14 @@
     .a4-sheet.a4-light .a4-tag,.a4-sheet.a4-light .a4-foot{color:#6B7268}
     .a4-sheet.a4-light .a4-foot b{color:#7A5F1E}
     .a4-sheet.a4-light .a4-mid{background:#FFFFFF}
+    /* Export safety: round card text stays on one line */
+    .rc-rname,.rc-rdate,.rc-mno,.rc-time,.rc-pool,.rc-pitch,.rc-eyebrow,.rc-foot span{white-space:nowrap}
+    .rc-rname{flex:none}
+    .rc-venue{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .rc-mno,.rc-time{flex:none}
+    .rc-meta{flex-wrap:nowrap}
+    .th-badge,.th-badge small,.th-badge b{white-space:nowrap}
+    .th .th-badge,.th-arena .th-badge,.th-neon .th-badge{align-items:center!important;gap:12px!important}
   </style>
 </head>
 
@@ -2156,15 +2163,46 @@
 
     /* ---------- Image export: html-to-image first, html2canvas as fallback ---------- */
     const USE_HTML_TO_IMAGE = true;   // set to false to go back to html2canvas only
+    /* The exporter draws the card in an isolated SVG, where page web fonts are NOT available. That made text fall back to a
+       wider system font (wrapping, overlaps). So the Google fonts used by the cards are fetched once and embedded as data URLs. */
+    let __fontCssPromise = null;
+    function getFontEmbedCSS() {
+      if (__fontCssPromise) return __fontCssPromise;
+      __fontCssPromise = (async () => {
+        try {
+          const link = document.querySelector('link[href*="fonts.googleapis.com/css2"]');
+          if (!link) return '';
+          const css = await (await fetch(link.href)).text();
+          const parts = css.split(/\/\*\s*([\w-]+)\s*\*\//);          // [pre, name, block, name, block, ...]
+          const blocks = [];
+          for (let i = 1; i < parts.length; i += 2) if (parts[i] === 'latin') blocks.push(parts[i + 1]);
+          const toData = async url => {
+            const blob = await (await fetch(url)).blob();
+            return await new Promise(res => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.readAsDataURL(blob); });
+          };
+          const out = await Promise.all(blocks.map(async b => {
+            const urls = [...b.matchAll(/url\((https:[^)]+)\)/g)].map(m => m[1]);
+            let t = b;
+            for (const u of urls) t = t.split(u).join(await toData(u));
+            return t;
+          }));
+          return out.join('\n');
+        } catch (e) { console.warn('Font embedding skipped', e); __fontCssPromise = null; return ''; }
+      })();
+      return __fontCssPromise;
+    }
+
     async function snapCanvas(el, o = {}) {
       if (USE_HTML_TO_IMAGE && window.htmlToImage && typeof window.htmlToImage.toCanvas === 'function') {
         try {
+          const fontCss = await getFontEmbedCSS();
           return await window.htmlToImage.toCanvas(el, {
             pixelRatio: o.scale || 1,
             backgroundColor: o.backgroundColor,
             width: o.width || el.offsetWidth,
             height: o.height || el.offsetHeight,
-            cacheBust: false
+            cacheBust: false,
+            ...(fontCss ? { fontEmbedCSS: fontCss } : {})
           });
         } catch (e) { console.warn('html-to-image failed, using html2canvas', e); }
       }
@@ -2681,7 +2719,7 @@
                 <span class="th-mini">${T.logoBase64 ? `<img src="${esc(T.logoBase64)}" alt="">` : 'RPL'}</span>
                 <span class="th-brandtext"><b>${esc(T.name)}</b><small>${esc(T.tag)}</small></span>
               </div>
-              <div class="th-badge"><small>MATCH</small><b>${selectedMatch.matchNumber}</b></div>
+              <div class="th-badge"><small>MATCH</small><b>#${selectedMatch.matchNumber}</b></div>
             </div>
             <div class="th-sub"><span><i></i>${metaLeft}</span><span>MATCHDAY</span></div>
             <div class="th-center">${side(h, c1)}<div class="th-vs">VS</div>${side(a, c2)}</div>
